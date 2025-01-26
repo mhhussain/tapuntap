@@ -2,7 +2,7 @@
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tapuntap/feature/game/data/models/game_model.dart';
 
-class DeckListApi {
+class GameListApi {
 
   static const String key = 'DB.GAMES.local';
 
