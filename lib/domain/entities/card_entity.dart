@@ -5,11 +5,11 @@ class CardEntity {
   final String scryfallUri;
   final Map<String, String> imageUris;
   final String manaCost;
-  final String cmc;
+  final double cmc;
   final String typeLine;
   final String oracleText;
-  final String power;
-  final String toughness;
+  final String? power;
+  final String? toughness;
   final List<String> keywords;
   final String setId;
   final String setName;
@@ -46,7 +46,7 @@ class CardEntity {
         "border_crop": "https://cards.scryfall.io/border_crop/front/1/0/10d42b35-844f-4a64-9981-c6118d45e826.jpg?1689999317"
       },
       manaCost: "{4}{W}{U}{B}{R}{G}",
-      cmc: "9.0",
+      cmc: 9.0,
       typeLine: "Legendary Creature — Dragon Avatar",
       oracleText: "Eminence — As long as The Ur-Dragon is in the command zone or on the battlefield, other Dragon spells you cast cost {1} less to cast.\nFlying\nWhenever one or more Dragons you control attack, draw that many cards, then you may put a permanent card from your hand onto the battlefield.",
       power: "10",
