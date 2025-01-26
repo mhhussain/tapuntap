@@ -37,8 +37,14 @@ class DeckListApi {
     }
   }
 
+  // update existing in list
+  Future<void> update(DeckModel n) async {
+    await remove(n);
+    await add(n);
+  }
+
   // remove from list
-  Future<void> removeNotification(DeckModel n) async {
+  Future<void> remove(DeckModel n) async {
     final instance = await SharedPreferences.getInstance();
     await instance.reload();
 

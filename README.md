@@ -1,9 +1,9 @@
 # Tapuntap
 
 Todos:
-[ ] - Define deck
-[ ] - Define card
-[ ] - Define saving dec to shared preferences
+[X] - Define deck
+[x] - Define card
+[X] - Define saving dec to shared preferences
 [ ] - Define saving game to shared preferences
 [ ] - Home screen (two sections, decks and games)
 [ ] - Deck list screen
@@ -17,3 +17,9 @@ Required APIs
 - Get autocomplete list based on character
 - Get card by name
 - Get card by id
+
+## Usecases
+
+- Get deck list
+- Create new deck
+- Save deck

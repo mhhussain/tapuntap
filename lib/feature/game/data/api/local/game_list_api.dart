@@ -36,9 +36,15 @@ class GameListApi {
       await instance.setStringList(key, [...list, n].map((i) => i.toBase64String()).toList());
     }
   }
+  
+  // update existing in list
+  Future<void> update(GameModel n) async {
+    await remove(n);
+    await add(n);
+  }
 
   // remove from list
-  Future<void> removeNotification(GameModel n) async {
+  Future<void> remove(GameModel n) async {
     final instance = await SharedPreferences.getInstance();
     await instance.reload();
 
