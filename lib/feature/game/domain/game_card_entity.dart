@@ -6,7 +6,7 @@
 // define whether this is currently selected or not
 // define card position?
 
-import 'package:tapuntap/domain/entities/card_entity.dart';
+import 'package:tapuntap/core/domain/entities/card_entity.dart';
 
 class GameCardEntity {
   final CardEntity card;

@@ -1,5 +1,5 @@
 import 'package:tapuntap/core/resources/datastate.dart';
-import 'package:tapuntap/domain/entities/deck_entity.dart';
+import 'package:tapuntap/core/domain/entities/deck_entity.dart';
 
 abstract class DeckApiService {
   Future<DataState<List<DeckEntity>>> getDecks();

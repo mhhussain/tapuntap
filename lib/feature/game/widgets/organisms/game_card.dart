@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart' hide Card;
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:tapuntap/domain/entities/card_entity.dart';
+import 'package:tapuntap/core/domain/entities/card_entity.dart';
 import 'package:tapuntap/feature/game/domain/game_card_entity.dart';
-import 'package:tapuntap/ui/widgets/organisms/card.dart';
+import 'package:tapuntap/core/ui/widgets/organisms/card.dart';
 
 class GameCard extends HookWidget {
   final CardEntity card;

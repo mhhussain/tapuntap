@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tapuntap/ui/widgets/layouts/_layout.dart';
+import 'package:tapuntap/core/ui/widgets/layouts/_layout.dart';
 
 class LayoutWithScroll extends StatelessWidget {
   final int currentIndex;

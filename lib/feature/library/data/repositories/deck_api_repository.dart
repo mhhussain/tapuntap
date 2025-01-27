@@ -1,5 +1,5 @@
 import 'package:tapuntap/core/resources/datastate.dart';
-import 'package:tapuntap/domain/entities/deck_entity.dart';
+import 'package:tapuntap/core/domain/entities/deck_entity.dart';
 import 'package:tapuntap/feature/library/data/api/local/deck_list_api.dart';
 import 'package:tapuntap/feature/library/data/models/deck_model.dart';
 import 'package:tapuntap/feature/library/domain/services/deck_api_service.dart';

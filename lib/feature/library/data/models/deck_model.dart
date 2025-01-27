@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:tapuntap/domain/entities/deck_entity.dart';
+import 'package:tapuntap/core/domain/entities/deck_entity.dart';
 import 'package:tapuntap/feature/library/data/models/card_model.dart';
 
 class DeckModel extends DeckEntity {

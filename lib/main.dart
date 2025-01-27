@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart' hide Router;
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tapuntap/injection_container.dart';
-import 'package:tapuntap/ui/router.dart';
+import 'package:tapuntap/core/ui/router.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();

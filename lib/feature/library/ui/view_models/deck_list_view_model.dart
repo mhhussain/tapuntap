@@ -1,4 +1,4 @@
-import 'package:tapuntap/domain/entities/deck_entity.dart';
+import 'package:tapuntap/core/domain/entities/deck_entity.dart';
 
 class DeckListViewModel {
   final List<DeckEntity> decks;

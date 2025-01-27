@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:tapuntap/domain/entities/card_entity.dart';
+import 'package:tapuntap/core/domain/entities/card_entity.dart';
 
 class CardModel extends CardEntity {
   CardModel({

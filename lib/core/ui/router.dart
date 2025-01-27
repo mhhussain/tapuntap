@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tapuntap/ui/widgets/templates/home_view.dart';
+import 'package:tapuntap/core/ui/widgets/templates/home_view.dart';
 
 class Router {
   static Route<dynamic> generateRoute(RouteSettings settings) {
