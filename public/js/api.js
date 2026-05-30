@@ -1,3 +1,10 @@
+import { db } from "./firebase.js";
+import { currentUid } from "./auth.js";
+import {
+  collection, doc, getDoc, getDocs, setDoc, addDoc, updateDoc, deleteDoc,
+  serverTimestamp
+} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
 const BASE = '/api';
 
 async function req(path, options = {}) {
@@ -12,20 +19,124 @@ async function req(path, options = {}) {
   return res.json();
 }
 
+function decksCol() { return collection(db, "users", currentUid(), "decks"); }
+
+/** Convert a Firestore Timestamp (or null) to an ISO string, or pass through if already a string/number */
+function tsToIso(ts) {
+  if (!ts) return null;
+  if (ts.toDate) return ts.toDate().toISOString();
+  return ts;
+}
+
 export const api = {
-  // Cards
+  // Cards — still served via Express proxy to Scryfall
   searchCards: (q, page = 1) => req(`/cards/search?q=${encodeURIComponent(q)}&page=${page}`),
   getCard: (id) => req(`/cards/${id}`),
   getCardByName: (name) => req(`/cards/named?fuzzy=${encodeURIComponent(name)}`),
 
-  // Decks
-  listDecks: () => req('/decks'),
-  getDeck: (id) => req(`/decks/${id}`),
-  createDeck: (data) => req('/decks', { method: 'POST', body: JSON.stringify(data) }),
-  updateDeck: (id, data) => req(`/decks/${id}`, { method: 'PUT', body: JSON.stringify(data) }),
-  deleteDeck: (id) => req(`/decks/${id}`, { method: 'DELETE' }),
+  // Decks — Firestore
+  async listDecks() {
+    const snap = await getDocs(decksCol());
+    return snap.docs.map(d => {
+      const x = d.data();
+      const updatedAt = x.updatedAt?.toMillis?.() ?? x.updatedAt ?? 0;
+      return {
+        id: d.id,
+        name: x.name,
+        format: x.format,
+        commander: x.commander || null,
+        colors: x.commander?.colors || [],
+        cardCount: (x.cards || []).reduce((s, c) => s + (c.quantity || 0), 0),
+        version: x.version,
+        updatedAt
+      };
+    }).sort((a, b) => (b.updatedAt || 0) - (a.updatedAt || 0));
+  },
 
-  // Games
+  async getDeck(id) {
+    const ref = doc(decksCol(), id);
+    const s = await getDoc(ref);
+    if (!s.exists()) throw new Error("Deck not found");
+    const data = s.data();
+
+    // Fetch versions subcollection and embed as array (for backward-compat with views)
+    const versSnap = await getDocs(collection(ref, "versions"));
+    const versions = versSnap.docs.map(vd => {
+      const v = vd.data();
+      return {
+        ...v,
+        timestamp: tsToIso(v.timestamp)
+      };
+    }).sort((a, b) => (a.version || 0) - (b.version || 0));
+
+    return {
+      id: s.id,
+      ...data,
+      updatedAt: tsToIso(data.updatedAt),
+      createdAt: tsToIso(data.createdAt),
+      versions
+    };
+  },
+
+  async createDeck(data) {
+    const uid = currentUid();
+    const ref = await addDoc(decksCol(), {
+      ownerUid: uid,
+      name: data.name,
+      format: data.format || "commander",
+      commander: data.commander || null,
+      cards: data.cards || [],
+      version: 1,
+      createdAt: serverTimestamp(),
+      updatedAt: serverTimestamp()
+    });
+    await setDoc(doc(ref, "versions", "1"), {
+      version: 1,
+      timestamp: serverTimestamp(),
+      changelog: data.changelog || "Initial version",
+      cards: data.cards || []
+    });
+    return { id: ref.id };
+  },
+
+  async updateDeck(id, data) {
+    const ref = doc(decksCol(), id);
+    const cur = await getDoc(ref);
+    if (!cur.exists()) throw new Error("Deck not found");
+    const curData = cur.data();
+    const newVersion = (curData.version || 1) + 1;
+    const newCards = data.cards ?? curData.cards;
+    await updateDoc(ref, {
+      name: data.name ?? curData.name,
+      format: data.format ?? curData.format,
+      commander: data.commander !== undefined ? data.commander : curData.commander,
+      cards: newCards,
+      version: newVersion,
+      updatedAt: serverTimestamp()
+    });
+    await setDoc(doc(ref, "versions", String(newVersion)), {
+      version: newVersion,
+      timestamp: serverTimestamp(),
+      changelog: data.changelog || `Version ${newVersion}`,
+      cards: newCards
+    });
+    return api.getDeck(id);
+  },
+
+  async deleteDeck(id) {
+    await deleteDoc(doc(decksCol(), id));
+    return { success: true };
+  },
+
+  async getDeckVersions(id) {
+    const snap = await getDocs(collection(doc(decksCol(), id), "versions"));
+    return snap.docs.map(d => {
+      const v = d.data();
+      return { id: d.id, ...v, timestamp: tsToIso(v.timestamp) };
+    }).sort((a, b) => (b.version || 0) - (a.version || 0));
+  },
+
+  // Games — still served via Express
   listGames: () => req('/games'),
   getGame: (id) => req(`/games/${id}`),
   createGame: (data) => req('/games', { method: 'POST', body: JSON.stringify(data) }),

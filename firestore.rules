@@ -4,6 +4,13 @@ service cloud.firestore {
 
     match /users/{uid} {
       allow read, write: if request.auth != null && request.auth.uid == uid;
+
+      match /decks/{deckId} {
+        allow read, write: if request.auth != null && request.auth.uid == uid;
+        match /versions/{v} {
+          allow read, write: if request.auth != null && request.auth.uid == uid;
+        }
+      }
     }
 
     match /{document=**} { allow read, write: if false; }
