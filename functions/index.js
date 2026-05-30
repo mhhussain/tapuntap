@@ -85,10 +85,13 @@ export async function _startGame(uid, data, database) {
   if (g.hostUid !== uid) throw new HttpsError("permission-denied", "Host only");
   if (g.status !== "lobby") throw new HttpsError("failed-precondition", "Not in lobby");
 
-  const batch = database.batch();
-  for (const seat of g.seats) {
+  const seatStates = await Promise.all(g.seats.map(async (seat) => {
     const deck = (await database.doc(`users/${seat.uid}/decks/${seat.deckId}`).get()).data();
-    const { publicDoc, privateDoc } = buildSeatState(seat, deck, g.format);
+    return { seat, ...buildSeatState(seat, deck, g.format) };
+  }));
+
+  const batch = database.batch();
+  for (const { seat, publicDoc, privateDoc } of seatStates) {
     batch.set(database.doc(`games/${gameId}/players/${seat.uid}`), publicDoc);
     batch.set(database.doc(`games/${gameId}/players/${seat.uid}/private/state`), privateDoc);
   }
