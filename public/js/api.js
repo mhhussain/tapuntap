@@ -188,7 +188,7 @@ export const api = {
   },
 
   appendLog: (gameId, entry) =>
-    addDoc(collection(db, "games", gameId, "log"), { ts: Date.now(), ...entry }),
+    addDoc(collection(db, "games", gameId, "log"), { ts: serverTimestamp(), ...entry }),
 
   advanceTurn: (gameId, patch) =>
     updateDoc(doc(db, "games", gameId), patch),
