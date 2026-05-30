@@ -1,5 +1,6 @@
 import { db } from "./firebase.js";
 import { currentUid } from "./auth.js";
+import { searchCards, getCard, getCardByName } from "./cards.js";
 import {
   collection, doc, getDoc, getDocs, setDoc, addDoc, updateDoc, deleteDoc,
   serverTimestamp
@@ -29,10 +30,10 @@ function tsToIso(ts) {
 }
 
 export const api = {
-  // Cards — still served via Express proxy to Scryfall
-  searchCards: (q, page = 1) => req(`/cards/search?q=${encodeURIComponent(q)}&page=${page}`),
-  getCard: (id) => req(`/cards/${id}`),
-  getCardByName: (name) => req(`/cards/named?fuzzy=${encodeURIComponent(name)}`),
+  // Cards — direct to Scryfall with optional Firestore cache
+  searchCards: (q, page = 1) => searchCards(q, page),
+  getCard: (id) => getCard(id),
+  getCardByName: (name) => getCardByName(name),
 
   // Decks — Firestore
   async listDecks() {
