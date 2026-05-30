@@ -3,23 +3,10 @@ import { currentUid, currentUser } from "./auth.js";
 import { searchCards, getCard, getCardByName } from "./cards.js";
 import {
   collection, doc, getDoc, getDocs, setDoc, addDoc, updateDoc, deleteDoc,
-  serverTimestamp, onSnapshot, query, orderBy, writeBatch
+  serverTimestamp, onSnapshot, query, orderBy, where, writeBatch
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 import { httpsCallable } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-functions.js";
 
-const BASE = '/api';
-
-async function req(path, options = {}) {
-  const res = await fetch(`${BASE}${path}`, {
-    headers: { 'Content-Type': 'application/json' },
-    ...options
-  });
-  if (!res.ok) {
-    const err = await res.json().catch(() => ({ error: 'Request failed' }));
-    throw new Error(err.error || `HTTP ${res.status}`);
-  }
-  return res.json();
-}
 
 function decksCol() { return collection(db, "users", currentUid(), "decks"); }
 
@@ -151,11 +138,27 @@ export const api = {
     }).sort((a, b) => (b.version || 0) - (a.version || 0));
   },
 
-  // Games — still served via Express (single-player)
-  listGames: () => req('/games'),
-  getGame: (id) => req(`/games/${id}`),
-  saveGame: (id, data) => req(`/games/${id}`, { method: 'PUT', body: JSON.stringify(data) }),
-  deleteGame: (id) => req(`/games/${id}`, { method: 'DELETE' }),
+  // Games — Firestore
+  async listGames() {
+    const q = query(
+      collection(db, "games"),
+      where("seatUids", "array-contains", currentUid()),
+      orderBy("updatedAt", "desc")
+    );
+    const snap = await getDocs(q);
+    return snap.docs.map(d => ({ id: d.id, ...d.data() }));
+  },
+
+  async getGame(id) {
+    const s = await getDoc(doc(db, "games", id));
+    if (!s.exists()) throw new Error("Game not found");
+    return { id: s.id, ...s.data() };
+  },
+
+  async deleteGame(id) {
+    await deleteDoc(doc(db, "games", id));
+    return { success: true };
+  },
 
   // Games — Firestore callable (multiplayer)
   createGame: (d) => httpsCallable(functions, "createGame")({ ...d, displayName: currentUser()?.displayName }).then(r => r.data),
