@@ -3,7 +3,7 @@ import { currentUid, currentUser } from "./auth.js";
 import { searchCards, getCard, getCardByName } from "./cards.js";
 import {
   collection, doc, getDoc, getDocs, setDoc, addDoc, updateDoc, deleteDoc,
-  serverTimestamp, onSnapshot
+  serverTimestamp, onSnapshot, query, orderBy, writeBatch
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 import { httpsCallable } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-functions.js";
 
@@ -162,4 +162,34 @@ export const api = {
   joinGame:   (d) => httpsCallable(functions, "joinGame")({ ...d, displayName: currentUser()?.displayName }).then(r => r.data),
   startGame:  (gameId) => httpsCallable(functions, "startGame")({ gameId }).then(r => r.data),
   subscribeGame: (gameId, cb) => onSnapshot(doc(db, "games", gameId), s => cb(s.exists() ? { id: s.id, ...s.data() } : null)),
+
+  subscribePlayersPublic: (gameId, cb) =>
+    onSnapshot(collection(db, "games", gameId, "players"), snap =>
+      cb(snap.docs.map(d => ({ uid: d.id, ...d.data() })))),
+
+  subscribeMyPrivate: (gameId, uid, cb) =>
+    onSnapshot(doc(db, "games", gameId, "players", uid, "private", "state"),
+      s => cb(s.exists() ? s.data() : { hand: [], library: [] })),
+
+  subscribeLog: (gameId, cb) =>
+    onSnapshot(query(collection(db, "games", gameId, "log"), orderBy("ts")),
+      snap => cb(snap.docs.map(d => d.data()))),
+
+  writeMyPublic: (gameId, uid, patch) =>
+    updateDoc(doc(db, "games", gameId, "players", uid), patch),
+
+  writePrivateAndCounts: (gameId, uid, priv) => {
+    const b = writeBatch(db);
+    b.set(doc(db, "games", gameId, "players", uid, "private", "state"),
+      { hand: priv.hand, library: priv.library });
+    b.update(doc(db, "games", gameId, "players", uid),
+      { handCount: priv.hand.length, libraryCount: priv.library.length });
+    return b.commit();
+  },
+
+  appendLog: (gameId, entry) =>
+    addDoc(collection(db, "games", gameId, "log"), { ts: Date.now(), ...entry }),
+
+  advanceTurn: (gameId, patch) =>
+    updateDoc(doc(db, "games", gameId), patch),
 };
