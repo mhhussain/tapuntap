@@ -25,7 +25,7 @@ export async function _createGame(uid, data, database) {
   if (!deck.exists) throw new HttpsError("not-found", "Deck not found");
   const code = await uniqueCode(database);
   const ref = database.collection("games").doc();
-  const seat = { seat: 0, uid, displayName: deck.data().ownerName || "Player",
+  const seat = { seat: 0, uid, displayName: data.displayName || "Player",
     deckId, deckName: deck.data().name, ready: false };
   await ref.set({
     name, format: format || "commander", status: "lobby",
@@ -55,7 +55,7 @@ export async function _joinGame(uid, data, database) {
     if (g.status !== "lobby") throw new HttpsError("failed-precondition", "Game already started");
     if (g.seatUids.includes(uid)) throw new HttpsError("already-exists", "Already joined");
     if (g.seats.length >= 4) throw new HttpsError("failed-precondition", "Game full");
-    const seat = { seat: g.seats.length, uid, displayName: deck.data().ownerName || "Player",
+    const seat = { seat: g.seats.length, uid, displayName: data.displayName || "Player",
       deckId, deckName: deck.data().name, ready: false };
     tx.update(ref, {
       seats: [...g.seats, seat], seatUids: [...g.seatUids, uid],

@@ -1,10 +1,11 @@
-import { db } from "./firebase.js";
-import { currentUid } from "./auth.js";
+import { db, functions } from "./firebase.js";
+import { currentUid, currentUser } from "./auth.js";
 import { searchCards, getCard, getCardByName } from "./cards.js";
 import {
   collection, doc, getDoc, getDocs, setDoc, addDoc, updateDoc, deleteDoc,
-  serverTimestamp
+  serverTimestamp, onSnapshot
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+import { httpsCallable } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-functions.js";
 
 const BASE = '/api';
 
@@ -150,10 +151,15 @@ export const api = {
     }).sort((a, b) => (b.version || 0) - (a.version || 0));
   },
 
-  // Games — still served via Express
+  // Games — still served via Express (single-player)
   listGames: () => req('/games'),
   getGame: (id) => req(`/games/${id}`),
-  createGame: (data) => req('/games', { method: 'POST', body: JSON.stringify(data) }),
   saveGame: (id, data) => req(`/games/${id}`, { method: 'PUT', body: JSON.stringify(data) }),
   deleteGame: (id) => req(`/games/${id}`, { method: 'DELETE' }),
+
+  // Games — Firestore callable (multiplayer)
+  createGame: (d) => httpsCallable(functions, "createGame")({ ...d, displayName: currentUser()?.displayName }).then(r => r.data),
+  joinGame:   (d) => httpsCallable(functions, "joinGame")({ ...d, displayName: currentUser()?.displayName }).then(r => r.data),
+  startGame:  (gameId) => httpsCallable(functions, "startGame")({ gameId }).then(r => r.data),
+  subscribeGame: (gameId, cb) => onSnapshot(doc(db, "games", gameId), s => cb(s.exists() ? { id: s.id, ...s.data() } : null)),
 };

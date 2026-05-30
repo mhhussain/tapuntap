@@ -16,7 +16,7 @@ export async function renderGames(container) {
     </div>
   `;
 
-  container.querySelector('#btn-new-game').onclick = () => navigate('/games/new');
+  container.querySelector('#btn-new-game').onclick = () => navigate('/lobby/new');
 
   let games = [];
   try { games = await api.listGames(); } catch (e) { toast(e.message, 'error'); }
@@ -30,7 +30,7 @@ export async function renderGames(container) {
         <div class="empty-body">Create a game to start playing two decks against each other.</div>
         <button class="btn btn-primary" id="btn-empty-new">New game</button>
       </div>`;
-    document.getElementById('btn-empty-new').onclick = () => navigate('/games/new');
+    document.getElementById('btn-empty-new').onclick = () => navigate('/lobby/new');
     return;
   }
 
