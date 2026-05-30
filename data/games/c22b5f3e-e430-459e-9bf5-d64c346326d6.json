@@ -1,0 +1,388 @@
+{
+  "id": "c22b5f3e-e430-459e-9bf5-d64c346326d6",
+  "name": "Burn vs Control",
+  "status": "active",
+  "turn": 3,
+  "activePlayer": 0,
+  "phase": "beginning",
+  "phases": [
+    "beginning",
+    "main1",
+    "combat",
+    "main2",
+    "end"
+  ],
+  "phaseIndex": 0,
+  "players": [
+    {
+      "id": 0,
+      "name": "Alice",
+      "deckId": "4ec19161-2799-4392-9254-427794789854",
+      "deckName": "Test Control",
+      "life": 20,
+      "poison": 0,
+      "energy": 0,
+      "library": [
+        {
+          "instanceId": "40f979f5-261b-4f86-9976-56baf405ac0c",
+          "cardId": "abc123",
+          "name": "Counterspell",
+          "manaCost": "{U}{U}",
+          "cmc": 2,
+          "typeLine": "Instant",
+          "colors": [
+            "U"
+          ],
+          "imageUri": null,
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "tapped": false,
+          "transformed": false,
+          "faceDown": false,
+          "counters": {},
+          "attachedTo": null,
+          "token": false
+        },
+        {
+          "instanceId": "b38d5dbe-0e3d-42ce-8dc2-30abba66fa80",
+          "cardId": "abc123",
+          "name": "Counterspell",
+          "manaCost": "{U}{U}",
+          "cmc": 2,
+          "typeLine": "Instant",
+          "colors": [
+            "U"
+          ],
+          "imageUri": null,
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "tapped": false,
+          "transformed": false,
+          "faceDown": false,
+          "counters": {},
+          "attachedTo": null,
+          "token": false
+        },
+        {
+          "instanceId": "bc990f5b-5d83-4ebb-b14a-51c5d474e406",
+          "cardId": "abc123",
+          "name": "Counterspell",
+          "manaCost": "{U}{U}",
+          "cmc": 2,
+          "typeLine": "Instant",
+          "colors": [
+            "U"
+          ],
+          "imageUri": null,
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "tapped": false,
+          "transformed": false,
+          "faceDown": false,
+          "counters": {},
+          "attachedTo": null,
+          "token": false
+        },
+        {
+          "instanceId": "bb4b869b-e5f0-490e-8a12-68d1e08aa4ed",
+          "cardId": "abc123",
+          "name": "Counterspell",
+          "manaCost": "{U}{U}",
+          "cmc": 2,
+          "typeLine": "Instant",
+          "colors": [
+            "U"
+          ],
+          "imageUri": null,
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "tapped": false,
+          "transformed": false,
+          "faceDown": false,
+          "counters": {},
+          "attachedTo": null,
+          "token": false
+        }
+      ],
+      "hand": [],
+      "battlefield": [],
+      "graveyard": [],
+      "exile": [],
+      "command": [],
+      "extraCounters": {}
+    },
+    {
+      "id": 1,
+      "name": "Bob",
+      "deckId": "381f8362-f45d-45db-9f8a-edec4bac7256",
+      "deckName": "Test Burn",
+      "life": 20,
+      "poison": 0,
+      "energy": 0,
+      "library": [
+        {
+          "instanceId": "80e4ab81-ad1e-43f3-8482-ec6fe1f2883f",
+          "cardId": "e3285e6b-3e79-4d7c-bf96-d920f973b122",
+          "name": "Lightning Bolt",
+          "manaCost": "{R}",
+          "cmc": 1,
+          "typeLine": "Instant",
+          "colors": [
+            "R"
+          ],
+          "imageUri": null,
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "tapped": false,
+          "transformed": false,
+          "faceDown": false,
+          "counters": {},
+          "attachedTo": null,
+          "token": false
+        },
+        {
+          "instanceId": "a03dc56a-f12d-43ae-91ce-75217e741749",
+          "cardId": "e3285e6b-3e79-4d7c-bf96-d920f973b122",
+          "name": "Lightning Bolt",
+          "manaCost": "{R}",
+          "cmc": 1,
+          "typeLine": "Instant",
+          "colors": [
+            "R"
+          ],
+          "imageUri": null,
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "tapped": false,
+          "transformed": false,
+          "faceDown": false,
+          "counters": {},
+          "attachedTo": null,
+          "token": false
+        },
+        {
+          "instanceId": "4eaaa304-b150-4ed6-adf8-a09f8c2f77b3",
+          "cardId": "e3285e6b-3e79-4d7c-bf96-d920f973b122",
+          "name": "Lightning Bolt",
+          "manaCost": "{R}",
+          "cmc": 1,
+          "typeLine": "Instant",
+          "colors": [
+            "R"
+          ],
+          "imageUri": null,
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "tapped": false,
+          "transformed": false,
+          "faceDown": false,
+          "counters": {},
+          "attachedTo": null,
+          "token": false
+        },
+        {
+          "instanceId": "bec6df49-14d9-4872-8452-091a1d89c305",
+          "cardId": "e3285e6b-3e79-4d7c-bf96-d920f973b122",
+          "name": "Lightning Bolt",
+          "manaCost": "{R}",
+          "cmc": 1,
+          "typeLine": "Instant",
+          "colors": [
+            "R"
+          ],
+          "imageUri": null,
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "tapped": false,
+          "transformed": false,
+          "faceDown": false,
+          "counters": {},
+          "attachedTo": null,
+          "token": false
+        }
+      ],
+      "hand": [],
+      "battlefield": [],
+      "graveyard": [],
+      "exile": [],
+      "command": [],
+      "extraCounters": {}
+    }
+  ],
+  "log": [
+    {
+      "turn": 3,
+      "who": "Alice",
+      "text": "Soldier removed"
+    },
+    {
+      "turn": 3,
+      "who": "Alice",
+      "text": "Soldier untapped"
+    },
+    {
+      "turn": 3,
+      "who": "Alice",
+      "text": "Soldier tapped"
+    },
+    {
+      "turn": 3,
+      "who": "Alice",
+      "text": "Soldier → battlefield"
+    },
+    {
+      "turn": 3,
+      "who": "Alice",
+      "text": "Soldier → hand"
+    },
+    {
+      "turn": 3,
+      "who": "Alice",
+      "text": "Soldier untapped"
+    },
+    {
+      "turn": 3,
+      "who": "Alice",
+      "text": "Soldier tapped"
+    },
+    {
+      "turn": 3,
+      "who": "Alice",
+      "text": "Soldier → battlefield"
+    },
+    {
+      "turn": 3,
+      "who": "Alice",
+      "text": "Soldier → battlefield"
+    },
+    {
+      "turn": 3,
+      "who": "Alice",
+      "text": "Soldier → battlefield"
+    },
+    {
+      "turn": 3,
+      "who": "Alice",
+      "text": "Soldier → battlefield"
+    },
+    {
+      "turn": 3,
+      "who": "Alice",
+      "text": "Soldier → battlefield"
+    },
+    {
+      "turn": 3,
+      "who": "Alice",
+      "text": "Soldier → battlefield"
+    },
+    {
+      "turn": 3,
+      "who": "Alice",
+      "text": "Soldier → battlefield"
+    },
+    {
+      "turn": 3,
+      "who": "Alice",
+      "text": "Soldier → battlefield"
+    },
+    {
+      "turn": 3,
+      "who": "Alice",
+      "text": "Soldier → battlefield"
+    },
+    {
+      "turn": 3,
+      "who": "Alice",
+      "text": "Soldier → battlefield"
+    },
+    {
+      "turn": 3,
+      "who": "Alice",
+      "text": "Soldier → battlefield"
+    },
+    {
+      "turn": 3,
+      "who": "Alice",
+      "text": "Soldier → battlefield"
+    },
+    {
+      "turn": 3,
+      "who": "Alice",
+      "text": "Soldier → battlefield"
+    },
+    {
+      "turn": 3,
+      "who": "Alice",
+      "text": "Soldier tapped"
+    },
+    {
+      "turn": 3,
+      "who": "Alice",
+      "text": "Alice created 1× Soldier token"
+    },
+    {
+      "turn": 3,
+      "who": "Alice",
+      "text": "Soldier removed"
+    },
+    {
+      "turn": 3,
+      "who": "Alice",
+      "text": "Soldier untapped"
+    },
+    {
+      "turn": 3,
+      "who": "Alice",
+      "text": "Soldier tapped"
+    },
+    {
+      "turn": 3,
+      "who": "Alice",
+      "text": "Alice created 1× Soldier token"
+    },
+    {
+      "turn": 3,
+      "who": "Alice",
+      "text": "Begins their turn."
+    },
+    {
+      "turn": 2,
+      "who": "Bob",
+      "text": "Begins their turn."
+    },
+    {
+      "turn": 2,
+      "who": "Alice",
+      "text": "Begins their turn."
+    },
+    {
+      "turn": 1,
+      "who": "Bob",
+      "text": "Bob shuffled library"
+    },
+    {
+      "turn": 1,
+      "who": "Bob",
+      "text": "Begins their turn."
+    },
+    "[12:27:05 AM] Game \"Burn vs Control\" started"
+  ],
+  "createdAt": "2026-05-06T04:27:05.804Z",
+  "updatedAt": "2026-05-06T13:34:40.230Z"
+}

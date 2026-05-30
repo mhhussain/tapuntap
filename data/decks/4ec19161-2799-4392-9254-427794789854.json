@@ -1,0 +1,44 @@
+{
+  "id": "4ec19161-2799-4392-9254-427794789854",
+  "name": "Test Control",
+  "format": "standard",
+  "commander": null,
+  "cards": [
+    {
+      "cardId": "abc123",
+      "name": "Counterspell",
+      "manaCost": "{U}{U}",
+      "cmc": 2,
+      "typeLine": "Instant",
+      "colors": [
+        "U"
+      ],
+      "imageUri": null,
+      "quantity": 4
+    }
+  ],
+  "version": 1,
+  "versions": [
+    {
+      "version": 1,
+      "timestamp": "2026-05-06T04:26:59.387Z",
+      "changelog": "Initial",
+      "cards": [
+        {
+          "cardId": "abc123",
+          "name": "Counterspell",
+          "manaCost": "{U}{U}",
+          "cmc": 2,
+          "typeLine": "Instant",
+          "colors": [
+            "U"
+          ],
+          "imageUri": null,
+          "quantity": 4
+        }
+      ]
+    }
+  ],
+  "createdAt": "2026-05-06T04:26:59.387Z",
+  "updatedAt": "2026-05-06T04:26:59.387Z"
+}

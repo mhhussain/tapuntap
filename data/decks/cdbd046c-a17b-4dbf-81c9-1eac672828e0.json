@@ -1,0 +1,6219 @@
+{
+  "id": "cdbd046c-a17b-4dbf-81c9-1eac672828e0",
+  "name": "Dragoo",
+  "format": "commander",
+  "commander": {
+    "cardId": "10d42b35-844f-4a64-9981-c6118d45e826",
+    "name": "The Ur-Dragon",
+    "manaCost": "{4}{W}{U}{B}{R}{G}",
+    "cmc": 9,
+    "typeLine": "Legendary Creature — Dragon Avatar",
+    "colors": [
+      "B",
+      "G",
+      "R",
+      "U",
+      "W"
+    ],
+    "colorIdentity": [
+      "B",
+      "G",
+      "R",
+      "U",
+      "W"
+    ],
+    "imageUri": "https://cards.scryfall.io/normal/front/1/0/10d42b35-844f-4a64-9981-c6118d45e826.jpg?1689999317",
+    "imageUriBack": null,
+    "power": "10",
+    "toughness": "10",
+    "loyalty": null,
+    "rarity": "mythic",
+    "setCode": "cmm",
+    "quantity": 1
+  },
+  "cards": [
+    {
+      "cardId": "10d42b35-844f-4a64-9981-c6118d45e826",
+      "name": "The Ur-Dragon",
+      "manaCost": "{4}{W}{U}{B}{R}{G}",
+      "cmc": 9,
+      "typeLine": "Legendary Creature — Dragon Avatar",
+      "colors": [
+        "B",
+        "G",
+        "R",
+        "U",
+        "W"
+      ],
+      "colorIdentity": [
+        "B",
+        "G",
+        "R",
+        "U",
+        "W"
+      ],
+      "imageUri": "https://cards.scryfall.io/normal/front/1/0/10d42b35-844f-4a64-9981-c6118d45e826.jpg?1689999317",
+      "imageUriBack": null,
+      "power": "10",
+      "toughness": "10",
+      "loyalty": null,
+      "rarity": "mythic",
+      "setCode": "cmm",
+      "quantity": 1
+    },
+    {
+      "cardId": "565b2a40-57b1-451f-8c2a-e02222502288",
+      "name": "Scion of the Ur-Dragon",
+      "manaCost": "{W}{U}{B}{R}{G}",
+      "cmc": 5,
+      "typeLine": "Legendary Creature — Dragon Avatar",
+      "colors": [
+        "B",
+        "G",
+        "R",
+        "U",
+        "W"
+      ],
+      "colorIdentity": [
+        "B",
+        "G",
+        "R",
+        "U",
+        "W"
+      ],
+      "imageUri": "https://cards.scryfall.io/normal/front/5/6/565b2a40-57b1-451f-8c2a-e02222502288.jpg?1562608891",
+      "imageUriBack": null,
+      "power": "4",
+      "toughness": "4",
+      "loyalty": null,
+      "rarity": "rare",
+      "setCode": "c17",
+      "quantity": 1
+    },
+    {
+      "cardId": "192452f8-93c2-4a20-a52b-0093741a9e45",
+      "name": "Sarkhan Unbroken",
+      "manaCost": "{2}{G}{U}{R}",
+      "cmc": 5,
+      "typeLine": "Legendary Planeswalker — Sarkhan",
+      "colors": [
+        "G",
+        "R",
+        "U"
+      ],
+      "colorIdentity": [
+        "G",
+        "R",
+        "U"
+      ],
+      "imageUri": "https://cards.scryfall.io/normal/front/1/9/192452f8-93c2-4a20-a52b-0093741a9e45.jpg?1562783094",
+      "imageUriBack": null,
+      "power": null,
+      "toughness": null,
+      "loyalty": "4",
+      "rarity": "mythic",
+      "setCode": "dtk",
+      "quantity": 1
+    },
+    {
+      "cardId": "9c017fa9-7021-417a-9c2e-3df409644fcf",
+      "name": "Ugin, the Spirit Dragon",
+      "manaCost": "{8}",
+      "cmc": 8,
+      "typeLine": "Legendary Planeswalker — Ugin",
+      "colors": [],
+      "colorIdentity": [],
+      "imageUri": "https://cards.scryfall.io/normal/front/9/c/9c017fa9-7021-417a-9c2e-3df409644fcf.jpg?1639052473",
+      "imageUriBack": null,
+      "power": null,
+      "toughness": null,
+      "loyalty": "7",
+      "rarity": "mythic",
+      "setCode": "m21",
+      "quantity": 1
+    },
+    {
+      "cardId": "c569fab1-6901-40ab-b958-001698819585",
+      "name": "Atarka, World Render",
+      "manaCost": "{5}{R}{G}",
+      "cmc": 7,
+      "typeLine": "Legendary Creature — Dragon",
+      "colors": [
+        "G",
+        "R"
+      ],
+      "colorIdentity": [
+        "G",
+        "R"
+      ],
+      "imageUri": "https://cards.scryfall.io/normal/front/c/5/c569fab1-6901-40ab-b958-001698819585.jpg?1743207078",
+      "imageUriBack": null,
+      "power": "6",
+      "toughness": "4",
+      "loyalty": null,
+      "rarity": "rare",
+      "setCode": "tdc",
+      "quantity": 1
+    },
+    {
+      "cardId": "e4510ee2-8a2e-4fe5-94af-df420a6a35a0",
+      "name": "Balefire Dragon",
+      "manaCost": "{5}{R}{R}",
+      "cmc": 7,
+      "typeLine": "Creature — Dragon",
+      "colors": [
+        "R"
+      ],
+      "colorIdentity": [
+        "R"
+      ],
+      "imageUri": "https://cards.scryfall.io/normal/front/e/4/e4510ee2-8a2e-4fe5-94af-df420a6a35a0.jpg?1736551691",
+      "imageUriBack": null,
+      "power": "6",
+      "toughness": "6",
+      "loyalty": null,
+      "rarity": "mythic",
+      "setCode": "inr",
+      "quantity": 1
+    },
+    {
+      "cardId": "3d69a3e0-6a2e-475a-964e-0affed1c017d",
+      "name": "Birds of Paradise",
+      "manaCost": "{G}",
+      "cmc": 1,
+      "typeLine": "Creature — Bird",
+      "colors": [
+        "G"
+      ],
+      "colorIdentity": [
+        "G"
+      ],
+      "imageUri": "https://cards.scryfall.io/normal/front/3/d/3d69a3e0-6a2e-475a-964e-0affed1c017d.jpg?1722384747",
+      "imageUriBack": null,
+      "power": "0",
+      "toughness": "1",
+      "loyalty": null,
+      "rarity": "rare",
+      "setCode": "rvr",
+      "quantity": 1
+    },
+    {
+      "cardId": "27ce43cb-44f4-4d94-8700-d9f3cc043989",
+      "name": "Bladewing the Risen",
+      "manaCost": "{3}{B}{B}{R}{R}",
+      "cmc": 7,
+      "typeLine": "Legendary Creature — Zombie Dragon",
+      "colors": [
+        "B",
+        "R"
+      ],
+      "colorIdentity": [
+        "B",
+        "R"
+      ],
+      "imageUri": "https://cards.scryfall.io/normal/front/2/7/27ce43cb-44f4-4d94-8700-d9f3cc043989.jpg?1584897843",
+      "imageUriBack": null,
+      "power": "4",
+      "toughness": "4",
+      "loyalty": null,
+      "rarity": "uncommon",
+      "setCode": "ima",
+      "quantity": 1
+    },
+    {
+      "cardId": "4452d99e-23c2-408d-9eb8-ef31aefafa9d",
+      "name": "Dragonlord Dromoka",
+      "manaCost": "{4}{G}{W}",
+      "cmc": 6,
+      "typeLine": "Legendary Creature — Elder Dragon",
+      "colors": [
+        "G",
+        "W"
+      ],
+      "colorIdentity": [
+        "G",
+        "W"
+      ],
+      "imageUri": "https://cards.scryfall.io/normal/front/4/4/4452d99e-23c2-408d-9eb8-ef31aefafa9d.jpg?1743207113",
+      "imageUriBack": null,
+      "power": "5",
+      "toughness": "7",
+      "loyalty": null,
+      "rarity": "mythic",
+      "setCode": "tdc",
+      "quantity": 1
+    },
+    {
+      "cardId": "1cbf8933-32a1-4892-9bdc-89464ed9ce1b",
+      "name": "Dragonlord Kolaghan",
+      "manaCost": "{4}{B}{R}",
+      "cmc": 6,
+      "typeLine": "Legendary Creature — Elder Dragon",
+      "colors": [
+        "B",
+        "R"
+      ],
+      "colorIdentity": [
+        "B",
+        "R"
+      ],
+      "imageUri": "https://cards.scryfall.io/normal/front/1/c/1cbf8933-32a1-4892-9bdc-89464ed9ce1b.jpg?1774995208",
+      "imageUriBack": null,
+      "power": "6",
+      "toughness": "5",
+      "loyalty": null,
+      "rarity": "mythic",
+      "setCode": "dtk",
+      "quantity": 1
+    },
+    {
+      "cardId": "be6fa0dc-74e7-4fad-9bdd-8e986612577a",
+      "name": "Dragonlord's Servant",
+      "manaCost": "{1}{R}",
+      "cmc": 2,
+      "typeLine": "Creature — Goblin Shaman",
+      "colors": [
+        "R"
+      ],
+      "colorIdentity": [
+        "R"
+      ],
+      "imageUri": "https://cards.scryfall.io/normal/front/b/e/be6fa0dc-74e7-4fad-9bdd-8e986612577a.jpg?1743206645",
+      "imageUriBack": null,
+      "power": "1",
+      "toughness": "3",
+      "loyalty": null,
+      "rarity": "uncommon",
+      "setCode": "tdc",
+      "quantity": 1
+    },
+    {
+      "cardId": "7b0a2799-197e-4d61-ab23-67d974458a05",
+      "name": "Dragonspeaker Shaman",
+      "manaCost": "{1}{R}{R}",
+      "cmc": 3,
+      "typeLine": "Creature — Human Barbarian Shaman",
+      "colors": [
+        "R"
+      ],
+      "colorIdentity": [
+        "R"
+      ],
+      "imageUri": "https://cards.scryfall.io/normal/front/7/b/7b0a2799-197e-4d61-ab23-67d974458a05.jpg?1631590611",
+      "imageUriBack": null,
+      "power": "2",
+      "toughness": "2",
+      "loyalty": null,
+      "rarity": "uncommon",
+      "setCode": "afc",
+      "quantity": 1
+    },
+    {
+      "cardId": "9e9b40f5-3dd0-4607-a78d-b004d57fa4ea",
+      "name": "Drakuseth, Maw of Flames",
+      "manaCost": "{4}{R}{R}{R}",
+      "cmc": 7,
+      "typeLine": "Legendary Creature — Dragon",
+      "colors": [
+        "R"
+      ],
+      "colorIdentity": [
+        "R"
+      ],
+      "imageUri": "https://cards.scryfall.io/normal/front/9/e/9e9b40f5-3dd0-4607-a78d-b004d57fa4ea.jpg?1775600351",
+      "imageUriBack": null,
+      "power": "7",
+      "toughness": "7",
+      "loyalty": null,
+      "rarity": "rare",
+      "setCode": "fdn",
+      "quantity": 1
+    },
+    {
+      "cardId": "f6cd7465-9dd0-473c-ac5e-dd9e2f22f5f6",
+      "name": "Esika, God of the Tree // The Prismatic Bridge",
+      "manaCost": "{1}{G}{G}",
+      "cmc": 3,
+      "typeLine": "Legendary Creature — God // Legendary Enchantment",
+      "colors": [
+        "G"
+      ],
+      "colorIdentity": [
+        "B",
+        "G",
+        "R",
+        "U",
+        "W"
+      ],
+      "imageUri": "https://cards.scryfall.io/normal/front/f/6/f6cd7465-9dd0-473c-ac5e-dd9e2f22f5f6.jpg?1631050188",
+      "imageUriBack": "https://cards.scryfall.io/normal/back/f/6/f6cd7465-9dd0-473c-ac5e-dd9e2f22f5f6.jpg?1631050188",
+      "power": null,
+      "toughness": null,
+      "loyalty": null,
+      "rarity": "mythic",
+      "setCode": "khm",
+      "quantity": 1
+    },
+    {
+      "cardId": "848c1951-90fa-4f01-9aed-76f1afcd9995",
+      "name": "Goldspan Dragon",
+      "manaCost": "{3}{R}{R}",
+      "cmc": 5,
+      "typeLine": "Creature — Dragon",
+      "colors": [
+        "R"
+      ],
+      "colorIdentity": [
+        "R"
+      ],
+      "imageUri": "https://cards.scryfall.io/normal/front/8/4/848c1951-90fa-4f01-9aed-76f1afcd9995.jpg?1775941300",
+      "imageUriBack": null,
+      "power": "4",
+      "toughness": "4",
+      "loyalty": null,
+      "rarity": "mythic",
+      "setCode": "soc",
+      "quantity": 1
+    },
+    {
+      "cardId": "d33eca2e-fef0-42fd-9970-46d5bdb4bd4b",
+      "name": "Hellkite Courser",
+      "manaCost": "{4}{R}{R}",
+      "cmc": 6,
+      "typeLine": "Creature — Dragon",
+      "colors": [
+        "R"
+      ],
+      "colorIdentity": [
+        "R"
+      ],
+      "imageUri": "https://cards.scryfall.io/normal/front/d/3/d33eca2e-fef0-42fd-9970-46d5bdb4bd4b.jpg?1743206696",
+      "imageUriBack": null,
+      "power": "6",
+      "toughness": "5",
+      "loyalty": null,
+      "rarity": "mythic",
+      "setCode": "tdc",
+      "quantity": 1
+    },
+    {
+      "cardId": "a7cb4100-1696-4393-8f1f-634018e0b78f",
+      "name": "Hellkite Tyrant",
+      "manaCost": "{4}{R}{R}",
+      "cmc": 6,
+      "typeLine": "Creature — Dragon",
+      "colors": [
+        "R"
+      ],
+      "colorIdentity": [
+        "R"
+      ],
+      "imageUri": "https://cards.scryfall.io/normal/front/a/7/a7cb4100-1696-4393-8f1f-634018e0b78f.jpg?1733170320",
+      "imageUriBack": null,
+      "power": "6",
+      "toughness": "5",
+      "loyalty": null,
+      "rarity": "rare",
+      "setCode": "plst",
+      "quantity": 1
+    },
+    {
+      "cardId": "35517572-b5d4-4dbf-b090-4e4c4b040a0d",
+      "name": "Intet, the Dreamer",
+      "manaCost": "{3}{G}{U}{R}",
+      "cmc": 6,
+      "typeLine": "Legendary Creature — Dragon",
+      "colors": [
+        "G",
+        "R",
+        "U"
+      ],
+      "colorIdentity": [
+        "G",
+        "R",
+        "U"
+      ],
+      "imageUri": "https://cards.scryfall.io/normal/front/3/5/35517572-b5d4-4dbf-b090-4e4c4b040a0d.jpg?1673148766",
+      "imageUriBack": null,
+      "power": "6",
+      "toughness": "6",
+      "loyalty": null,
+      "rarity": "rare",
+      "setCode": "2x2",
+      "quantity": 1
+    },
+    {
+      "cardId": "2bfb85e8-278b-48a4-970e-e65bad1c4c47",
+      "name": "Karrthus, Tyrant of Jund",
+      "manaCost": "{4}{B}{R}{G}",
+      "cmc": 7,
+      "typeLine": "Legendary Creature — Dragon",
+      "colors": [
+        "B",
+        "G",
+        "R"
+      ],
+      "colorIdentity": [
+        "B",
+        "G",
+        "R"
+      ],
+      "imageUri": "https://cards.scryfall.io/normal/front/2/b/2bfb85e8-278b-48a4-970e-e65bad1c4c47.jpg?1599708104",
+      "imageUriBack": null,
+      "power": "7",
+      "toughness": "7",
+      "loyalty": null,
+      "rarity": "mythic",
+      "setCode": "2xm",
+      "quantity": 1
+    },
+    {
+      "cardId": "85b6ec91-0ecc-431c-bf85-220c615e0a80",
+      "name": "Kolaghan, the Storm's Fury",
+      "manaCost": "{3}{B}{R}",
+      "cmc": 5,
+      "typeLine": "Legendary Creature — Dragon",
+      "colors": [
+        "B",
+        "R"
+      ],
+      "colorIdentity": [
+        "B",
+        "R"
+      ],
+      "imageUri": "https://cards.scryfall.io/normal/front/8/5/85b6ec91-0ecc-431c-bf85-220c615e0a80.jpg?1562615351",
+      "imageUriBack": null,
+      "power": "4",
+      "toughness": "5",
+      "loyalty": null,
+      "rarity": "rare",
+      "setCode": "c17",
+      "quantity": 1
+    },
+    {
+      "cardId": "0cb48015-627b-49cd-8dc3-d446e82b8172",
+      "name": "Lathliss, Dragon Queen",
+      "manaCost": "{4}{R}{R}",
+      "cmc": 6,
+      "typeLine": "Legendary Creature — Dragon",
+      "colors": [
+        "R"
+      ],
+      "colorIdentity": [
+        "R"
+      ],
+      "imageUri": "https://cards.scryfall.io/normal/front/0/c/0cb48015-627b-49cd-8dc3-d446e82b8172.jpg?1743206700",
+      "imageUriBack": null,
+      "power": "6",
+      "toughness": "6",
+      "loyalty": null,
+      "rarity": "rare",
+      "setCode": "tdc",
+      "quantity": 1
+    },
+    {
+      "cardId": "84238335-e08c-421c-b9b9-70a679ff2967",
+      "name": "Morophon, the Boundless",
+      "manaCost": "{7}",
+      "cmc": 7,
+      "typeLine": "Legendary Creature — Shapeshifter",
+      "colors": [],
+      "colorIdentity": [
+        "B",
+        "G",
+        "R",
+        "U",
+        "W"
+      ],
+      "imageUri": "https://cards.scryfall.io/normal/front/8/4/84238335-e08c-421c-b9b9-70a679ff2967.jpg?1689995411",
+      "imageUriBack": null,
+      "power": "6",
+      "toughness": "6",
+      "loyalty": null,
+      "rarity": "mythic",
+      "setCode": "cmm",
+      "quantity": 1
+    },
+    {
+      "cardId": "7b215968-93a6-4278-ac61-4e3e8c3c3943",
+      "name": "Nicol Bolas, the Ravager // Nicol Bolas, the Arisen",
+      "manaCost": "{1}{U}{B}{R}",
+      "cmc": 4,
+      "typeLine": "Legendary Creature — Elder Dragon // Legendary Planeswalker — Bolas",
+      "colors": [
+        "B",
+        "R",
+        "U"
+      ],
+      "colorIdentity": [
+        "B",
+        "R",
+        "U"
+      ],
+      "imageUri": "https://cards.scryfall.io/normal/front/7/b/7b215968-93a6-4278-ac61-4e3e8c3c3943.jpg?1566971561",
+      "imageUriBack": "https://cards.scryfall.io/normal/back/7/b/7b215968-93a6-4278-ac61-4e3e8c3c3943.jpg?1566971561",
+      "power": null,
+      "toughness": null,
+      "loyalty": null,
+      "rarity": "mythic",
+      "setCode": "m19",
+      "quantity": 1
+    },
+    {
+      "cardId": "77ceba8b-de19-4db8-b5a7-f5df49bf241f",
+      "name": "Old Gnawbone",
+      "manaCost": "{5}{G}{G}",
+      "cmc": 7,
+      "typeLine": "Legendary Creature — Dragon",
+      "colors": [
+        "G"
+      ],
+      "colorIdentity": [
+        "G"
+      ],
+      "imageUri": "https://cards.scryfall.io/normal/front/7/7/77ceba8b-de19-4db8-b5a7-f5df49bf241f.jpg?1627708100",
+      "imageUriBack": null,
+      "power": "7",
+      "toughness": "7",
+      "loyalty": null,
+      "rarity": "mythic",
+      "setCode": "afr",
+      "quantity": 1
+    },
+    {
+      "cardId": "8f95f753-bbaa-4282-9cd9-f1737136fc9e",
+      "name": "Ramos, Dragon Engine",
+      "manaCost": "{6}",
+      "cmc": 6,
+      "typeLine": "Legendary Artifact Creature — Dragon",
+      "colors": [],
+      "colorIdentity": [
+        "B",
+        "G",
+        "R",
+        "U",
+        "W"
+      ],
+      "imageUri": "https://cards.scryfall.io/normal/front/8/f/8f95f753-bbaa-4282-9cd9-f1737136fc9e.jpg?1730491162",
+      "imageUriBack": null,
+      "power": "4",
+      "toughness": "4",
+      "loyalty": null,
+      "rarity": "mythic",
+      "setCode": "fdn",
+      "quantity": 1
+    },
+    {
+      "cardId": "50027d69-8bb0-444c-8e9b-4c9afd91cbda",
+      "name": "Savage Ventmaw",
+      "manaCost": "{4}{R}{G}",
+      "cmc": 6,
+      "typeLine": "Creature — Dragon",
+      "colors": [
+        "G",
+        "R"
+      ],
+      "colorIdentity": [
+        "G",
+        "R"
+      ],
+      "imageUri": "https://cards.scryfall.io/normal/front/5/0/50027d69-8bb0-444c-8e9b-4c9afd91cbda.jpg?1730491117",
+      "imageUriBack": null,
+      "power": "4",
+      "toughness": "4",
+      "loyalty": null,
+      "rarity": "uncommon",
+      "setCode": "fdn",
+      "quantity": 1
+    },
+    {
+      "cardId": "c91c3606-d037-4b97-a7b6-ab1ed09bc976",
+      "name": "Scalelord Reckoner",
+      "manaCost": "{3}{W}{W}",
+      "cmc": 5,
+      "typeLine": "Creature — Dragon",
+      "colors": [
+        "W"
+      ],
+      "colorIdentity": [
+        "W"
+      ],
+      "imageUri": "https://cards.scryfall.io/normal/front/c/9/c91c3606-d037-4b97-a7b6-ab1ed09bc976.jpg?1562623335",
+      "imageUriBack": null,
+      "power": "4",
+      "toughness": "4",
+      "loyalty": null,
+      "rarity": "rare",
+      "setCode": "c17",
+      "quantity": 1
+    },
+    {
+      "cardId": "e6bd7225-b39f-4b3b-8c36-dbc2c09f6e50",
+      "name": "Scourge of Valkas",
+      "manaCost": "{2}{R}{R}{R}",
+      "cmc": 5,
+      "typeLine": "Creature — Dragon",
+      "colors": [
+        "R"
+      ],
+      "colorIdentity": [
+        "R"
+      ],
+      "imageUri": "https://cards.scryfall.io/normal/front/e/6/e6bd7225-b39f-4b3b-8c36-dbc2c09f6e50.jpg?1631587429",
+      "imageUriBack": null,
+      "power": "4",
+      "toughness": "4",
+      "loyalty": null,
+      "rarity": "mythic",
+      "setCode": "afc",
+      "quantity": 1
+    },
+    {
+      "cardId": "cd44f295-c4c8-4f47-9d51-d5ba578f7f8d",
+      "name": "Scourge of the Throne",
+      "manaCost": "{4}{R}{R}",
+      "cmc": 6,
+      "typeLine": "Creature — Dragon",
+      "colors": [
+        "R"
+      ],
+      "colorIdentity": [
+        "R"
+      ],
+      "imageUri": "https://cards.scryfall.io/normal/front/c/d/cd44f295-c4c8-4f47-9d51-d5ba578f7f8d.jpg?1743206768",
+      "imageUriBack": null,
+      "power": "5",
+      "toughness": "5",
+      "loyalty": null,
+      "rarity": "rare",
+      "setCode": "tdc",
+      "quantity": 1
+    },
+    {
+      "cardId": "da6b530c-5a56-4dc1-8d36-6ed8d2c158a9",
+      "name": "Sunscorch Regent",
+      "manaCost": "{3}{W}{W}",
+      "cmc": 5,
+      "typeLine": "Creature — Dragon",
+      "colors": [
+        "W"
+      ],
+      "colorIdentity": [
+        "W"
+      ],
+      "imageUri": "https://cards.scryfall.io/normal/front/d/a/da6b530c-5a56-4dc1-8d36-6ed8d2c158a9.jpg?1682208635",
+      "imageUriBack": null,
+      "power": "4",
+      "toughness": "3",
+      "loyalty": null,
+      "rarity": "rare",
+      "setCode": "moc",
+      "quantity": 1
+    },
+    {
+      "cardId": "ab2b349a-1555-4aaa-8302-28667404e630",
+      "name": "Sylvia Brightspear",
+      "manaCost": "{2}{W}",
+      "cmc": 3,
+      "typeLine": "Legendary Creature — Human Knight",
+      "colors": [
+        "W"
+      ],
+      "colorIdentity": [
+        "W"
+      ],
+      "imageUri": "https://cards.scryfall.io/normal/front/a/b/ab2b349a-1555-4aaa-8302-28667404e630.jpg?1562929513",
+      "imageUriBack": null,
+      "power": "2",
+      "toughness": "2",
+      "loyalty": null,
+      "rarity": "rare",
+      "setCode": "bbd",
+      "quantity": 1
+    },
+    {
+      "cardId": "8caa7115-1b26-4615-842f-671b24dc96d8",
+      "name": "Teneb, the Harvester",
+      "manaCost": "{3}{W}{B}{G}",
+      "cmc": 6,
+      "typeLine": "Legendary Creature — Dragon",
+      "colors": [
+        "B",
+        "G",
+        "W"
+      ],
+      "colorIdentity": [
+        "B",
+        "G",
+        "W"
+      ],
+      "imageUri": "https://cards.scryfall.io/normal/front/8/c/8caa7115-1b26-4615-842f-671b24dc96d8.jpg?1673149181",
+      "imageUriBack": null,
+      "power": "6",
+      "toughness": "6",
+      "loyalty": null,
+      "rarity": "rare",
+      "setCode": "2x2",
+      "quantity": 1
+    },
+    {
+      "cardId": "904ff94a-4db4-44a6-8593-89c32905b3fc",
+      "name": "Terror of the Peaks",
+      "manaCost": "{3}{R}{R}",
+      "cmc": 5,
+      "typeLine": "Creature — Dragon",
+      "colors": [
+        "R"
+      ],
+      "colorIdentity": [
+        "R"
+      ],
+      "imageUri": "https://cards.scryfall.io/normal/front/9/0/904ff94a-4db4-44a6-8593-89c32905b3fc.jpg?1712355862",
+      "imageUriBack": null,
+      "power": "5",
+      "toughness": "4",
+      "loyalty": null,
+      "rarity": "mythic",
+      "setCode": "otj",
+      "quantity": 1
+    },
+    {
+      "cardId": "6dd0b9b0-55f4-4ce7-a916-6f23687f3fe4",
+      "name": "Tiamat",
+      "manaCost": "{2}{W}{U}{B}{R}{G}",
+      "cmc": 7,
+      "typeLine": "Legendary Creature — Dragon God",
+      "colors": [
+        "B",
+        "G",
+        "R",
+        "U",
+        "W"
+      ],
+      "colorIdentity": [
+        "B",
+        "G",
+        "R",
+        "U",
+        "W"
+      ],
+      "imageUri": "https://cards.scryfall.io/normal/front/6/d/6dd0b9b0-55f4-4ce7-a916-6f23687f3fe4.jpg?1627709478",
+      "imageUriBack": null,
+      "power": "7",
+      "toughness": "7",
+      "loyalty": null,
+      "rarity": "mythic",
+      "setCode": "afr",
+      "quantity": 1
+    },
+    {
+      "cardId": "df459109-d6ab-4b1d-9570-c7677ff4a014",
+      "name": "Utvara Hellkite",
+      "manaCost": "{6}{R}{R}",
+      "cmc": 8,
+      "typeLine": "Creature — Dragon",
+      "colors": [
+        "R"
+      ],
+      "colorIdentity": [
+        "R"
+      ],
+      "imageUri": "https://cards.scryfall.io/normal/front/d/f/df459109-d6ab-4b1d-9570-c7677ff4a014.jpg?1702429539",
+      "imageUriBack": null,
+      "power": "6",
+      "toughness": "6",
+      "loyalty": null,
+      "rarity": "mythic",
+      "setCode": "rvr",
+      "quantity": 1
+    },
+    {
+      "cardId": "7811dd72-61b9-4067-ac20-cea153e625d2",
+      "name": "Arcane Signet",
+      "manaCost": "{2}",
+      "cmc": 2,
+      "typeLine": "Artifact",
+      "colors": [],
+      "colorIdentity": [],
+      "imageUri": "https://cards.scryfall.io/normal/front/7/8/7811dd72-61b9-4067-ac20-cea153e625d2.jpg?1775940512",
+      "imageUriBack": null,
+      "power": null,
+      "toughness": null,
+      "loyalty": null,
+      "rarity": "uncommon",
+      "setCode": "soc",
+      "quantity": 1
+    },
+    {
+      "cardId": "af3ae93e-6094-483d-b2c0-ae117ad01293",
+      "name": "Armillary Sphere",
+      "manaCost": "{2}",
+      "cmc": 2,
+      "typeLine": "Artifact",
+      "colors": [],
+      "colorIdentity": [],
+      "imageUri": "https://cards.scryfall.io/normal/front/a/f/af3ae93e-6094-483d-b2c0-ae117ad01293.jpg?1608911310",
+      "imageUriBack": null,
+      "power": null,
+      "toughness": null,
+      "loyalty": null,
+      "rarity": "common",
+      "setCode": "cmr",
+      "quantity": 1
+    },
+    {
+      "cardId": "3af78d76-ad5c-44ba-880d-b834bcde5398",
+      "name": "Chromatic Orrery",
+      "manaCost": "{7}",
+      "cmc": 7,
+      "typeLine": "Legendary Artifact",
+      "colors": [],
+      "colorIdentity": [],
+      "imageUri": "https://cards.scryfall.io/normal/front/3/a/3af78d76-ad5c-44ba-880d-b834bcde5398.jpg?1594737470",
+      "imageUriBack": null,
+      "power": null,
+      "toughness": null,
+      "loyalty": null,
+      "rarity": "mythic",
+      "setCode": "m21",
+      "quantity": 1
+    },
+    {
+      "cardId": "d2312a56-088f-42f9-9bd2-7b0b94935236",
+      "name": "Dragon Arch",
+      "manaCost": "{5}",
+      "cmc": 5,
+      "typeLine": "Artifact",
+      "colors": [],
+      "colorIdentity": [],
+      "imageUri": "https://cards.scryfall.io/normal/front/d/2/d2312a56-088f-42f9-9bd2-7b0b94935236.jpg?1673149361",
+      "imageUriBack": null,
+      "power": null,
+      "toughness": null,
+      "loyalty": null,
+      "rarity": "uncommon",
+      "setCode": "2x2",
+      "quantity": 1
+    },
+    {
+      "cardId": "3ee80876-6e87-46c4-a6fd-ff6752db3032",
+      "name": "Dragon's Hoard",
+      "manaCost": "{3}",
+      "cmc": 3,
+      "typeLine": "Artifact",
+      "colors": [],
+      "colorIdentity": [],
+      "imageUri": "https://cards.scryfall.io/normal/front/3/e/3ee80876-6e87-46c4-a6fd-ff6752db3032.jpg?1743207302",
+      "imageUriBack": null,
+      "power": null,
+      "toughness": null,
+      "loyalty": null,
+      "rarity": "rare",
+      "setCode": "tdc",
+      "quantity": 1
+    },
+    {
+      "cardId": "aa5e88f1-0ddf-45d7-bbd0-baa88d121867",
+      "name": "Gilded Lotus",
+      "manaCost": "{5}",
+      "cmc": 5,
+      "typeLine": "Artifact",
+      "colors": [],
+      "colorIdentity": [],
+      "imageUri": "https://cards.scryfall.io/normal/front/a/a/aa5e88f1-0ddf-45d7-bbd0-baa88d121867.jpg?1730572766",
+      "imageUriBack": null,
+      "power": null,
+      "toughness": null,
+      "loyalty": null,
+      "rarity": "rare",
+      "setCode": "fdn",
+      "quantity": 1
+    },
+    {
+      "cardId": "4bfa71d4-4125-4404-9c24-979401bae592",
+      "name": "Herald's Horn",
+      "manaCost": "{3}",
+      "cmc": 3,
+      "typeLine": "Artifact",
+      "colors": [],
+      "colorIdentity": [],
+      "imageUri": "https://cards.scryfall.io/normal/front/4/b/4bfa71d4-4125-4404-9c24-979401bae592.jpg?1698988513",
+      "imageUriBack": null,
+      "power": null,
+      "toughness": null,
+      "loyalty": null,
+      "rarity": "uncommon",
+      "setCode": "lcc",
+      "quantity": 1
+    },
+    {
+      "cardId": "08005be9-fbf4-43e6-a742-b1fb8196c4a5",
+      "name": "Lightning Greaves",
+      "manaCost": "{2}",
+      "cmc": 2,
+      "typeLine": "Artifact — Equipment",
+      "colors": [],
+      "colorIdentity": [],
+      "imageUri": "https://cards.scryfall.io/normal/front/0/8/08005be9-fbf4-43e6-a742-b1fb8196c4a5.jpg?1775942055",
+      "imageUriBack": null,
+      "power": null,
+      "toughness": null,
+      "loyalty": null,
+      "rarity": "uncommon",
+      "setCode": "soc",
+      "quantity": 1
+    },
+    {
+      "cardId": "f85ab5f9-508e-45de-8fa1-ce1f16552ffc",
+      "name": "Lotus Petal",
+      "manaCost": "{0}",
+      "cmc": 0,
+      "typeLine": "Artifact",
+      "colors": [],
+      "colorIdentity": [],
+      "imageUri": "https://cards.scryfall.io/normal/front/f/8/f85ab5f9-508e-45de-8fa1-ce1f16552ffc.jpg?1701537448",
+      "imageUriBack": null,
+      "power": null,
+      "toughness": null,
+      "loyalty": null,
+      "rarity": "uncommon",
+      "setCode": "tpr",
+      "quantity": 1
+    },
+    {
+      "cardId": "9a1c2cdd-353c-4747-bf0e-b995dd37ffca",
+      "name": "Orb of Dragonkind",
+      "manaCost": "{1}{R}",
+      "cmc": 2,
+      "typeLine": "Artifact",
+      "colors": [
+        "R"
+      ],
+      "colorIdentity": [
+        "R"
+      ],
+      "imageUri": "https://cards.scryfall.io/normal/front/9/a/9a1c2cdd-353c-4747-bf0e-b995dd37ffca.jpg?1627706657",
+      "imageUriBack": null,
+      "power": null,
+      "toughness": null,
+      "loyalty": null,
+      "rarity": "rare",
+      "setCode": "afr",
+      "quantity": 1
+    },
+    {
+      "cardId": "870ec754-a76c-40ea-9b81-81b3dca1f62c",
+      "name": "Sol Ring",
+      "manaCost": "{1}",
+      "cmc": 1,
+      "typeLine": "Artifact",
+      "colors": [],
+      "colorIdentity": [],
+      "imageUri": "https://cards.scryfall.io/normal/front/8/7/870ec754-a76c-40ea-9b81-81b3dca1f62c.jpg?1775940518",
+      "imageUriBack": null,
+      "power": null,
+      "toughness": null,
+      "loyalty": null,
+      "rarity": "uncommon",
+      "setCode": "soc",
+      "quantity": 1
+    },
+    {
+      "cardId": "c4589226-6072-409b-b598-ebd87f675a6a",
+      "name": "Urza's Incubator",
+      "manaCost": "{3}",
+      "cmc": 3,
+      "typeLine": "Artifact",
+      "colors": [],
+      "colorIdentity": [],
+      "imageUri": "https://cards.scryfall.io/normal/front/c/4/c4589226-6072-409b-b598-ebd87f675a6a.jpg?1717013804",
+      "imageUriBack": null,
+      "power": null,
+      "toughness": null,
+      "loyalty": null,
+      "rarity": "rare",
+      "setCode": "mh3",
+      "quantity": 1
+    },
+    {
+      "cardId": "fc70e127-ffc8-45ed-9ca3-7f9f926ac4d5",
+      "name": "Generous Gift",
+      "manaCost": "{2}{W}",
+      "cmc": 3,
+      "typeLine": "Instant",
+      "colors": [
+        "W"
+      ],
+      "colorIdentity": [
+        "W"
+      ],
+      "imageUri": "https://cards.scryfall.io/normal/front/f/c/fc70e127-ffc8-45ed-9ca3-7f9f926ac4d5.jpg?1700321873",
+      "imageUriBack": null,
+      "power": null,
+      "toughness": null,
+      "loyalty": null,
+      "rarity": "uncommon",
+      "setCode": "lcc",
+      "quantity": 1
+    },
+    {
+      "cardId": "e32c67d1-187f-40df-b3b3-6036f5c92834",
+      "name": "Heroic Intervention",
+      "manaCost": "{1}{G}",
+      "cmc": 2,
+      "typeLine": "Instant",
+      "colors": [
+        "G"
+      ],
+      "colorIdentity": [
+        "G"
+      ],
+      "imageUri": "https://cards.scryfall.io/normal/front/e/3/e32c67d1-187f-40df-b3b3-6036f5c92834.jpg?1689998584",
+      "imageUriBack": null,
+      "power": null,
+      "toughness": null,
+      "loyalty": null,
+      "rarity": "rare",
+      "setCode": "cmm",
+      "quantity": 1
+    },
+    {
+      "cardId": "21f579c9-4b74-4461-8812-dcfd68fd2b97",
+      "name": "Terminate",
+      "manaCost": "{B}{R}",
+      "cmc": 2,
+      "typeLine": "Instant",
+      "colors": [
+        "B",
+        "R"
+      ],
+      "colorIdentity": [
+        "B",
+        "R"
+      ],
+      "imageUri": "https://cards.scryfall.io/normal/front/2/1/21f579c9-4b74-4461-8812-dcfd68fd2b97.jpg?1767731390",
+      "imageUriBack": null,
+      "power": null,
+      "toughness": null,
+      "loyalty": null,
+      "rarity": "common",
+      "setCode": "ecc",
+      "quantity": 1
+    },
+    {
+      "cardId": "11721b88-2654-482c-b9d4-80e54efdbf63",
+      "name": "Crux of Fate",
+      "manaCost": "{3}{B}{B}",
+      "cmc": 5,
+      "typeLine": "Sorcery",
+      "colors": [
+        "B"
+      ],
+      "colorIdentity": [
+        "B"
+      ],
+      "imageUri": "https://cards.scryfall.io/normal/front/1/1/11721b88-2654-482c-b9d4-80e54efdbf63.jpg?1562600485",
+      "imageUriBack": null,
+      "power": null,
+      "toughness": null,
+      "loyalty": null,
+      "rarity": "rare",
+      "setCode": "c17",
+      "quantity": 1
+    },
+    {
+      "cardId": "f1cc00f9-ae7b-4f7b-95f2-bc5c00e4bd72",
+      "name": "Cultivate",
+      "manaCost": "{2}{G}",
+      "cmc": 3,
+      "typeLine": "Sorcery",
+      "colors": [
+        "G"
+      ],
+      "colorIdentity": [
+        "G"
+      ],
+      "imageUri": "https://cards.scryfall.io/normal/front/f/1/f1cc00f9-ae7b-4f7b-95f2-bc5c00e4bd72.jpg?1775941453",
+      "imageUriBack": null,
+      "power": null,
+      "toughness": null,
+      "loyalty": null,
+      "rarity": "common",
+      "setCode": "soc",
+      "quantity": 1
+    },
+    {
+      "cardId": "d650dd8c-edd8-44e4-ae95-aaaf84557a72",
+      "name": "Diabolic Tutor",
+      "manaCost": "{2}{B}{B}",
+      "cmc": 4,
+      "typeLine": "Sorcery",
+      "colors": [
+        "B"
+      ],
+      "colorIdentity": [
+        "B"
+      ],
+      "imageUri": "https://cards.scryfall.io/normal/front/d/6/d650dd8c-edd8-44e4-ae95-aaaf84557a72.jpg?1592672628",
+      "imageUriBack": null,
+      "power": null,
+      "toughness": null,
+      "loyalty": null,
+      "rarity": "uncommon",
+      "setCode": "cma",
+      "quantity": 1
+    },
+    {
+      "cardId": "130ee895-1e5e-4f82-bb66-e1275bac75dd",
+      "name": "Doomskar",
+      "manaCost": "{3}{W}{W}",
+      "cmc": 5,
+      "typeLine": "Sorcery",
+      "colors": [
+        "W"
+      ],
+      "colorIdentity": [
+        "W"
+      ],
+      "imageUri": "https://cards.scryfall.io/normal/front/1/3/130ee895-1e5e-4f82-bb66-e1275bac75dd.jpg?1631045641",
+      "imageUriBack": null,
+      "power": null,
+      "toughness": null,
+      "loyalty": null,
+      "rarity": "rare",
+      "setCode": "khm",
+      "quantity": 1
+    },
+    {
+      "cardId": "3a9fb2db-228f-4d48-acdf-6330baf356c7",
+      "name": "Eerie Ultimatum",
+      "manaCost": "{W}{W}{B}{B}{B}{G}{G}",
+      "cmc": 7,
+      "typeLine": "Sorcery",
+      "colors": [
+        "B",
+        "G",
+        "W"
+      ],
+      "colorIdentity": [
+        "B",
+        "G",
+        "W"
+      ],
+      "imageUri": "https://cards.scryfall.io/normal/front/3/a/3a9fb2db-228f-4d48-acdf-6330baf356c7.jpg?1591227996",
+      "imageUriBack": null,
+      "power": null,
+      "toughness": null,
+      "loyalty": null,
+      "rarity": "rare",
+      "setCode": "iko",
+      "quantity": 1
+    },
+    {
+      "cardId": "90c423cc-1264-4067-9c50-e7c88c68ef2d",
+      "name": "Kodama's Reach",
+      "manaCost": "{2}{G}",
+      "cmc": 3,
+      "typeLine": "Sorcery — Arcane",
+      "colors": [
+        "G"
+      ],
+      "colorIdentity": [
+        "G"
+      ],
+      "imageUri": "https://cards.scryfall.io/normal/front/9/0/90c423cc-1264-4067-9c50-e7c88c68ef2d.jpg?1767731241",
+      "imageUriBack": null,
+      "power": null,
+      "toughness": null,
+      "loyalty": null,
+      "rarity": "common",
+      "setCode": "ecc",
+      "quantity": 1
+    },
+    {
+      "cardId": "b65c215d-562d-4c7c-bc9f-b1d741050158",
+      "name": "Search for Glory",
+      "manaCost": "{2}{W}",
+      "cmc": 3,
+      "typeLine": "Snow Sorcery",
+      "colors": [
+        "W"
+      ],
+      "colorIdentity": [
+        "W"
+      ],
+      "imageUri": "https://cards.scryfall.io/normal/front/b/6/b65c215d-562d-4c7c-bc9f-b1d741050158.jpg?1631046197",
+      "imageUriBack": null,
+      "power": null,
+      "toughness": null,
+      "loyalty": null,
+      "rarity": "rare",
+      "setCode": "khm",
+      "quantity": 1
+    },
+    {
+      "cardId": "d7a6f4dd-29c9-4084-a622-098b197a6eb7",
+      "name": "Crucible of Fire",
+      "manaCost": "{3}{R}",
+      "cmc": 4,
+      "typeLine": "Enchantment",
+      "colors": [
+        "R"
+      ],
+      "colorIdentity": [
+        "R"
+      ],
+      "imageUri": "https://cards.scryfall.io/normal/front/d/7/d7a6f4dd-29c9-4084-a622-098b197a6eb7.jpg?1562854632",
+      "imageUriBack": null,
+      "power": null,
+      "toughness": null,
+      "loyalty": null,
+      "rarity": "rare",
+      "setCode": "ima",
+      "quantity": 1
+    },
+    {
+      "cardId": "39ac7ad0-e570-4209-988c-7c0f9b9d2004",
+      "name": "Dragon Tempest",
+      "manaCost": "{1}{R}",
+      "cmc": 2,
+      "typeLine": "Enchantment",
+      "colors": [
+        "R"
+      ],
+      "colorIdentity": [
+        "R"
+      ],
+      "imageUri": "https://cards.scryfall.io/normal/front/3/9/39ac7ad0-e570-4209-988c-7c0f9b9d2004.jpg?1743206048",
+      "imageUriBack": null,
+      "power": null,
+      "toughness": null,
+      "loyalty": null,
+      "rarity": "uncommon",
+      "setCode": "tdc",
+      "quantity": 1
+    },
+    {
+      "cardId": "9952da7c-3cfc-413f-8849-0f10e9c8dceb",
+      "name": "Lurking Predators",
+      "manaCost": "{4}{G}{G}",
+      "cmc": 6,
+      "typeLine": "Enchantment",
+      "colors": [
+        "G"
+      ],
+      "colorIdentity": [
+        "G"
+      ],
+      "imageUri": "https://cards.scryfall.io/normal/front/9/9/9952da7c-3cfc-413f-8849-0f10e9c8dceb.jpg?1601079751",
+      "imageUriBack": null,
+      "power": null,
+      "toughness": null,
+      "loyalty": null,
+      "rarity": "rare",
+      "setCode": "jmp",
+      "quantity": 1
+    },
+    {
+      "cardId": "ef4fa4e8-39e8-47a6-b975-ff5d46e59edd",
+      "name": "Mirari's Wake",
+      "manaCost": "{3}{G}{W}",
+      "cmc": 5,
+      "typeLine": "Enchantment",
+      "colors": [
+        "G",
+        "W"
+      ],
+      "colorIdentity": [
+        "G",
+        "W"
+      ],
+      "imageUri": "https://cards.scryfall.io/normal/front/e/f/ef4fa4e8-39e8-47a6-b975-ff5d46e59edd.jpg?1690005224",
+      "imageUriBack": null,
+      "power": null,
+      "toughness": null,
+      "loyalty": null,
+      "rarity": "mythic",
+      "setCode": "cmm",
+      "quantity": 1
+    },
+    {
+      "cardId": "c2a6453e-a373-44ec-807a-15c0c8b1af57",
+      "name": "Rhythm of the Wild",
+      "manaCost": "{1}{R}{G}",
+      "cmc": 3,
+      "typeLine": "Enchantment",
+      "colors": [
+        "G",
+        "R"
+      ],
+      "colorIdentity": [
+        "G",
+        "R"
+      ],
+      "imageUri": "https://cards.scryfall.io/normal/front/c/2/c2a6453e-a373-44ec-807a-15c0c8b1af57.jpg?1702429702",
+      "imageUriBack": null,
+      "power": null,
+      "toughness": null,
+      "loyalty": null,
+      "rarity": "uncommon",
+      "setCode": "rvr",
+      "quantity": 1
+    },
+    {
+      "cardId": "5cedb54a-a6f6-48aa-acdf-01c988c1c37d",
+      "name": "Temur Ascendancy",
+      "manaCost": "{G}{U}{R}",
+      "cmc": 3,
+      "typeLine": "Enchantment",
+      "colors": [
+        "G",
+        "R",
+        "U"
+      ],
+      "colorIdentity": [
+        "G",
+        "R",
+        "U"
+      ],
+      "imageUri": "https://cards.scryfall.io/normal/front/5/c/5cedb54a-a6f6-48aa-acdf-01c988c1c37d.jpg?1743207231",
+      "imageUriBack": null,
+      "power": null,
+      "toughness": null,
+      "loyalty": null,
+      "rarity": "rare",
+      "setCode": "tdc",
+      "quantity": 1
+    },
+    {
+      "cardId": "33f64032-1e87-4d22-a211-c37e11ffa247",
+      "name": "Zendikar Resurgent",
+      "manaCost": "{5}{G}{G}",
+      "cmc": 7,
+      "typeLine": "Enchantment",
+      "colors": [
+        "G"
+      ],
+      "colorIdentity": [
+        "G"
+      ],
+      "imageUri": "https://cards.scryfall.io/normal/front/3/3/33f64032-1e87-4d22-a211-c37e11ffa247.jpg?1562604623",
+      "imageUriBack": null,
+      "power": null,
+      "toughness": null,
+      "loyalty": null,
+      "rarity": "rare",
+      "setCode": "c17",
+      "quantity": 1
+    },
+    {
+      "cardId": "8702d6b9-bb01-4841-a76d-4a576066c772",
+      "name": "Alpine Meadow",
+      "manaCost": "",
+      "cmc": 0,
+      "typeLine": "Snow Land — Mountain Plains",
+      "colors": [],
+      "colorIdentity": [
+        "R",
+        "W"
+      ],
+      "imageUri": "https://cards.scryfall.io/normal/front/8/7/8702d6b9-bb01-4841-a76d-4a576066c772.jpg?1631052433",
+      "imageUriBack": null,
+      "power": null,
+      "toughness": null,
+      "loyalty": null,
+      "rarity": "common",
+      "setCode": "khm",
+      "quantity": 1
+    },
+    {
+      "cardId": "c75eeb97-3249-4762-84b0-387f27fb255f",
+      "name": "Arcane Sanctum",
+      "manaCost": "",
+      "cmc": 0,
+      "typeLine": "Land",
+      "colors": [],
+      "colorIdentity": [
+        "B",
+        "U",
+        "W"
+      ],
+      "imageUri": "https://cards.scryfall.io/normal/front/c/7/c75eeb97-3249-4762-84b0-387f27fb255f.jpg?1726285349",
+      "imageUriBack": null,
+      "power": null,
+      "toughness": null,
+      "loyalty": null,
+      "rarity": "uncommon",
+      "setCode": "dsc",
+      "quantity": 1
+    },
+    {
+      "cardId": "dc506497-4ecd-41d3-9042-f92f498251b0",
+      "name": "Bant Panorama",
+      "manaCost": "",
+      "cmc": 0,
+      "typeLine": "Land",
+      "colors": [],
+      "colorIdentity": [],
+      "imageUri": "https://cards.scryfall.io/normal/front/d/c/dc506497-4ecd-41d3-9042-f92f498251b0.jpg?1673485553",
+      "imageUriBack": null,
+      "power": null,
+      "toughness": null,
+      "loyalty": null,
+      "rarity": "common",
+      "setCode": "ncc",
+      "quantity": 1
+    },
+    {
+      "cardId": "94e0ad38-31b3-46ba-9999-9b6ff57906ae",
+      "name": "Blighted Woodland",
+      "manaCost": "",
+      "cmc": 0,
+      "typeLine": "Land",
+      "colors": [],
+      "colorIdentity": [
+        "G"
+      ],
+      "imageUri": "https://cards.scryfall.io/normal/front/9/4/94e0ad38-31b3-46ba-9999-9b6ff57906ae.jpg?1674142793",
+      "imageUriBack": null,
+      "power": null,
+      "toughness": null,
+      "loyalty": null,
+      "rarity": "uncommon",
+      "setCode": "clb",
+      "quantity": 1
+    },
+    {
+      "cardId": "c21565d0-fc40-4d89-9b27-87c03385e0af",
+      "name": "City of Brass",
+      "manaCost": "",
+      "cmc": 0,
+      "typeLine": "Land",
+      "colors": [],
+      "colorIdentity": [],
+      "imageUri": "https://cards.scryfall.io/normal/front/c/2/c21565d0-fc40-4d89-9b27-87c03385e0af.jpg?1771424563",
+      "imageUriBack": null,
+      "power": null,
+      "toughness": null,
+      "loyalty": null,
+      "rarity": "rare",
+      "setCode": "tmc",
+      "quantity": 1
+    },
+    {
+      "cardId": "c46a217c-0ed2-4b3c-9a01-ee38d12d76f3",
+      "name": "Command Tower",
+      "manaCost": "",
+      "cmc": 0,
+      "typeLine": "Land",
+      "colors": [],
+      "colorIdentity": [],
+      "imageUri": "https://cards.scryfall.io/normal/front/c/4/c46a217c-0ed2-4b3c-9a01-ee38d12d76f3.jpg?1775940525",
+      "imageUriBack": null,
+      "power": null,
+      "toughness": null,
+      "loyalty": null,
+      "rarity": "common",
+      "setCode": "soc",
+      "quantity": 1
+    },
+    {
+      "cardId": "257a5ae9-f754-4c45-a47d-5196f1b625b7",
+      "name": "Crucible of the Spirit Dragon",
+      "manaCost": "",
+      "cmc": 0,
+      "typeLine": "Land",
+      "colors": [],
+      "colorIdentity": [],
+      "imageUri": "https://cards.scryfall.io/normal/front/2/5/257a5ae9-f754-4c45-a47d-5196f1b625b7.jpg?1631589508",
+      "imageUriBack": null,
+      "power": null,
+      "toughness": null,
+      "loyalty": null,
+      "rarity": "rare",
+      "setCode": "afc",
+      "quantity": 1
+    },
+    {
+      "cardId": "d3600e12-5633-42fd-b1cc-e90790a16b20",
+      "name": "Crumbling Necropolis",
+      "manaCost": "",
+      "cmc": 0,
+      "typeLine": "Land",
+      "colors": [],
+      "colorIdentity": [
+        "B",
+        "R",
+        "U"
+      ],
+      "imageUri": "https://cards.scryfall.io/normal/front/d/3/d3600e12-5633-42fd-b1cc-e90790a16b20.jpg?1698988567",
+      "imageUriBack": null,
+      "power": null,
+      "toughness": null,
+      "loyalty": null,
+      "rarity": "uncommon",
+      "setCode": "lcc",
+      "quantity": 1
+    },
+    {
+      "cardId": "a30f5555-2fbe-4c88-9e4f-1f2e81ea6cfd",
+      "name": "Evolving Wilds",
+      "manaCost": "",
+      "cmc": 0,
+      "typeLine": "Land",
+      "colors": [],
+      "colorIdentity": [],
+      "imageUri": "https://cards.scryfall.io/normal/front/a/3/a30f5555-2fbe-4c88-9e4f-1f2e81ea6cfd.jpg?1771424582",
+      "imageUriBack": null,
+      "power": null,
+      "toughness": null,
+      "loyalty": null,
+      "rarity": "common",
+      "setCode": "tmc",
+      "quantity": 1
+    },
+    {
+      "cardId": "7db2934a-43a0-46ad-8380-ff6703f8fd6d",
+      "name": "Exotic Orchard",
+      "manaCost": "",
+      "cmc": 0,
+      "typeLine": "Land",
+      "colors": [],
+      "colorIdentity": [],
+      "imageUri": "https://cards.scryfall.io/normal/front/7/d/7db2934a-43a0-46ad-8380-ff6703f8fd6d.jpg?1775942179",
+      "imageUriBack": null,
+      "power": null,
+      "toughness": null,
+      "loyalty": null,
+      "rarity": "rare",
+      "setCode": "soc",
+      "quantity": 1
+    },
+    {
+      "cardId": "48810b27-0646-4ff9-9d4d-c6d09b2e0267",
+      "name": "Frontier Bivouac",
+      "manaCost": "",
+      "cmc": 0,
+      "typeLine": "Land",
+      "colors": [],
+      "colorIdentity": [
+        "G",
+        "R",
+        "U"
+      ],
+      "imageUri": "https://cards.scryfall.io/normal/front/4/8/48810b27-0646-4ff9-9d4d-c6d09b2e0267.jpg?1767731558",
+      "imageUriBack": null,
+      "power": null,
+      "toughness": null,
+      "loyalty": null,
+      "rarity": "uncommon",
+      "setCode": "ecc",
+      "quantity": 1
+    },
+    {
+      "cardId": "32f1e668-89b8-4f82-afc1-6c3efb1fef3b",
+      "name": "Haunted Ridge",
+      "manaCost": "",
+      "cmc": 0,
+      "typeLine": "Land",
+      "colors": [],
+      "colorIdentity": [
+        "B",
+        "R"
+      ],
+      "imageUri": "https://cards.scryfall.io/normal/front/3/2/32f1e668-89b8-4f82-afc1-6c3efb1fef3b.jpg?1736468677",
+      "imageUriBack": null,
+      "power": null,
+      "toughness": null,
+      "loyalty": null,
+      "rarity": "rare",
+      "setCode": "inr",
+      "quantity": 1
+    },
+    {
+      "cardId": "d0c552da-874e-49eb-b221-47220b8b7786",
+      "name": "Haven of the Spirit Dragon",
+      "manaCost": "",
+      "cmc": 0,
+      "typeLine": "Land",
+      "colors": [],
+      "colorIdentity": [],
+      "imageUri": "https://cards.scryfall.io/normal/front/d/0/d0c552da-874e-49eb-b221-47220b8b7786.jpg?1743207602",
+      "imageUriBack": null,
+      "power": null,
+      "toughness": null,
+      "loyalty": null,
+      "rarity": "rare",
+      "setCode": "tdc",
+      "quantity": 1
+    },
+    {
+      "cardId": "59f64a32-c364-4750-94ed-d4d71c1a3511",
+      "name": "Highland Forest",
+      "manaCost": "",
+      "cmc": 0,
+      "typeLine": "Snow Land — Mountain Forest",
+      "colors": [],
+      "colorIdentity": [
+        "G",
+        "R"
+      ],
+      "imageUri": "https://cards.scryfall.io/normal/front/5/9/59f64a32-c364-4750-94ed-d4d71c1a3511.jpg?1676452616",
+      "imageUriBack": null,
+      "power": null,
+      "toughness": null,
+      "loyalty": null,
+      "rarity": "common",
+      "setCode": "clb",
+      "quantity": 1
+    },
+    {
+      "cardId": "0b1a84b6-4202-4413-80ed-4142c51e619a",
+      "name": "Jungle Shrine",
+      "manaCost": "",
+      "cmc": 0,
+      "typeLine": "Land",
+      "colors": [],
+      "colorIdentity": [
+        "G",
+        "R",
+        "W"
+      ],
+      "imageUri": "https://cards.scryfall.io/normal/front/0/b/0b1a84b6-4202-4413-80ed-4142c51e619a.jpg?1767731593",
+      "imageUriBack": null,
+      "power": null,
+      "toughness": null,
+      "loyalty": null,
+      "rarity": "uncommon",
+      "setCode": "ecc",
+      "quantity": 1
+    },
+    {
+      "cardId": "a249b1f4-2b22-4b67-a207-e0c4ae95d2e1",
+      "name": "Ketria Triome",
+      "manaCost": "",
+      "cmc": 0,
+      "typeLine": "Land — Forest Island Mountain",
+      "colors": [],
+      "colorIdentity": [
+        "G",
+        "R",
+        "U"
+      ],
+      "imageUri": "https://cards.scryfall.io/normal/front/a/2/a249b1f4-2b22-4b67-a207-e0c4ae95d2e1.jpg?1601241399",
+      "imageUriBack": null,
+      "power": null,
+      "toughness": null,
+      "loyalty": null,
+      "rarity": "rare",
+      "setCode": "iko",
+      "quantity": 1
+    },
+    {
+      "cardId": "a0e2098f-1d94-491a-a7e9-a45a9f69e3a8",
+      "name": "Myriad Landscape",
+      "manaCost": "",
+      "cmc": 0,
+      "typeLine": "Land",
+      "colors": [],
+      "colorIdentity": [],
+      "imageUri": "https://cards.scryfall.io/normal/front/a/0/a0e2098f-1d94-491a-a7e9-a45a9f69e3a8.jpg?1752945395",
+      "imageUriBack": null,
+      "power": null,
+      "toughness": null,
+      "loyalty": null,
+      "rarity": "uncommon",
+      "setCode": "eoc",
+      "quantity": 1
+    },
+    {
+      "cardId": "a68fbeaa-941f-4d53-becd-f93ed22b9a54",
+      "name": "Nomad Outpost",
+      "manaCost": "",
+      "cmc": 0,
+      "typeLine": "Land",
+      "colors": [],
+      "colorIdentity": [
+        "B",
+        "R",
+        "W"
+      ],
+      "imageUri": "https://cards.scryfall.io/normal/front/a/6/a68fbeaa-941f-4d53-becd-f93ed22b9a54.jpg?1743205041",
+      "imageUriBack": null,
+      "power": null,
+      "toughness": null,
+      "loyalty": null,
+      "rarity": "uncommon",
+      "setCode": "tdm",
+      "quantity": 1
+    },
+    {
+      "cardId": "f0001153-dbcb-44e5-99be-2c186c9b10b0",
+      "name": "Opulent Palace",
+      "manaCost": "",
+      "cmc": 0,
+      "typeLine": "Land",
+      "colors": [],
+      "colorIdentity": [
+        "B",
+        "G",
+        "U"
+      ],
+      "imageUri": "https://cards.scryfall.io/normal/front/f/0/f0001153-dbcb-44e5-99be-2c186c9b10b0.jpg?1767731607",
+      "imageUriBack": null,
+      "power": null,
+      "toughness": null,
+      "loyalty": null,
+      "rarity": "uncommon",
+      "setCode": "ecc",
+      "quantity": 1
+    },
+    {
+      "cardId": "9335e773-4b45-4b91-8140-5159fe7e0395",
+      "name": "Path of Ancestry",
+      "manaCost": "",
+      "cmc": 0,
+      "typeLine": "Land",
+      "colors": [],
+      "colorIdentity": [],
+      "imageUri": "https://cards.scryfall.io/normal/front/9/3/9335e773-4b45-4b91-8140-5159fe7e0395.jpg?1775942336",
+      "imageUriBack": null,
+      "power": null,
+      "toughness": null,
+      "loyalty": null,
+      "rarity": "common",
+      "setCode": "soc",
+      "quantity": 1
+    },
+    {
+      "cardId": "02138fbb-3962-4348-8d31-faaefba0b8b2",
+      "name": "Raugrin Triome",
+      "manaCost": "",
+      "cmc": 0,
+      "typeLine": "Land — Island Mountain Plains",
+      "colors": [],
+      "colorIdentity": [
+        "R",
+        "U",
+        "W"
+      ],
+      "imageUri": "https://cards.scryfall.io/normal/front/0/2/02138fbb-3962-4348-8d31-faaefba0b8b2.jpg?1591228666",
+      "imageUriBack": null,
+      "power": null,
+      "toughness": null,
+      "loyalty": null,
+      "rarity": "rare",
+      "setCode": "iko",
+      "quantity": 1
+    },
+    {
+      "cardId": "e7482def-e87e-4a7f-9c18-7859483b2a66",
+      "name": "Sandsteppe Citadel",
+      "manaCost": "",
+      "cmc": 0,
+      "typeLine": "Land",
+      "colors": [],
+      "colorIdentity": [
+        "B",
+        "G",
+        "W"
+      ],
+      "imageUri": "https://cards.scryfall.io/normal/front/e/7/e7482def-e87e-4a7f-9c18-7859483b2a66.jpg?1767731707",
+      "imageUriBack": null,
+      "power": null,
+      "toughness": null,
+      "loyalty": null,
+      "rarity": "uncommon",
+      "setCode": "ecc",
+      "quantity": 1
+    },
+    {
+      "cardId": "b681599f-aa7a-4b3a-a36a-dc6d70fd6a11",
+      "name": "Seaside Citadel",
+      "manaCost": "",
+      "cmc": 0,
+      "typeLine": "Land",
+      "colors": [],
+      "colorIdentity": [
+        "G",
+        "U",
+        "W"
+      ],
+      "imageUri": "https://cards.scryfall.io/normal/front/b/6/b681599f-aa7a-4b3a-a36a-dc6d70fd6a11.jpg?1767731671",
+      "imageUriBack": null,
+      "power": null,
+      "toughness": null,
+      "loyalty": null,
+      "rarity": "uncommon",
+      "setCode": "ecc",
+      "quantity": 1
+    },
+    {
+      "cardId": "f09d98db-0176-41a7-b99b-ead29876cdab",
+      "name": "Shimmerdrift Vale",
+      "manaCost": "",
+      "cmc": 0,
+      "typeLine": "Snow Land",
+      "colors": [],
+      "colorIdentity": [],
+      "imageUri": "https://cards.scryfall.io/normal/front/f/0/f09d98db-0176-41a7-b99b-ead29876cdab.jpg?1631053062",
+      "imageUriBack": null,
+      "power": null,
+      "toughness": null,
+      "loyalty": null,
+      "rarity": "common",
+      "setCode": "khm",
+      "quantity": 1
+    },
+    {
+      "cardId": "ca17acea-f079-4e53-8176-a2f5c5c408a1",
+      "name": "Snow-Covered Forest",
+      "manaCost": "",
+      "cmc": 0,
+      "typeLine": "Basic Snow Land — Forest",
+      "colors": [],
+      "colorIdentity": [
+        "G"
+      ],
+      "imageUri": "https://cards.scryfall.io/normal/front/c/a/ca17acea-f079-4e53-8176-a2f5c5c408a1.jpg?1723228318",
+      "imageUriBack": null,
+      "power": null,
+      "toughness": null,
+      "loyalty": null,
+      "rarity": "common",
+      "setCode": "khm",
+      "quantity": 1
+    },
+    {
+      "cardId": "3bfa5ebc-5623-4eec-89ea-dc187489ee4a",
+      "name": "Snow-Covered Island",
+      "manaCost": "",
+      "cmc": 0,
+      "typeLine": "Basic Snow Land — Island",
+      "colors": [],
+      "colorIdentity": [
+        "U"
+      ],
+      "imageUri": "https://cards.scryfall.io/normal/front/3/b/3bfa5ebc-5623-4eec-89ea-dc187489ee4a.jpg?1631053379",
+      "imageUriBack": null,
+      "power": null,
+      "toughness": null,
+      "loyalty": null,
+      "rarity": "common",
+      "setCode": "khm",
+      "quantity": 1
+    },
+    {
+      "cardId": "5474e67c-628f-41b0-aa31-3d85a267265a",
+      "name": "Snow-Covered Mountain",
+      "manaCost": "",
+      "cmc": 0,
+      "typeLine": "Basic Snow Land — Mountain",
+      "colors": [],
+      "colorIdentity": [
+        "R"
+      ],
+      "imageUri": "https://cards.scryfall.io/normal/front/5/4/5474e67c-628f-41b0-aa31-3d85a267265a.jpg?1631053480",
+      "imageUriBack": null,
+      "power": null,
+      "toughness": null,
+      "loyalty": null,
+      "rarity": "common",
+      "setCode": "khm",
+      "quantity": 2
+    },
+    {
+      "cardId": "afd2730f-878e-47ee-ad2a-73f8fa4e0794",
+      "name": "Snow-Covered Plains",
+      "manaCost": "",
+      "cmc": 0,
+      "typeLine": "Basic Snow Land — Plains",
+      "colors": [],
+      "colorIdentity": [
+        "W"
+      ],
+      "imageUri": "https://cards.scryfall.io/normal/front/a/f/afd2730f-878e-47ee-ad2a-73f8fa4e0794.jpg?1631053316",
+      "imageUriBack": null,
+      "power": null,
+      "toughness": null,
+      "loyalty": null,
+      "rarity": "common",
+      "setCode": "khm",
+      "quantity": 1
+    },
+    {
+      "cardId": "6aa85af8-15f5-4620-8aea-0b45c28372ed",
+      "name": "Snow-Covered Swamp",
+      "manaCost": "",
+      "cmc": 0,
+      "typeLine": "Basic Snow Land — Swamp",
+      "colors": [],
+      "colorIdentity": [
+        "B"
+      ],
+      "imageUri": "https://cards.scryfall.io/normal/front/6/a/6aa85af8-15f5-4620-8aea-0b45c28372ed.jpg?1631053431",
+      "imageUriBack": null,
+      "power": null,
+      "toughness": null,
+      "loyalty": null,
+      "rarity": "common",
+      "setCode": "khm",
+      "quantity": 1
+    },
+    {
+      "cardId": "91658f56-12c9-4173-94ad-dfd186b1dbae",
+      "name": "Temple of the Dragon Queen",
+      "manaCost": "",
+      "cmc": 0,
+      "typeLine": "Land",
+      "colors": [],
+      "colorIdentity": [],
+      "imageUri": "https://cards.scryfall.io/normal/front/9/1/91658f56-12c9-4173-94ad-dfd186b1dbae.jpg?1743511747",
+      "imageUriBack": null,
+      "power": null,
+      "toughness": null,
+      "loyalty": null,
+      "rarity": "uncommon",
+      "setCode": "tdc",
+      "quantity": 1
+    },
+    {
+      "cardId": "1024f555-e0d7-48ac-b86e-c87290eac832",
+      "name": "Temple of the False God",
+      "manaCost": "",
+      "cmc": 0,
+      "typeLine": "Land",
+      "colors": [],
+      "colorIdentity": [],
+      "imageUri": "https://cards.scryfall.io/normal/front/1/0/1024f555-e0d7-48ac-b86e-c87290eac832.jpg?1775942498",
+      "imageUriBack": null,
+      "power": null,
+      "toughness": null,
+      "loyalty": null,
+      "rarity": "uncommon",
+      "setCode": "soc",
+      "quantity": 1
+    },
+    {
+      "cardId": "9a4c5629-fadd-42b9-850f-9f8586a2ca50",
+      "name": "Terramorphic Expanse",
+      "manaCost": "",
+      "cmc": 0,
+      "typeLine": "Land",
+      "colors": [],
+      "colorIdentity": [],
+      "imageUri": "https://cards.scryfall.io/normal/front/9/a/9a4c5629-fadd-42b9-850f-9f8586a2ca50.jpg?1775938853",
+      "imageUriBack": null,
+      "power": null,
+      "toughness": null,
+      "loyalty": null,
+      "rarity": "common",
+      "setCode": "sos",
+      "quantity": 1
+    },
+    {
+      "cardId": "27906645-7d43-4c18-a20b-8d683069351e",
+      "name": "Tyrite Sanctum",
+      "manaCost": "",
+      "cmc": 0,
+      "typeLine": "Land",
+      "colors": [],
+      "colorIdentity": [],
+      "imageUri": "https://cards.scryfall.io/normal/front/2/7/27906645-7d43-4c18-a20b-8d683069351e.jpg?1690006779",
+      "imageUriBack": null,
+      "power": null,
+      "toughness": null,
+      "loyalty": null,
+      "rarity": "rare",
+      "setCode": "cmm",
+      "quantity": 1
+    },
+    {
+      "cardId": "7f5ad03d-77ae-4e06-96f2-4f03bdfbb226",
+      "name": "Unclaimed Territory",
+      "manaCost": "",
+      "cmc": 0,
+      "typeLine": "Land",
+      "colors": [],
+      "colorIdentity": [],
+      "imageUri": "https://cards.scryfall.io/normal/front/7/f/7f5ad03d-77ae-4e06-96f2-4f03bdfbb226.jpg?1767731751",
+      "imageUriBack": null,
+      "power": null,
+      "toughness": null,
+      "loyalty": null,
+      "rarity": "uncommon",
+      "setCode": "ecc",
+      "quantity": 1
+    },
+    {
+      "cardId": "8f203f04-bd73-4d88-bb5e-aab63507dbd1",
+      "name": "Vault of the Archangel",
+      "manaCost": "",
+      "cmc": 0,
+      "typeLine": "Land",
+      "colors": [],
+      "colorIdentity": [
+        "B",
+        "W"
+      ],
+      "imageUri": "https://cards.scryfall.io/normal/front/8/f/8f203f04-bd73-4d88-bb5e-aab63507dbd1.jpg?1743207804",
+      "imageUriBack": null,
+      "power": null,
+      "toughness": null,
+      "loyalty": null,
+      "rarity": "rare",
+      "setCode": "tdc",
+      "quantity": 1
+    }
+  ],
+  "version": 3,
+  "versions": [
+    {
+      "version": 1,
+      "timestamp": "2026-05-06T19:37:11.620Z",
+      "changelog": "Initial version",
+      "cards": [
+        {
+          "cardId": "10d42b35-844f-4a64-9981-c6118d45e826",
+          "name": "The Ur-Dragon",
+          "manaCost": "{4}{W}{U}{B}{R}{G}",
+          "cmc": 9,
+          "typeLine": "Legendary Creature — Dragon Avatar",
+          "colors": [
+            "B",
+            "G",
+            "R",
+            "U",
+            "W"
+          ],
+          "colorIdentity": [
+            "B",
+            "G",
+            "R",
+            "U",
+            "W"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/1/0/10d42b35-844f-4a64-9981-c6118d45e826.jpg?1689999317",
+          "imageUriBack": null,
+          "power": "10",
+          "toughness": "10",
+          "loyalty": null,
+          "rarity": "mythic",
+          "setCode": "cmm",
+          "quantity": 1
+        },
+        {
+          "cardId": "565b2a40-57b1-451f-8c2a-e02222502288",
+          "name": "Scion of the Ur-Dragon",
+          "manaCost": "{W}{U}{B}{R}{G}",
+          "cmc": 5,
+          "typeLine": "Legendary Creature — Dragon Avatar",
+          "colors": [
+            "B",
+            "G",
+            "R",
+            "U",
+            "W"
+          ],
+          "colorIdentity": [
+            "B",
+            "G",
+            "R",
+            "U",
+            "W"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/5/6/565b2a40-57b1-451f-8c2a-e02222502288.jpg?1562608891",
+          "imageUriBack": null,
+          "power": "4",
+          "toughness": "4",
+          "loyalty": null,
+          "rarity": "rare",
+          "setCode": "c17",
+          "quantity": 1
+        }
+      ]
+    },
+    {
+      "version": 2,
+      "timestamp": "2026-05-06T19:53:55.096Z",
+      "changelog": "Updated cards",
+      "cards": [
+        {
+          "cardId": "10d42b35-844f-4a64-9981-c6118d45e826",
+          "name": "The Ur-Dragon",
+          "manaCost": "{4}{W}{U}{B}{R}{G}",
+          "cmc": 9,
+          "typeLine": "Legendary Creature — Dragon Avatar",
+          "colors": [
+            "B",
+            "G",
+            "R",
+            "U",
+            "W"
+          ],
+          "colorIdentity": [
+            "B",
+            "G",
+            "R",
+            "U",
+            "W"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/1/0/10d42b35-844f-4a64-9981-c6118d45e826.jpg?1689999317",
+          "imageUriBack": null,
+          "power": "10",
+          "toughness": "10",
+          "loyalty": null,
+          "rarity": "mythic",
+          "setCode": "cmm",
+          "quantity": 1
+        },
+        {
+          "cardId": "565b2a40-57b1-451f-8c2a-e02222502288",
+          "name": "Scion of the Ur-Dragon",
+          "manaCost": "{W}{U}{B}{R}{G}",
+          "cmc": 5,
+          "typeLine": "Legendary Creature — Dragon Avatar",
+          "colors": [
+            "B",
+            "G",
+            "R",
+            "U",
+            "W"
+          ],
+          "colorIdentity": [
+            "B",
+            "G",
+            "R",
+            "U",
+            "W"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/5/6/565b2a40-57b1-451f-8c2a-e02222502288.jpg?1562608891",
+          "imageUriBack": null,
+          "power": "4",
+          "toughness": "4",
+          "loyalty": null,
+          "rarity": "rare",
+          "setCode": "c17",
+          "quantity": 1
+        },
+        {
+          "cardId": "192452f8-93c2-4a20-a52b-0093741a9e45",
+          "name": "Sarkhan Unbroken",
+          "manaCost": "{2}{G}{U}{R}",
+          "cmc": 5,
+          "typeLine": "Legendary Planeswalker — Sarkhan",
+          "colors": [
+            "G",
+            "R",
+            "U"
+          ],
+          "colorIdentity": [
+            "G",
+            "R",
+            "U"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/1/9/192452f8-93c2-4a20-a52b-0093741a9e45.jpg?1562783094",
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": "4",
+          "rarity": "mythic",
+          "setCode": "dtk",
+          "quantity": 1
+        },
+        {
+          "cardId": "9c017fa9-7021-417a-9c2e-3df409644fcf",
+          "name": "Ugin, the Spirit Dragon",
+          "manaCost": "{8}",
+          "cmc": 8,
+          "typeLine": "Legendary Planeswalker — Ugin",
+          "colors": [],
+          "colorIdentity": [],
+          "imageUri": "https://cards.scryfall.io/normal/front/9/c/9c017fa9-7021-417a-9c2e-3df409644fcf.jpg?1639052473",
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": "7",
+          "rarity": "mythic",
+          "setCode": "m21",
+          "quantity": 1
+        },
+        {
+          "cardId": "c569fab1-6901-40ab-b958-001698819585",
+          "name": "Atarka, World Render",
+          "manaCost": "{5}{R}{G}",
+          "cmc": 7,
+          "typeLine": "Legendary Creature — Dragon",
+          "colors": [
+            "G",
+            "R"
+          ],
+          "colorIdentity": [
+            "G",
+            "R"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/c/5/c569fab1-6901-40ab-b958-001698819585.jpg?1743207078",
+          "imageUriBack": null,
+          "power": "6",
+          "toughness": "4",
+          "loyalty": null,
+          "rarity": "rare",
+          "setCode": "tdc",
+          "quantity": 1
+        },
+        {
+          "cardId": "e4510ee2-8a2e-4fe5-94af-df420a6a35a0",
+          "name": "Balefire Dragon",
+          "manaCost": "{5}{R}{R}",
+          "cmc": 7,
+          "typeLine": "Creature — Dragon",
+          "colors": [
+            "R"
+          ],
+          "colorIdentity": [
+            "R"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/e/4/e4510ee2-8a2e-4fe5-94af-df420a6a35a0.jpg?1736551691",
+          "imageUriBack": null,
+          "power": "6",
+          "toughness": "6",
+          "loyalty": null,
+          "rarity": "mythic",
+          "setCode": "inr",
+          "quantity": 1
+        },
+        {
+          "cardId": "3d69a3e0-6a2e-475a-964e-0affed1c017d",
+          "name": "Birds of Paradise",
+          "manaCost": "{G}",
+          "cmc": 1,
+          "typeLine": "Creature — Bird",
+          "colors": [
+            "G"
+          ],
+          "colorIdentity": [
+            "G"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/3/d/3d69a3e0-6a2e-475a-964e-0affed1c017d.jpg?1722384747",
+          "imageUriBack": null,
+          "power": "0",
+          "toughness": "1",
+          "loyalty": null,
+          "rarity": "rare",
+          "setCode": "rvr",
+          "quantity": 1
+        },
+        {
+          "cardId": "27ce43cb-44f4-4d94-8700-d9f3cc043989",
+          "name": "Bladewing the Risen",
+          "manaCost": "{3}{B}{B}{R}{R}",
+          "cmc": 7,
+          "typeLine": "Legendary Creature — Zombie Dragon",
+          "colors": [
+            "B",
+            "R"
+          ],
+          "colorIdentity": [
+            "B",
+            "R"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/2/7/27ce43cb-44f4-4d94-8700-d9f3cc043989.jpg?1584897843",
+          "imageUriBack": null,
+          "power": "4",
+          "toughness": "4",
+          "loyalty": null,
+          "rarity": "uncommon",
+          "setCode": "ima",
+          "quantity": 1
+        },
+        {
+          "cardId": "4452d99e-23c2-408d-9eb8-ef31aefafa9d",
+          "name": "Dragonlord Dromoka",
+          "manaCost": "{4}{G}{W}",
+          "cmc": 6,
+          "typeLine": "Legendary Creature — Elder Dragon",
+          "colors": [
+            "G",
+            "W"
+          ],
+          "colorIdentity": [
+            "G",
+            "W"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/4/4/4452d99e-23c2-408d-9eb8-ef31aefafa9d.jpg?1743207113",
+          "imageUriBack": null,
+          "power": "5",
+          "toughness": "7",
+          "loyalty": null,
+          "rarity": "mythic",
+          "setCode": "tdc",
+          "quantity": 1
+        },
+        {
+          "cardId": "1cbf8933-32a1-4892-9bdc-89464ed9ce1b",
+          "name": "Dragonlord Kolaghan",
+          "manaCost": "{4}{B}{R}",
+          "cmc": 6,
+          "typeLine": "Legendary Creature — Elder Dragon",
+          "colors": [
+            "B",
+            "R"
+          ],
+          "colorIdentity": [
+            "B",
+            "R"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/1/c/1cbf8933-32a1-4892-9bdc-89464ed9ce1b.jpg?1774995208",
+          "imageUriBack": null,
+          "power": "6",
+          "toughness": "5",
+          "loyalty": null,
+          "rarity": "mythic",
+          "setCode": "dtk",
+          "quantity": 1
+        },
+        {
+          "cardId": "be6fa0dc-74e7-4fad-9bdd-8e986612577a",
+          "name": "Dragonlord's Servant",
+          "manaCost": "{1}{R}",
+          "cmc": 2,
+          "typeLine": "Creature — Goblin Shaman",
+          "colors": [
+            "R"
+          ],
+          "colorIdentity": [
+            "R"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/b/e/be6fa0dc-74e7-4fad-9bdd-8e986612577a.jpg?1743206645",
+          "imageUriBack": null,
+          "power": "1",
+          "toughness": "3",
+          "loyalty": null,
+          "rarity": "uncommon",
+          "setCode": "tdc",
+          "quantity": 1
+        },
+        {
+          "cardId": "7b0a2799-197e-4d61-ab23-67d974458a05",
+          "name": "Dragonspeaker Shaman",
+          "manaCost": "{1}{R}{R}",
+          "cmc": 3,
+          "typeLine": "Creature — Human Barbarian Shaman",
+          "colors": [
+            "R"
+          ],
+          "colorIdentity": [
+            "R"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/7/b/7b0a2799-197e-4d61-ab23-67d974458a05.jpg?1631590611",
+          "imageUriBack": null,
+          "power": "2",
+          "toughness": "2",
+          "loyalty": null,
+          "rarity": "uncommon",
+          "setCode": "afc",
+          "quantity": 1
+        },
+        {
+          "cardId": "9e9b40f5-3dd0-4607-a78d-b004d57fa4ea",
+          "name": "Drakuseth, Maw of Flames",
+          "manaCost": "{4}{R}{R}{R}",
+          "cmc": 7,
+          "typeLine": "Legendary Creature — Dragon",
+          "colors": [
+            "R"
+          ],
+          "colorIdentity": [
+            "R"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/9/e/9e9b40f5-3dd0-4607-a78d-b004d57fa4ea.jpg?1775600351",
+          "imageUriBack": null,
+          "power": "7",
+          "toughness": "7",
+          "loyalty": null,
+          "rarity": "rare",
+          "setCode": "fdn",
+          "quantity": 1
+        },
+        {
+          "cardId": "f6cd7465-9dd0-473c-ac5e-dd9e2f22f5f6",
+          "name": "Esika, God of the Tree // The Prismatic Bridge",
+          "manaCost": "{1}{G}{G}",
+          "cmc": 3,
+          "typeLine": "Legendary Creature — God // Legendary Enchantment",
+          "colors": [
+            "G"
+          ],
+          "colorIdentity": [
+            "B",
+            "G",
+            "R",
+            "U",
+            "W"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/f/6/f6cd7465-9dd0-473c-ac5e-dd9e2f22f5f6.jpg?1631050188",
+          "imageUriBack": "https://cards.scryfall.io/normal/back/f/6/f6cd7465-9dd0-473c-ac5e-dd9e2f22f5f6.jpg?1631050188",
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "rarity": "mythic",
+          "setCode": "khm",
+          "quantity": 1
+        },
+        {
+          "cardId": "848c1951-90fa-4f01-9aed-76f1afcd9995",
+          "name": "Goldspan Dragon",
+          "manaCost": "{3}{R}{R}",
+          "cmc": 5,
+          "typeLine": "Creature — Dragon",
+          "colors": [
+            "R"
+          ],
+          "colorIdentity": [
+            "R"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/8/4/848c1951-90fa-4f01-9aed-76f1afcd9995.jpg?1775941300",
+          "imageUriBack": null,
+          "power": "4",
+          "toughness": "4",
+          "loyalty": null,
+          "rarity": "mythic",
+          "setCode": "soc",
+          "quantity": 1
+        },
+        {
+          "cardId": "d33eca2e-fef0-42fd-9970-46d5bdb4bd4b",
+          "name": "Hellkite Courser",
+          "manaCost": "{4}{R}{R}",
+          "cmc": 6,
+          "typeLine": "Creature — Dragon",
+          "colors": [
+            "R"
+          ],
+          "colorIdentity": [
+            "R"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/d/3/d33eca2e-fef0-42fd-9970-46d5bdb4bd4b.jpg?1743206696",
+          "imageUriBack": null,
+          "power": "6",
+          "toughness": "5",
+          "loyalty": null,
+          "rarity": "mythic",
+          "setCode": "tdc",
+          "quantity": 1
+        },
+        {
+          "cardId": "a7cb4100-1696-4393-8f1f-634018e0b78f",
+          "name": "Hellkite Tyrant",
+          "manaCost": "{4}{R}{R}",
+          "cmc": 6,
+          "typeLine": "Creature — Dragon",
+          "colors": [
+            "R"
+          ],
+          "colorIdentity": [
+            "R"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/a/7/a7cb4100-1696-4393-8f1f-634018e0b78f.jpg?1733170320",
+          "imageUriBack": null,
+          "power": "6",
+          "toughness": "5",
+          "loyalty": null,
+          "rarity": "rare",
+          "setCode": "plst",
+          "quantity": 1
+        },
+        {
+          "cardId": "35517572-b5d4-4dbf-b090-4e4c4b040a0d",
+          "name": "Intet, the Dreamer",
+          "manaCost": "{3}{G}{U}{R}",
+          "cmc": 6,
+          "typeLine": "Legendary Creature — Dragon",
+          "colors": [
+            "G",
+            "R",
+            "U"
+          ],
+          "colorIdentity": [
+            "G",
+            "R",
+            "U"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/3/5/35517572-b5d4-4dbf-b090-4e4c4b040a0d.jpg?1673148766",
+          "imageUriBack": null,
+          "power": "6",
+          "toughness": "6",
+          "loyalty": null,
+          "rarity": "rare",
+          "setCode": "2x2",
+          "quantity": 1
+        },
+        {
+          "cardId": "2bfb85e8-278b-48a4-970e-e65bad1c4c47",
+          "name": "Karrthus, Tyrant of Jund",
+          "manaCost": "{4}{B}{R}{G}",
+          "cmc": 7,
+          "typeLine": "Legendary Creature — Dragon",
+          "colors": [
+            "B",
+            "G",
+            "R"
+          ],
+          "colorIdentity": [
+            "B",
+            "G",
+            "R"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/2/b/2bfb85e8-278b-48a4-970e-e65bad1c4c47.jpg?1599708104",
+          "imageUriBack": null,
+          "power": "7",
+          "toughness": "7",
+          "loyalty": null,
+          "rarity": "mythic",
+          "setCode": "2xm",
+          "quantity": 1
+        },
+        {
+          "cardId": "85b6ec91-0ecc-431c-bf85-220c615e0a80",
+          "name": "Kolaghan, the Storm's Fury",
+          "manaCost": "{3}{B}{R}",
+          "cmc": 5,
+          "typeLine": "Legendary Creature — Dragon",
+          "colors": [
+            "B",
+            "R"
+          ],
+          "colorIdentity": [
+            "B",
+            "R"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/8/5/85b6ec91-0ecc-431c-bf85-220c615e0a80.jpg?1562615351",
+          "imageUriBack": null,
+          "power": "4",
+          "toughness": "5",
+          "loyalty": null,
+          "rarity": "rare",
+          "setCode": "c17",
+          "quantity": 1
+        },
+        {
+          "cardId": "0cb48015-627b-49cd-8dc3-d446e82b8172",
+          "name": "Lathliss, Dragon Queen",
+          "manaCost": "{4}{R}{R}",
+          "cmc": 6,
+          "typeLine": "Legendary Creature — Dragon",
+          "colors": [
+            "R"
+          ],
+          "colorIdentity": [
+            "R"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/0/c/0cb48015-627b-49cd-8dc3-d446e82b8172.jpg?1743206700",
+          "imageUriBack": null,
+          "power": "6",
+          "toughness": "6",
+          "loyalty": null,
+          "rarity": "rare",
+          "setCode": "tdc",
+          "quantity": 1
+        },
+        {
+          "cardId": "84238335-e08c-421c-b9b9-70a679ff2967",
+          "name": "Morophon, the Boundless",
+          "manaCost": "{7}",
+          "cmc": 7,
+          "typeLine": "Legendary Creature — Shapeshifter",
+          "colors": [],
+          "colorIdentity": [
+            "B",
+            "G",
+            "R",
+            "U",
+            "W"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/8/4/84238335-e08c-421c-b9b9-70a679ff2967.jpg?1689995411",
+          "imageUriBack": null,
+          "power": "6",
+          "toughness": "6",
+          "loyalty": null,
+          "rarity": "mythic",
+          "setCode": "cmm",
+          "quantity": 1
+        },
+        {
+          "cardId": "7b215968-93a6-4278-ac61-4e3e8c3c3943",
+          "name": "Nicol Bolas, the Ravager // Nicol Bolas, the Arisen",
+          "manaCost": "{1}{U}{B}{R}",
+          "cmc": 4,
+          "typeLine": "Legendary Creature — Elder Dragon // Legendary Planeswalker — Bolas",
+          "colors": [
+            "B",
+            "R",
+            "U"
+          ],
+          "colorIdentity": [
+            "B",
+            "R",
+            "U"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/7/b/7b215968-93a6-4278-ac61-4e3e8c3c3943.jpg?1566971561",
+          "imageUriBack": "https://cards.scryfall.io/normal/back/7/b/7b215968-93a6-4278-ac61-4e3e8c3c3943.jpg?1566971561",
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "rarity": "mythic",
+          "setCode": "m19",
+          "quantity": 1
+        },
+        {
+          "cardId": "77ceba8b-de19-4db8-b5a7-f5df49bf241f",
+          "name": "Old Gnawbone",
+          "manaCost": "{5}{G}{G}",
+          "cmc": 7,
+          "typeLine": "Legendary Creature — Dragon",
+          "colors": [
+            "G"
+          ],
+          "colorIdentity": [
+            "G"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/7/7/77ceba8b-de19-4db8-b5a7-f5df49bf241f.jpg?1627708100",
+          "imageUriBack": null,
+          "power": "7",
+          "toughness": "7",
+          "loyalty": null,
+          "rarity": "mythic",
+          "setCode": "afr",
+          "quantity": 1
+        },
+        {
+          "cardId": "8f95f753-bbaa-4282-9cd9-f1737136fc9e",
+          "name": "Ramos, Dragon Engine",
+          "manaCost": "{6}",
+          "cmc": 6,
+          "typeLine": "Legendary Artifact Creature — Dragon",
+          "colors": [],
+          "colorIdentity": [
+            "B",
+            "G",
+            "R",
+            "U",
+            "W"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/8/f/8f95f753-bbaa-4282-9cd9-f1737136fc9e.jpg?1730491162",
+          "imageUriBack": null,
+          "power": "4",
+          "toughness": "4",
+          "loyalty": null,
+          "rarity": "mythic",
+          "setCode": "fdn",
+          "quantity": 1
+        },
+        {
+          "cardId": "50027d69-8bb0-444c-8e9b-4c9afd91cbda",
+          "name": "Savage Ventmaw",
+          "manaCost": "{4}{R}{G}",
+          "cmc": 6,
+          "typeLine": "Creature — Dragon",
+          "colors": [
+            "G",
+            "R"
+          ],
+          "colorIdentity": [
+            "G",
+            "R"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/5/0/50027d69-8bb0-444c-8e9b-4c9afd91cbda.jpg?1730491117",
+          "imageUriBack": null,
+          "power": "4",
+          "toughness": "4",
+          "loyalty": null,
+          "rarity": "uncommon",
+          "setCode": "fdn",
+          "quantity": 1
+        },
+        {
+          "cardId": "c91c3606-d037-4b97-a7b6-ab1ed09bc976",
+          "name": "Scalelord Reckoner",
+          "manaCost": "{3}{W}{W}",
+          "cmc": 5,
+          "typeLine": "Creature — Dragon",
+          "colors": [
+            "W"
+          ],
+          "colorIdentity": [
+            "W"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/c/9/c91c3606-d037-4b97-a7b6-ab1ed09bc976.jpg?1562623335",
+          "imageUriBack": null,
+          "power": "4",
+          "toughness": "4",
+          "loyalty": null,
+          "rarity": "rare",
+          "setCode": "c17",
+          "quantity": 1
+        },
+        {
+          "cardId": "e6bd7225-b39f-4b3b-8c36-dbc2c09f6e50",
+          "name": "Scourge of Valkas",
+          "manaCost": "{2}{R}{R}{R}",
+          "cmc": 5,
+          "typeLine": "Creature — Dragon",
+          "colors": [
+            "R"
+          ],
+          "colorIdentity": [
+            "R"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/e/6/e6bd7225-b39f-4b3b-8c36-dbc2c09f6e50.jpg?1631587429",
+          "imageUriBack": null,
+          "power": "4",
+          "toughness": "4",
+          "loyalty": null,
+          "rarity": "mythic",
+          "setCode": "afc",
+          "quantity": 1
+        },
+        {
+          "cardId": "cd44f295-c4c8-4f47-9d51-d5ba578f7f8d",
+          "name": "Scourge of the Throne",
+          "manaCost": "{4}{R}{R}",
+          "cmc": 6,
+          "typeLine": "Creature — Dragon",
+          "colors": [
+            "R"
+          ],
+          "colorIdentity": [
+            "R"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/c/d/cd44f295-c4c8-4f47-9d51-d5ba578f7f8d.jpg?1743206768",
+          "imageUriBack": null,
+          "power": "5",
+          "toughness": "5",
+          "loyalty": null,
+          "rarity": "rare",
+          "setCode": "tdc",
+          "quantity": 1
+        },
+        {
+          "cardId": "da6b530c-5a56-4dc1-8d36-6ed8d2c158a9",
+          "name": "Sunscorch Regent",
+          "manaCost": "{3}{W}{W}",
+          "cmc": 5,
+          "typeLine": "Creature — Dragon",
+          "colors": [
+            "W"
+          ],
+          "colorIdentity": [
+            "W"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/d/a/da6b530c-5a56-4dc1-8d36-6ed8d2c158a9.jpg?1682208635",
+          "imageUriBack": null,
+          "power": "4",
+          "toughness": "3",
+          "loyalty": null,
+          "rarity": "rare",
+          "setCode": "moc",
+          "quantity": 1
+        },
+        {
+          "cardId": "ab2b349a-1555-4aaa-8302-28667404e630",
+          "name": "Sylvia Brightspear",
+          "manaCost": "{2}{W}",
+          "cmc": 3,
+          "typeLine": "Legendary Creature — Human Knight",
+          "colors": [
+            "W"
+          ],
+          "colorIdentity": [
+            "W"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/a/b/ab2b349a-1555-4aaa-8302-28667404e630.jpg?1562929513",
+          "imageUriBack": null,
+          "power": "2",
+          "toughness": "2",
+          "loyalty": null,
+          "rarity": "rare",
+          "setCode": "bbd",
+          "quantity": 1
+        },
+        {
+          "cardId": "8caa7115-1b26-4615-842f-671b24dc96d8",
+          "name": "Teneb, the Harvester",
+          "manaCost": "{3}{W}{B}{G}",
+          "cmc": 6,
+          "typeLine": "Legendary Creature — Dragon",
+          "colors": [
+            "B",
+            "G",
+            "W"
+          ],
+          "colorIdentity": [
+            "B",
+            "G",
+            "W"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/8/c/8caa7115-1b26-4615-842f-671b24dc96d8.jpg?1673149181",
+          "imageUriBack": null,
+          "power": "6",
+          "toughness": "6",
+          "loyalty": null,
+          "rarity": "rare",
+          "setCode": "2x2",
+          "quantity": 1
+        },
+        {
+          "cardId": "904ff94a-4db4-44a6-8593-89c32905b3fc",
+          "name": "Terror of the Peaks",
+          "manaCost": "{3}{R}{R}",
+          "cmc": 5,
+          "typeLine": "Creature — Dragon",
+          "colors": [
+            "R"
+          ],
+          "colorIdentity": [
+            "R"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/9/0/904ff94a-4db4-44a6-8593-89c32905b3fc.jpg?1712355862",
+          "imageUriBack": null,
+          "power": "5",
+          "toughness": "4",
+          "loyalty": null,
+          "rarity": "mythic",
+          "setCode": "otj",
+          "quantity": 1
+        },
+        {
+          "cardId": "6dd0b9b0-55f4-4ce7-a916-6f23687f3fe4",
+          "name": "Tiamat",
+          "manaCost": "{2}{W}{U}{B}{R}{G}",
+          "cmc": 7,
+          "typeLine": "Legendary Creature — Dragon God",
+          "colors": [
+            "B",
+            "G",
+            "R",
+            "U",
+            "W"
+          ],
+          "colorIdentity": [
+            "B",
+            "G",
+            "R",
+            "U",
+            "W"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/6/d/6dd0b9b0-55f4-4ce7-a916-6f23687f3fe4.jpg?1627709478",
+          "imageUriBack": null,
+          "power": "7",
+          "toughness": "7",
+          "loyalty": null,
+          "rarity": "mythic",
+          "setCode": "afr",
+          "quantity": 1
+        },
+        {
+          "cardId": "df459109-d6ab-4b1d-9570-c7677ff4a014",
+          "name": "Utvara Hellkite",
+          "manaCost": "{6}{R}{R}",
+          "cmc": 8,
+          "typeLine": "Creature — Dragon",
+          "colors": [
+            "R"
+          ],
+          "colorIdentity": [
+            "R"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/d/f/df459109-d6ab-4b1d-9570-c7677ff4a014.jpg?1702429539",
+          "imageUriBack": null,
+          "power": "6",
+          "toughness": "6",
+          "loyalty": null,
+          "rarity": "mythic",
+          "setCode": "rvr",
+          "quantity": 1
+        },
+        {
+          "cardId": "7811dd72-61b9-4067-ac20-cea153e625d2",
+          "name": "Arcane Signet",
+          "manaCost": "{2}",
+          "cmc": 2,
+          "typeLine": "Artifact",
+          "colors": [],
+          "colorIdentity": [],
+          "imageUri": "https://cards.scryfall.io/normal/front/7/8/7811dd72-61b9-4067-ac20-cea153e625d2.jpg?1775940512",
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "rarity": "uncommon",
+          "setCode": "soc",
+          "quantity": 1
+        },
+        {
+          "cardId": "af3ae93e-6094-483d-b2c0-ae117ad01293",
+          "name": "Armillary Sphere",
+          "manaCost": "{2}",
+          "cmc": 2,
+          "typeLine": "Artifact",
+          "colors": [],
+          "colorIdentity": [],
+          "imageUri": "https://cards.scryfall.io/normal/front/a/f/af3ae93e-6094-483d-b2c0-ae117ad01293.jpg?1608911310",
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "rarity": "common",
+          "setCode": "cmr",
+          "quantity": 1
+        },
+        {
+          "cardId": "3af78d76-ad5c-44ba-880d-b834bcde5398",
+          "name": "Chromatic Orrery",
+          "manaCost": "{7}",
+          "cmc": 7,
+          "typeLine": "Legendary Artifact",
+          "colors": [],
+          "colorIdentity": [],
+          "imageUri": "https://cards.scryfall.io/normal/front/3/a/3af78d76-ad5c-44ba-880d-b834bcde5398.jpg?1594737470",
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "rarity": "mythic",
+          "setCode": "m21",
+          "quantity": 1
+        },
+        {
+          "cardId": "d2312a56-088f-42f9-9bd2-7b0b94935236",
+          "name": "Dragon Arch",
+          "manaCost": "{5}",
+          "cmc": 5,
+          "typeLine": "Artifact",
+          "colors": [],
+          "colorIdentity": [],
+          "imageUri": "https://cards.scryfall.io/normal/front/d/2/d2312a56-088f-42f9-9bd2-7b0b94935236.jpg?1673149361",
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "rarity": "uncommon",
+          "setCode": "2x2",
+          "quantity": 1
+        },
+        {
+          "cardId": "3ee80876-6e87-46c4-a6fd-ff6752db3032",
+          "name": "Dragon's Hoard",
+          "manaCost": "{3}",
+          "cmc": 3,
+          "typeLine": "Artifact",
+          "colors": [],
+          "colorIdentity": [],
+          "imageUri": "https://cards.scryfall.io/normal/front/3/e/3ee80876-6e87-46c4-a6fd-ff6752db3032.jpg?1743207302",
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "rarity": "rare",
+          "setCode": "tdc",
+          "quantity": 1
+        },
+        {
+          "cardId": "aa5e88f1-0ddf-45d7-bbd0-baa88d121867",
+          "name": "Gilded Lotus",
+          "manaCost": "{5}",
+          "cmc": 5,
+          "typeLine": "Artifact",
+          "colors": [],
+          "colorIdentity": [],
+          "imageUri": "https://cards.scryfall.io/normal/front/a/a/aa5e88f1-0ddf-45d7-bbd0-baa88d121867.jpg?1730572766",
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "rarity": "rare",
+          "setCode": "fdn",
+          "quantity": 1
+        },
+        {
+          "cardId": "4bfa71d4-4125-4404-9c24-979401bae592",
+          "name": "Herald's Horn",
+          "manaCost": "{3}",
+          "cmc": 3,
+          "typeLine": "Artifact",
+          "colors": [],
+          "colorIdentity": [],
+          "imageUri": "https://cards.scryfall.io/normal/front/4/b/4bfa71d4-4125-4404-9c24-979401bae592.jpg?1698988513",
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "rarity": "uncommon",
+          "setCode": "lcc",
+          "quantity": 1
+        },
+        {
+          "cardId": "08005be9-fbf4-43e6-a742-b1fb8196c4a5",
+          "name": "Lightning Greaves",
+          "manaCost": "{2}",
+          "cmc": 2,
+          "typeLine": "Artifact — Equipment",
+          "colors": [],
+          "colorIdentity": [],
+          "imageUri": "https://cards.scryfall.io/normal/front/0/8/08005be9-fbf4-43e6-a742-b1fb8196c4a5.jpg?1775942055",
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "rarity": "uncommon",
+          "setCode": "soc",
+          "quantity": 1
+        },
+        {
+          "cardId": "f85ab5f9-508e-45de-8fa1-ce1f16552ffc",
+          "name": "Lotus Petal",
+          "manaCost": "{0}",
+          "cmc": 0,
+          "typeLine": "Artifact",
+          "colors": [],
+          "colorIdentity": [],
+          "imageUri": "https://cards.scryfall.io/normal/front/f/8/f85ab5f9-508e-45de-8fa1-ce1f16552ffc.jpg?1701537448",
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "rarity": "uncommon",
+          "setCode": "tpr",
+          "quantity": 1
+        },
+        {
+          "cardId": "9a1c2cdd-353c-4747-bf0e-b995dd37ffca",
+          "name": "Orb of Dragonkind",
+          "manaCost": "{1}{R}",
+          "cmc": 2,
+          "typeLine": "Artifact",
+          "colors": [
+            "R"
+          ],
+          "colorIdentity": [
+            "R"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/9/a/9a1c2cdd-353c-4747-bf0e-b995dd37ffca.jpg?1627706657",
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "rarity": "rare",
+          "setCode": "afr",
+          "quantity": 1
+        },
+        {
+          "cardId": "870ec754-a76c-40ea-9b81-81b3dca1f62c",
+          "name": "Sol Ring",
+          "manaCost": "{1}",
+          "cmc": 1,
+          "typeLine": "Artifact",
+          "colors": [],
+          "colorIdentity": [],
+          "imageUri": "https://cards.scryfall.io/normal/front/8/7/870ec754-a76c-40ea-9b81-81b3dca1f62c.jpg?1775940518",
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "rarity": "uncommon",
+          "setCode": "soc",
+          "quantity": 1
+        },
+        {
+          "cardId": "c4589226-6072-409b-b598-ebd87f675a6a",
+          "name": "Urza's Incubator",
+          "manaCost": "{3}",
+          "cmc": 3,
+          "typeLine": "Artifact",
+          "colors": [],
+          "colorIdentity": [],
+          "imageUri": "https://cards.scryfall.io/normal/front/c/4/c4589226-6072-409b-b598-ebd87f675a6a.jpg?1717013804",
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "rarity": "rare",
+          "setCode": "mh3",
+          "quantity": 1
+        },
+        {
+          "cardId": "fc70e127-ffc8-45ed-9ca3-7f9f926ac4d5",
+          "name": "Generous Gift",
+          "manaCost": "{2}{W}",
+          "cmc": 3,
+          "typeLine": "Instant",
+          "colors": [
+            "W"
+          ],
+          "colorIdentity": [
+            "W"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/f/c/fc70e127-ffc8-45ed-9ca3-7f9f926ac4d5.jpg?1700321873",
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "rarity": "uncommon",
+          "setCode": "lcc",
+          "quantity": 1
+        },
+        {
+          "cardId": "e32c67d1-187f-40df-b3b3-6036f5c92834",
+          "name": "Heroic Intervention",
+          "manaCost": "{1}{G}",
+          "cmc": 2,
+          "typeLine": "Instant",
+          "colors": [
+            "G"
+          ],
+          "colorIdentity": [
+            "G"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/e/3/e32c67d1-187f-40df-b3b3-6036f5c92834.jpg?1689998584",
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "rarity": "rare",
+          "setCode": "cmm",
+          "quantity": 1
+        },
+        {
+          "cardId": "21f579c9-4b74-4461-8812-dcfd68fd2b97",
+          "name": "Terminate",
+          "manaCost": "{B}{R}",
+          "cmc": 2,
+          "typeLine": "Instant",
+          "colors": [
+            "B",
+            "R"
+          ],
+          "colorIdentity": [
+            "B",
+            "R"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/2/1/21f579c9-4b74-4461-8812-dcfd68fd2b97.jpg?1767731390",
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "rarity": "common",
+          "setCode": "ecc",
+          "quantity": 1
+        },
+        {
+          "cardId": "11721b88-2654-482c-b9d4-80e54efdbf63",
+          "name": "Crux of Fate",
+          "manaCost": "{3}{B}{B}",
+          "cmc": 5,
+          "typeLine": "Sorcery",
+          "colors": [
+            "B"
+          ],
+          "colorIdentity": [
+            "B"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/1/1/11721b88-2654-482c-b9d4-80e54efdbf63.jpg?1562600485",
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "rarity": "rare",
+          "setCode": "c17",
+          "quantity": 1
+        },
+        {
+          "cardId": "f1cc00f9-ae7b-4f7b-95f2-bc5c00e4bd72",
+          "name": "Cultivate",
+          "manaCost": "{2}{G}",
+          "cmc": 3,
+          "typeLine": "Sorcery",
+          "colors": [
+            "G"
+          ],
+          "colorIdentity": [
+            "G"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/f/1/f1cc00f9-ae7b-4f7b-95f2-bc5c00e4bd72.jpg?1775941453",
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "rarity": "common",
+          "setCode": "soc",
+          "quantity": 1
+        },
+        {
+          "cardId": "d650dd8c-edd8-44e4-ae95-aaaf84557a72",
+          "name": "Diabolic Tutor",
+          "manaCost": "{2}{B}{B}",
+          "cmc": 4,
+          "typeLine": "Sorcery",
+          "colors": [
+            "B"
+          ],
+          "colorIdentity": [
+            "B"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/d/6/d650dd8c-edd8-44e4-ae95-aaaf84557a72.jpg?1592672628",
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "rarity": "uncommon",
+          "setCode": "cma",
+          "quantity": 1
+        },
+        {
+          "cardId": "130ee895-1e5e-4f82-bb66-e1275bac75dd",
+          "name": "Doomskar",
+          "manaCost": "{3}{W}{W}",
+          "cmc": 5,
+          "typeLine": "Sorcery",
+          "colors": [
+            "W"
+          ],
+          "colorIdentity": [
+            "W"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/1/3/130ee895-1e5e-4f82-bb66-e1275bac75dd.jpg?1631045641",
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "rarity": "rare",
+          "setCode": "khm",
+          "quantity": 1
+        },
+        {
+          "cardId": "3a9fb2db-228f-4d48-acdf-6330baf356c7",
+          "name": "Eerie Ultimatum",
+          "manaCost": "{W}{W}{B}{B}{B}{G}{G}",
+          "cmc": 7,
+          "typeLine": "Sorcery",
+          "colors": [
+            "B",
+            "G",
+            "W"
+          ],
+          "colorIdentity": [
+            "B",
+            "G",
+            "W"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/3/a/3a9fb2db-228f-4d48-acdf-6330baf356c7.jpg?1591227996",
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "rarity": "rare",
+          "setCode": "iko",
+          "quantity": 1
+        },
+        {
+          "cardId": "90c423cc-1264-4067-9c50-e7c88c68ef2d",
+          "name": "Kodama's Reach",
+          "manaCost": "{2}{G}",
+          "cmc": 3,
+          "typeLine": "Sorcery — Arcane",
+          "colors": [
+            "G"
+          ],
+          "colorIdentity": [
+            "G"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/9/0/90c423cc-1264-4067-9c50-e7c88c68ef2d.jpg?1767731241",
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "rarity": "common",
+          "setCode": "ecc",
+          "quantity": 1
+        },
+        {
+          "cardId": "b65c215d-562d-4c7c-bc9f-b1d741050158",
+          "name": "Search for Glory",
+          "manaCost": "{2}{W}",
+          "cmc": 3,
+          "typeLine": "Snow Sorcery",
+          "colors": [
+            "W"
+          ],
+          "colorIdentity": [
+            "W"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/b/6/b65c215d-562d-4c7c-bc9f-b1d741050158.jpg?1631046197",
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "rarity": "rare",
+          "setCode": "khm",
+          "quantity": 1
+        },
+        {
+          "cardId": "d7a6f4dd-29c9-4084-a622-098b197a6eb7",
+          "name": "Crucible of Fire",
+          "manaCost": "{3}{R}",
+          "cmc": 4,
+          "typeLine": "Enchantment",
+          "colors": [
+            "R"
+          ],
+          "colorIdentity": [
+            "R"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/d/7/d7a6f4dd-29c9-4084-a622-098b197a6eb7.jpg?1562854632",
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "rarity": "rare",
+          "setCode": "ima",
+          "quantity": 1
+        },
+        {
+          "cardId": "39ac7ad0-e570-4209-988c-7c0f9b9d2004",
+          "name": "Dragon Tempest",
+          "manaCost": "{1}{R}",
+          "cmc": 2,
+          "typeLine": "Enchantment",
+          "colors": [
+            "R"
+          ],
+          "colorIdentity": [
+            "R"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/3/9/39ac7ad0-e570-4209-988c-7c0f9b9d2004.jpg?1743206048",
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "rarity": "uncommon",
+          "setCode": "tdc",
+          "quantity": 1
+        },
+        {
+          "cardId": "9952da7c-3cfc-413f-8849-0f10e9c8dceb",
+          "name": "Lurking Predators",
+          "manaCost": "{4}{G}{G}",
+          "cmc": 6,
+          "typeLine": "Enchantment",
+          "colors": [
+            "G"
+          ],
+          "colorIdentity": [
+            "G"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/9/9/9952da7c-3cfc-413f-8849-0f10e9c8dceb.jpg?1601079751",
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "rarity": "rare",
+          "setCode": "jmp",
+          "quantity": 1
+        },
+        {
+          "cardId": "ef4fa4e8-39e8-47a6-b975-ff5d46e59edd",
+          "name": "Mirari's Wake",
+          "manaCost": "{3}{G}{W}",
+          "cmc": 5,
+          "typeLine": "Enchantment",
+          "colors": [
+            "G",
+            "W"
+          ],
+          "colorIdentity": [
+            "G",
+            "W"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/e/f/ef4fa4e8-39e8-47a6-b975-ff5d46e59edd.jpg?1690005224",
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "rarity": "mythic",
+          "setCode": "cmm",
+          "quantity": 1
+        },
+        {
+          "cardId": "c2a6453e-a373-44ec-807a-15c0c8b1af57",
+          "name": "Rhythm of the Wild",
+          "manaCost": "{1}{R}{G}",
+          "cmc": 3,
+          "typeLine": "Enchantment",
+          "colors": [
+            "G",
+            "R"
+          ],
+          "colorIdentity": [
+            "G",
+            "R"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/c/2/c2a6453e-a373-44ec-807a-15c0c8b1af57.jpg?1702429702",
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "rarity": "uncommon",
+          "setCode": "rvr",
+          "quantity": 1
+        },
+        {
+          "cardId": "5cedb54a-a6f6-48aa-acdf-01c988c1c37d",
+          "name": "Temur Ascendancy",
+          "manaCost": "{G}{U}{R}",
+          "cmc": 3,
+          "typeLine": "Enchantment",
+          "colors": [
+            "G",
+            "R",
+            "U"
+          ],
+          "colorIdentity": [
+            "G",
+            "R",
+            "U"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/5/c/5cedb54a-a6f6-48aa-acdf-01c988c1c37d.jpg?1743207231",
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "rarity": "rare",
+          "setCode": "tdc",
+          "quantity": 1
+        },
+        {
+          "cardId": "33f64032-1e87-4d22-a211-c37e11ffa247",
+          "name": "Zendikar Resurgent",
+          "manaCost": "{5}{G}{G}",
+          "cmc": 7,
+          "typeLine": "Enchantment",
+          "colors": [
+            "G"
+          ],
+          "colorIdentity": [
+            "G"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/3/3/33f64032-1e87-4d22-a211-c37e11ffa247.jpg?1562604623",
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "rarity": "rare",
+          "setCode": "c17",
+          "quantity": 1
+        },
+        {
+          "cardId": "8702d6b9-bb01-4841-a76d-4a576066c772",
+          "name": "Alpine Meadow",
+          "manaCost": "",
+          "cmc": 0,
+          "typeLine": "Snow Land — Mountain Plains",
+          "colors": [],
+          "colorIdentity": [
+            "R",
+            "W"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/8/7/8702d6b9-bb01-4841-a76d-4a576066c772.jpg?1631052433",
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "rarity": "common",
+          "setCode": "khm",
+          "quantity": 1
+        },
+        {
+          "cardId": "c75eeb97-3249-4762-84b0-387f27fb255f",
+          "name": "Arcane Sanctum",
+          "manaCost": "",
+          "cmc": 0,
+          "typeLine": "Land",
+          "colors": [],
+          "colorIdentity": [
+            "B",
+            "U",
+            "W"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/c/7/c75eeb97-3249-4762-84b0-387f27fb255f.jpg?1726285349",
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "rarity": "uncommon",
+          "setCode": "dsc",
+          "quantity": 1
+        },
+        {
+          "cardId": "dc506497-4ecd-41d3-9042-f92f498251b0",
+          "name": "Bant Panorama",
+          "manaCost": "",
+          "cmc": 0,
+          "typeLine": "Land",
+          "colors": [],
+          "colorIdentity": [],
+          "imageUri": "https://cards.scryfall.io/normal/front/d/c/dc506497-4ecd-41d3-9042-f92f498251b0.jpg?1673485553",
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "rarity": "common",
+          "setCode": "ncc",
+          "quantity": 1
+        },
+        {
+          "cardId": "94e0ad38-31b3-46ba-9999-9b6ff57906ae",
+          "name": "Blighted Woodland",
+          "manaCost": "",
+          "cmc": 0,
+          "typeLine": "Land",
+          "colors": [],
+          "colorIdentity": [
+            "G"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/9/4/94e0ad38-31b3-46ba-9999-9b6ff57906ae.jpg?1674142793",
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "rarity": "uncommon",
+          "setCode": "clb",
+          "quantity": 1
+        },
+        {
+          "cardId": "c21565d0-fc40-4d89-9b27-87c03385e0af",
+          "name": "City of Brass",
+          "manaCost": "",
+          "cmc": 0,
+          "typeLine": "Land",
+          "colors": [],
+          "colorIdentity": [],
+          "imageUri": "https://cards.scryfall.io/normal/front/c/2/c21565d0-fc40-4d89-9b27-87c03385e0af.jpg?1771424563",
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "rarity": "rare",
+          "setCode": "tmc",
+          "quantity": 1
+        },
+        {
+          "cardId": "c46a217c-0ed2-4b3c-9a01-ee38d12d76f3",
+          "name": "Command Tower",
+          "manaCost": "",
+          "cmc": 0,
+          "typeLine": "Land",
+          "colors": [],
+          "colorIdentity": [],
+          "imageUri": "https://cards.scryfall.io/normal/front/c/4/c46a217c-0ed2-4b3c-9a01-ee38d12d76f3.jpg?1775940525",
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "rarity": "common",
+          "setCode": "soc",
+          "quantity": 1
+        },
+        {
+          "cardId": "257a5ae9-f754-4c45-a47d-5196f1b625b7",
+          "name": "Crucible of the Spirit Dragon",
+          "manaCost": "",
+          "cmc": 0,
+          "typeLine": "Land",
+          "colors": [],
+          "colorIdentity": [],
+          "imageUri": "https://cards.scryfall.io/normal/front/2/5/257a5ae9-f754-4c45-a47d-5196f1b625b7.jpg?1631589508",
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "rarity": "rare",
+          "setCode": "afc",
+          "quantity": 1
+        },
+        {
+          "cardId": "d3600e12-5633-42fd-b1cc-e90790a16b20",
+          "name": "Crumbling Necropolis",
+          "manaCost": "",
+          "cmc": 0,
+          "typeLine": "Land",
+          "colors": [],
+          "colorIdentity": [
+            "B",
+            "R",
+            "U"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/d/3/d3600e12-5633-42fd-b1cc-e90790a16b20.jpg?1698988567",
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "rarity": "uncommon",
+          "setCode": "lcc",
+          "quantity": 1
+        },
+        {
+          "cardId": "a30f5555-2fbe-4c88-9e4f-1f2e81ea6cfd",
+          "name": "Evolving Wilds",
+          "manaCost": "",
+          "cmc": 0,
+          "typeLine": "Land",
+          "colors": [],
+          "colorIdentity": [],
+          "imageUri": "https://cards.scryfall.io/normal/front/a/3/a30f5555-2fbe-4c88-9e4f-1f2e81ea6cfd.jpg?1771424582",
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "rarity": "common",
+          "setCode": "tmc",
+          "quantity": 1
+        },
+        {
+          "cardId": "7db2934a-43a0-46ad-8380-ff6703f8fd6d",
+          "name": "Exotic Orchard",
+          "manaCost": "",
+          "cmc": 0,
+          "typeLine": "Land",
+          "colors": [],
+          "colorIdentity": [],
+          "imageUri": "https://cards.scryfall.io/normal/front/7/d/7db2934a-43a0-46ad-8380-ff6703f8fd6d.jpg?1775942179",
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "rarity": "rare",
+          "setCode": "soc",
+          "quantity": 1
+        },
+        {
+          "cardId": "48810b27-0646-4ff9-9d4d-c6d09b2e0267",
+          "name": "Frontier Bivouac",
+          "manaCost": "",
+          "cmc": 0,
+          "typeLine": "Land",
+          "colors": [],
+          "colorIdentity": [
+            "G",
+            "R",
+            "U"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/4/8/48810b27-0646-4ff9-9d4d-c6d09b2e0267.jpg?1767731558",
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "rarity": "uncommon",
+          "setCode": "ecc",
+          "quantity": 1
+        },
+        {
+          "cardId": "32f1e668-89b8-4f82-afc1-6c3efb1fef3b",
+          "name": "Haunted Ridge",
+          "manaCost": "",
+          "cmc": 0,
+          "typeLine": "Land",
+          "colors": [],
+          "colorIdentity": [
+            "B",
+            "R"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/3/2/32f1e668-89b8-4f82-afc1-6c3efb1fef3b.jpg?1736468677",
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "rarity": "rare",
+          "setCode": "inr",
+          "quantity": 1
+        },
+        {
+          "cardId": "d0c552da-874e-49eb-b221-47220b8b7786",
+          "name": "Haven of the Spirit Dragon",
+          "manaCost": "",
+          "cmc": 0,
+          "typeLine": "Land",
+          "colors": [],
+          "colorIdentity": [],
+          "imageUri": "https://cards.scryfall.io/normal/front/d/0/d0c552da-874e-49eb-b221-47220b8b7786.jpg?1743207602",
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "rarity": "rare",
+          "setCode": "tdc",
+          "quantity": 1
+        },
+        {
+          "cardId": "59f64a32-c364-4750-94ed-d4d71c1a3511",
+          "name": "Highland Forest",
+          "manaCost": "",
+          "cmc": 0,
+          "typeLine": "Snow Land — Mountain Forest",
+          "colors": [],
+          "colorIdentity": [
+            "G",
+            "R"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/5/9/59f64a32-c364-4750-94ed-d4d71c1a3511.jpg?1676452616",
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "rarity": "common",
+          "setCode": "clb",
+          "quantity": 1
+        },
+        {
+          "cardId": "0b1a84b6-4202-4413-80ed-4142c51e619a",
+          "name": "Jungle Shrine",
+          "manaCost": "",
+          "cmc": 0,
+          "typeLine": "Land",
+          "colors": [],
+          "colorIdentity": [
+            "G",
+            "R",
+            "W"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/0/b/0b1a84b6-4202-4413-80ed-4142c51e619a.jpg?1767731593",
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "rarity": "uncommon",
+          "setCode": "ecc",
+          "quantity": 1
+        },
+        {
+          "cardId": "a249b1f4-2b22-4b67-a207-e0c4ae95d2e1",
+          "name": "Ketria Triome",
+          "manaCost": "",
+          "cmc": 0,
+          "typeLine": "Land — Forest Island Mountain",
+          "colors": [],
+          "colorIdentity": [
+            "G",
+            "R",
+            "U"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/a/2/a249b1f4-2b22-4b67-a207-e0c4ae95d2e1.jpg?1601241399",
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "rarity": "rare",
+          "setCode": "iko",
+          "quantity": 1
+        },
+        {
+          "cardId": "a0e2098f-1d94-491a-a7e9-a45a9f69e3a8",
+          "name": "Myriad Landscape",
+          "manaCost": "",
+          "cmc": 0,
+          "typeLine": "Land",
+          "colors": [],
+          "colorIdentity": [],
+          "imageUri": "https://cards.scryfall.io/normal/front/a/0/a0e2098f-1d94-491a-a7e9-a45a9f69e3a8.jpg?1752945395",
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "rarity": "uncommon",
+          "setCode": "eoc",
+          "quantity": 1
+        },
+        {
+          "cardId": "a68fbeaa-941f-4d53-becd-f93ed22b9a54",
+          "name": "Nomad Outpost",
+          "manaCost": "",
+          "cmc": 0,
+          "typeLine": "Land",
+          "colors": [],
+          "colorIdentity": [
+            "B",
+            "R",
+            "W"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/a/6/a68fbeaa-941f-4d53-becd-f93ed22b9a54.jpg?1743205041",
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "rarity": "uncommon",
+          "setCode": "tdm",
+          "quantity": 1
+        },
+        {
+          "cardId": "f0001153-dbcb-44e5-99be-2c186c9b10b0",
+          "name": "Opulent Palace",
+          "manaCost": "",
+          "cmc": 0,
+          "typeLine": "Land",
+          "colors": [],
+          "colorIdentity": [
+            "B",
+            "G",
+            "U"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/f/0/f0001153-dbcb-44e5-99be-2c186c9b10b0.jpg?1767731607",
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "rarity": "uncommon",
+          "setCode": "ecc",
+          "quantity": 1
+        },
+        {
+          "cardId": "9335e773-4b45-4b91-8140-5159fe7e0395",
+          "name": "Path of Ancestry",
+          "manaCost": "",
+          "cmc": 0,
+          "typeLine": "Land",
+          "colors": [],
+          "colorIdentity": [],
+          "imageUri": "https://cards.scryfall.io/normal/front/9/3/9335e773-4b45-4b91-8140-5159fe7e0395.jpg?1775942336",
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "rarity": "common",
+          "setCode": "soc",
+          "quantity": 1
+        },
+        {
+          "cardId": "02138fbb-3962-4348-8d31-faaefba0b8b2",
+          "name": "Raugrin Triome",
+          "manaCost": "",
+          "cmc": 0,
+          "typeLine": "Land — Island Mountain Plains",
+          "colors": [],
+          "colorIdentity": [
+            "R",
+            "U",
+            "W"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/0/2/02138fbb-3962-4348-8d31-faaefba0b8b2.jpg?1591228666",
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "rarity": "rare",
+          "setCode": "iko",
+          "quantity": 1
+        },
+        {
+          "cardId": "e7482def-e87e-4a7f-9c18-7859483b2a66",
+          "name": "Sandsteppe Citadel",
+          "manaCost": "",
+          "cmc": 0,
+          "typeLine": "Land",
+          "colors": [],
+          "colorIdentity": [
+            "B",
+            "G",
+            "W"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/e/7/e7482def-e87e-4a7f-9c18-7859483b2a66.jpg?1767731707",
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "rarity": "uncommon",
+          "setCode": "ecc",
+          "quantity": 1
+        },
+        {
+          "cardId": "b681599f-aa7a-4b3a-a36a-dc6d70fd6a11",
+          "name": "Seaside Citadel",
+          "manaCost": "",
+          "cmc": 0,
+          "typeLine": "Land",
+          "colors": [],
+          "colorIdentity": [
+            "G",
+            "U",
+            "W"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/b/6/b681599f-aa7a-4b3a-a36a-dc6d70fd6a11.jpg?1767731671",
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "rarity": "uncommon",
+          "setCode": "ecc",
+          "quantity": 1
+        },
+        {
+          "cardId": "f09d98db-0176-41a7-b99b-ead29876cdab",
+          "name": "Shimmerdrift Vale",
+          "manaCost": "",
+          "cmc": 0,
+          "typeLine": "Snow Land",
+          "colors": [],
+          "colorIdentity": [],
+          "imageUri": "https://cards.scryfall.io/normal/front/f/0/f09d98db-0176-41a7-b99b-ead29876cdab.jpg?1631053062",
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "rarity": "common",
+          "setCode": "khm",
+          "quantity": 1
+        },
+        {
+          "cardId": "ca17acea-f079-4e53-8176-a2f5c5c408a1",
+          "name": "Snow-Covered Forest",
+          "manaCost": "",
+          "cmc": 0,
+          "typeLine": "Basic Snow Land — Forest",
+          "colors": [],
+          "colorIdentity": [
+            "G"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/c/a/ca17acea-f079-4e53-8176-a2f5c5c408a1.jpg?1723228318",
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "rarity": "common",
+          "setCode": "khm",
+          "quantity": 1
+        },
+        {
+          "cardId": "3bfa5ebc-5623-4eec-89ea-dc187489ee4a",
+          "name": "Snow-Covered Island",
+          "manaCost": "",
+          "cmc": 0,
+          "typeLine": "Basic Snow Land — Island",
+          "colors": [],
+          "colorIdentity": [
+            "U"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/3/b/3bfa5ebc-5623-4eec-89ea-dc187489ee4a.jpg?1631053379",
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "rarity": "common",
+          "setCode": "khm",
+          "quantity": 1
+        },
+        {
+          "cardId": "5474e67c-628f-41b0-aa31-3d85a267265a",
+          "name": "Snow-Covered Mountain",
+          "manaCost": "",
+          "cmc": 0,
+          "typeLine": "Basic Snow Land — Mountain",
+          "colors": [],
+          "colorIdentity": [
+            "R"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/5/4/5474e67c-628f-41b0-aa31-3d85a267265a.jpg?1631053480",
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "rarity": "common",
+          "setCode": "khm",
+          "quantity": 2
+        },
+        {
+          "cardId": "afd2730f-878e-47ee-ad2a-73f8fa4e0794",
+          "name": "Snow-Covered Plains",
+          "manaCost": "",
+          "cmc": 0,
+          "typeLine": "Basic Snow Land — Plains",
+          "colors": [],
+          "colorIdentity": [
+            "W"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/a/f/afd2730f-878e-47ee-ad2a-73f8fa4e0794.jpg?1631053316",
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "rarity": "common",
+          "setCode": "khm",
+          "quantity": 1
+        },
+        {
+          "cardId": "6aa85af8-15f5-4620-8aea-0b45c28372ed",
+          "name": "Snow-Covered Swamp",
+          "manaCost": "",
+          "cmc": 0,
+          "typeLine": "Basic Snow Land — Swamp",
+          "colors": [],
+          "colorIdentity": [
+            "B"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/6/a/6aa85af8-15f5-4620-8aea-0b45c28372ed.jpg?1631053431",
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "rarity": "common",
+          "setCode": "khm",
+          "quantity": 1
+        },
+        {
+          "cardId": "91658f56-12c9-4173-94ad-dfd186b1dbae",
+          "name": "Temple of the Dragon Queen",
+          "manaCost": "",
+          "cmc": 0,
+          "typeLine": "Land",
+          "colors": [],
+          "colorIdentity": [],
+          "imageUri": "https://cards.scryfall.io/normal/front/9/1/91658f56-12c9-4173-94ad-dfd186b1dbae.jpg?1743511747",
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "rarity": "uncommon",
+          "setCode": "tdc",
+          "quantity": 1
+        },
+        {
+          "cardId": "1024f555-e0d7-48ac-b86e-c87290eac832",
+          "name": "Temple of the False God",
+          "manaCost": "",
+          "cmc": 0,
+          "typeLine": "Land",
+          "colors": [],
+          "colorIdentity": [],
+          "imageUri": "https://cards.scryfall.io/normal/front/1/0/1024f555-e0d7-48ac-b86e-c87290eac832.jpg?1775942498",
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "rarity": "uncommon",
+          "setCode": "soc",
+          "quantity": 1
+        },
+        {
+          "cardId": "9a4c5629-fadd-42b9-850f-9f8586a2ca50",
+          "name": "Terramorphic Expanse",
+          "manaCost": "",
+          "cmc": 0,
+          "typeLine": "Land",
+          "colors": [],
+          "colorIdentity": [],
+          "imageUri": "https://cards.scryfall.io/normal/front/9/a/9a4c5629-fadd-42b9-850f-9f8586a2ca50.jpg?1775938853",
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "rarity": "common",
+          "setCode": "sos",
+          "quantity": 1
+        },
+        {
+          "cardId": "27906645-7d43-4c18-a20b-8d683069351e",
+          "name": "Tyrite Sanctum",
+          "manaCost": "",
+          "cmc": 0,
+          "typeLine": "Land",
+          "colors": [],
+          "colorIdentity": [],
+          "imageUri": "https://cards.scryfall.io/normal/front/2/7/27906645-7d43-4c18-a20b-8d683069351e.jpg?1690006779",
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "rarity": "rare",
+          "setCode": "cmm",
+          "quantity": 1
+        },
+        {
+          "cardId": "7f5ad03d-77ae-4e06-96f2-4f03bdfbb226",
+          "name": "Unclaimed Territory",
+          "manaCost": "",
+          "cmc": 0,
+          "typeLine": "Land",
+          "colors": [],
+          "colorIdentity": [],
+          "imageUri": "https://cards.scryfall.io/normal/front/7/f/7f5ad03d-77ae-4e06-96f2-4f03bdfbb226.jpg?1767731751",
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "rarity": "uncommon",
+          "setCode": "ecc",
+          "quantity": 1
+        },
+        {
+          "cardId": "8f203f04-bd73-4d88-bb5e-aab63507dbd1",
+          "name": "Vault of the Archangel",
+          "manaCost": "",
+          "cmc": 0,
+          "typeLine": "Land",
+          "colors": [],
+          "colorIdentity": [
+            "B",
+            "W"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/8/f/8f203f04-bd73-4d88-bb5e-aab63507dbd1.jpg?1743207804",
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "rarity": "rare",
+          "setCode": "tdc",
+          "quantity": 1
+        }
+      ]
+    },
+    {
+      "version": 3,
+      "timestamp": "2026-05-06T21:07:58.170Z",
+      "changelog": "Updated cards",
+      "cards": [
+        {
+          "cardId": "10d42b35-844f-4a64-9981-c6118d45e826",
+          "name": "The Ur-Dragon",
+          "manaCost": "{4}{W}{U}{B}{R}{G}",
+          "cmc": 9,
+          "typeLine": "Legendary Creature — Dragon Avatar",
+          "colors": [
+            "B",
+            "G",
+            "R",
+            "U",
+            "W"
+          ],
+          "colorIdentity": [
+            "B",
+            "G",
+            "R",
+            "U",
+            "W"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/1/0/10d42b35-844f-4a64-9981-c6118d45e826.jpg?1689999317",
+          "imageUriBack": null,
+          "power": "10",
+          "toughness": "10",
+          "loyalty": null,
+          "rarity": "mythic",
+          "setCode": "cmm",
+          "quantity": 1
+        },
+        {
+          "cardId": "565b2a40-57b1-451f-8c2a-e02222502288",
+          "name": "Scion of the Ur-Dragon",
+          "manaCost": "{W}{U}{B}{R}{G}",
+          "cmc": 5,
+          "typeLine": "Legendary Creature — Dragon Avatar",
+          "colors": [
+            "B",
+            "G",
+            "R",
+            "U",
+            "W"
+          ],
+          "colorIdentity": [
+            "B",
+            "G",
+            "R",
+            "U",
+            "W"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/5/6/565b2a40-57b1-451f-8c2a-e02222502288.jpg?1562608891",
+          "imageUriBack": null,
+          "power": "4",
+          "toughness": "4",
+          "loyalty": null,
+          "rarity": "rare",
+          "setCode": "c17",
+          "quantity": 1
+        },
+        {
+          "cardId": "192452f8-93c2-4a20-a52b-0093741a9e45",
+          "name": "Sarkhan Unbroken",
+          "manaCost": "{2}{G}{U}{R}",
+          "cmc": 5,
+          "typeLine": "Legendary Planeswalker — Sarkhan",
+          "colors": [
+            "G",
+            "R",
+            "U"
+          ],
+          "colorIdentity": [
+            "G",
+            "R",
+            "U"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/1/9/192452f8-93c2-4a20-a52b-0093741a9e45.jpg?1562783094",
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": "4",
+          "rarity": "mythic",
+          "setCode": "dtk",
+          "quantity": 1
+        },
+        {
+          "cardId": "9c017fa9-7021-417a-9c2e-3df409644fcf",
+          "name": "Ugin, the Spirit Dragon",
+          "manaCost": "{8}",
+          "cmc": 8,
+          "typeLine": "Legendary Planeswalker — Ugin",
+          "colors": [],
+          "colorIdentity": [],
+          "imageUri": "https://cards.scryfall.io/normal/front/9/c/9c017fa9-7021-417a-9c2e-3df409644fcf.jpg?1639052473",
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": "7",
+          "rarity": "mythic",
+          "setCode": "m21",
+          "quantity": 1
+        },
+        {
+          "cardId": "c569fab1-6901-40ab-b958-001698819585",
+          "name": "Atarka, World Render",
+          "manaCost": "{5}{R}{G}",
+          "cmc": 7,
+          "typeLine": "Legendary Creature — Dragon",
+          "colors": [
+            "G",
+            "R"
+          ],
+          "colorIdentity": [
+            "G",
+            "R"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/c/5/c569fab1-6901-40ab-b958-001698819585.jpg?1743207078",
+          "imageUriBack": null,
+          "power": "6",
+          "toughness": "4",
+          "loyalty": null,
+          "rarity": "rare",
+          "setCode": "tdc",
+          "quantity": 1
+        },
+        {
+          "cardId": "e4510ee2-8a2e-4fe5-94af-df420a6a35a0",
+          "name": "Balefire Dragon",
+          "manaCost": "{5}{R}{R}",
+          "cmc": 7,
+          "typeLine": "Creature — Dragon",
+          "colors": [
+            "R"
+          ],
+          "colorIdentity": [
+            "R"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/e/4/e4510ee2-8a2e-4fe5-94af-df420a6a35a0.jpg?1736551691",
+          "imageUriBack": null,
+          "power": "6",
+          "toughness": "6",
+          "loyalty": null,
+          "rarity": "mythic",
+          "setCode": "inr",
+          "quantity": 1
+        },
+        {
+          "cardId": "3d69a3e0-6a2e-475a-964e-0affed1c017d",
+          "name": "Birds of Paradise",
+          "manaCost": "{G}",
+          "cmc": 1,
+          "typeLine": "Creature — Bird",
+          "colors": [
+            "G"
+          ],
+          "colorIdentity": [
+            "G"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/3/d/3d69a3e0-6a2e-475a-964e-0affed1c017d.jpg?1722384747",
+          "imageUriBack": null,
+          "power": "0",
+          "toughness": "1",
+          "loyalty": null,
+          "rarity": "rare",
+          "setCode": "rvr",
+          "quantity": 1
+        },
+        {
+          "cardId": "27ce43cb-44f4-4d94-8700-d9f3cc043989",
+          "name": "Bladewing the Risen",
+          "manaCost": "{3}{B}{B}{R}{R}",
+          "cmc": 7,
+          "typeLine": "Legendary Creature — Zombie Dragon",
+          "colors": [
+            "B",
+            "R"
+          ],
+          "colorIdentity": [
+            "B",
+            "R"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/2/7/27ce43cb-44f4-4d94-8700-d9f3cc043989.jpg?1584897843",
+          "imageUriBack": null,
+          "power": "4",
+          "toughness": "4",
+          "loyalty": null,
+          "rarity": "uncommon",
+          "setCode": "ima",
+          "quantity": 1
+        },
+        {
+          "cardId": "4452d99e-23c2-408d-9eb8-ef31aefafa9d",
+          "name": "Dragonlord Dromoka",
+          "manaCost": "{4}{G}{W}",
+          "cmc": 6,
+          "typeLine": "Legendary Creature — Elder Dragon",
+          "colors": [
+            "G",
+            "W"
+          ],
+          "colorIdentity": [
+            "G",
+            "W"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/4/4/4452d99e-23c2-408d-9eb8-ef31aefafa9d.jpg?1743207113",
+          "imageUriBack": null,
+          "power": "5",
+          "toughness": "7",
+          "loyalty": null,
+          "rarity": "mythic",
+          "setCode": "tdc",
+          "quantity": 1
+        },
+        {
+          "cardId": "1cbf8933-32a1-4892-9bdc-89464ed9ce1b",
+          "name": "Dragonlord Kolaghan",
+          "manaCost": "{4}{B}{R}",
+          "cmc": 6,
+          "typeLine": "Legendary Creature — Elder Dragon",
+          "colors": [
+            "B",
+            "R"
+          ],
+          "colorIdentity": [
+            "B",
+            "R"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/1/c/1cbf8933-32a1-4892-9bdc-89464ed9ce1b.jpg?1774995208",
+          "imageUriBack": null,
+          "power": "6",
+          "toughness": "5",
+          "loyalty": null,
+          "rarity": "mythic",
+          "setCode": "dtk",
+          "quantity": 1
+        },
+        {
+          "cardId": "be6fa0dc-74e7-4fad-9bdd-8e986612577a",
+          "name": "Dragonlord's Servant",
+          "manaCost": "{1}{R}",
+          "cmc": 2,
+          "typeLine": "Creature — Goblin Shaman",
+          "colors": [
+            "R"
+          ],
+          "colorIdentity": [
+            "R"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/b/e/be6fa0dc-74e7-4fad-9bdd-8e986612577a.jpg?1743206645",
+          "imageUriBack": null,
+          "power": "1",
+          "toughness": "3",
+          "loyalty": null,
+          "rarity": "uncommon",
+          "setCode": "tdc",
+          "quantity": 1
+        },
+        {
+          "cardId": "7b0a2799-197e-4d61-ab23-67d974458a05",
+          "name": "Dragonspeaker Shaman",
+          "manaCost": "{1}{R}{R}",
+          "cmc": 3,
+          "typeLine": "Creature — Human Barbarian Shaman",
+          "colors": [
+            "R"
+          ],
+          "colorIdentity": [
+            "R"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/7/b/7b0a2799-197e-4d61-ab23-67d974458a05.jpg?1631590611",
+          "imageUriBack": null,
+          "power": "2",
+          "toughness": "2",
+          "loyalty": null,
+          "rarity": "uncommon",
+          "setCode": "afc",
+          "quantity": 1
+        },
+        {
+          "cardId": "9e9b40f5-3dd0-4607-a78d-b004d57fa4ea",
+          "name": "Drakuseth, Maw of Flames",
+          "manaCost": "{4}{R}{R}{R}",
+          "cmc": 7,
+          "typeLine": "Legendary Creature — Dragon",
+          "colors": [
+            "R"
+          ],
+          "colorIdentity": [
+            "R"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/9/e/9e9b40f5-3dd0-4607-a78d-b004d57fa4ea.jpg?1775600351",
+          "imageUriBack": null,
+          "power": "7",
+          "toughness": "7",
+          "loyalty": null,
+          "rarity": "rare",
+          "setCode": "fdn",
+          "quantity": 1
+        },
+        {
+          "cardId": "f6cd7465-9dd0-473c-ac5e-dd9e2f22f5f6",
+          "name": "Esika, God of the Tree // The Prismatic Bridge",
+          "manaCost": "{1}{G}{G}",
+          "cmc": 3,
+          "typeLine": "Legendary Creature — God // Legendary Enchantment",
+          "colors": [
+            "G"
+          ],
+          "colorIdentity": [
+            "B",
+            "G",
+            "R",
+            "U",
+            "W"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/f/6/f6cd7465-9dd0-473c-ac5e-dd9e2f22f5f6.jpg?1631050188",
+          "imageUriBack": "https://cards.scryfall.io/normal/back/f/6/f6cd7465-9dd0-473c-ac5e-dd9e2f22f5f6.jpg?1631050188",
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "rarity": "mythic",
+          "setCode": "khm",
+          "quantity": 1
+        },
+        {
+          "cardId": "848c1951-90fa-4f01-9aed-76f1afcd9995",
+          "name": "Goldspan Dragon",
+          "manaCost": "{3}{R}{R}",
+          "cmc": 5,
+          "typeLine": "Creature — Dragon",
+          "colors": [
+            "R"
+          ],
+          "colorIdentity": [
+            "R"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/8/4/848c1951-90fa-4f01-9aed-76f1afcd9995.jpg?1775941300",
+          "imageUriBack": null,
+          "power": "4",
+          "toughness": "4",
+          "loyalty": null,
+          "rarity": "mythic",
+          "setCode": "soc",
+          "quantity": 1
+        },
+        {
+          "cardId": "d33eca2e-fef0-42fd-9970-46d5bdb4bd4b",
+          "name": "Hellkite Courser",
+          "manaCost": "{4}{R}{R}",
+          "cmc": 6,
+          "typeLine": "Creature — Dragon",
+          "colors": [
+            "R"
+          ],
+          "colorIdentity": [
+            "R"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/d/3/d33eca2e-fef0-42fd-9970-46d5bdb4bd4b.jpg?1743206696",
+          "imageUriBack": null,
+          "power": "6",
+          "toughness": "5",
+          "loyalty": null,
+          "rarity": "mythic",
+          "setCode": "tdc",
+          "quantity": 1
+        },
+        {
+          "cardId": "a7cb4100-1696-4393-8f1f-634018e0b78f",
+          "name": "Hellkite Tyrant",
+          "manaCost": "{4}{R}{R}",
+          "cmc": 6,
+          "typeLine": "Creature — Dragon",
+          "colors": [
+            "R"
+          ],
+          "colorIdentity": [
+            "R"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/a/7/a7cb4100-1696-4393-8f1f-634018e0b78f.jpg?1733170320",
+          "imageUriBack": null,
+          "power": "6",
+          "toughness": "5",
+          "loyalty": null,
+          "rarity": "rare",
+          "setCode": "plst",
+          "quantity": 1
+        },
+        {
+          "cardId": "35517572-b5d4-4dbf-b090-4e4c4b040a0d",
+          "name": "Intet, the Dreamer",
+          "manaCost": "{3}{G}{U}{R}",
+          "cmc": 6,
+          "typeLine": "Legendary Creature — Dragon",
+          "colors": [
+            "G",
+            "R",
+            "U"
+          ],
+          "colorIdentity": [
+            "G",
+            "R",
+            "U"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/3/5/35517572-b5d4-4dbf-b090-4e4c4b040a0d.jpg?1673148766",
+          "imageUriBack": null,
+          "power": "6",
+          "toughness": "6",
+          "loyalty": null,
+          "rarity": "rare",
+          "setCode": "2x2",
+          "quantity": 1
+        },
+        {
+          "cardId": "2bfb85e8-278b-48a4-970e-e65bad1c4c47",
+          "name": "Karrthus, Tyrant of Jund",
+          "manaCost": "{4}{B}{R}{G}",
+          "cmc": 7,
+          "typeLine": "Legendary Creature — Dragon",
+          "colors": [
+            "B",
+            "G",
+            "R"
+          ],
+          "colorIdentity": [
+            "B",
+            "G",
+            "R"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/2/b/2bfb85e8-278b-48a4-970e-e65bad1c4c47.jpg?1599708104",
+          "imageUriBack": null,
+          "power": "7",
+          "toughness": "7",
+          "loyalty": null,
+          "rarity": "mythic",
+          "setCode": "2xm",
+          "quantity": 1
+        },
+        {
+          "cardId": "85b6ec91-0ecc-431c-bf85-220c615e0a80",
+          "name": "Kolaghan, the Storm's Fury",
+          "manaCost": "{3}{B}{R}",
+          "cmc": 5,
+          "typeLine": "Legendary Creature — Dragon",
+          "colors": [
+            "B",
+            "R"
+          ],
+          "colorIdentity": [
+            "B",
+            "R"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/8/5/85b6ec91-0ecc-431c-bf85-220c615e0a80.jpg?1562615351",
+          "imageUriBack": null,
+          "power": "4",
+          "toughness": "5",
+          "loyalty": null,
+          "rarity": "rare",
+          "setCode": "c17",
+          "quantity": 1
+        },
+        {
+          "cardId": "0cb48015-627b-49cd-8dc3-d446e82b8172",
+          "name": "Lathliss, Dragon Queen",
+          "manaCost": "{4}{R}{R}",
+          "cmc": 6,
+          "typeLine": "Legendary Creature — Dragon",
+          "colors": [
+            "R"
+          ],
+          "colorIdentity": [
+            "R"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/0/c/0cb48015-627b-49cd-8dc3-d446e82b8172.jpg?1743206700",
+          "imageUriBack": null,
+          "power": "6",
+          "toughness": "6",
+          "loyalty": null,
+          "rarity": "rare",
+          "setCode": "tdc",
+          "quantity": 1
+        },
+        {
+          "cardId": "84238335-e08c-421c-b9b9-70a679ff2967",
+          "name": "Morophon, the Boundless",
+          "manaCost": "{7}",
+          "cmc": 7,
+          "typeLine": "Legendary Creature — Shapeshifter",
+          "colors": [],
+          "colorIdentity": [
+            "B",
+            "G",
+            "R",
+            "U",
+            "W"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/8/4/84238335-e08c-421c-b9b9-70a679ff2967.jpg?1689995411",
+          "imageUriBack": null,
+          "power": "6",
+          "toughness": "6",
+          "loyalty": null,
+          "rarity": "mythic",
+          "setCode": "cmm",
+          "quantity": 1
+        },
+        {
+          "cardId": "7b215968-93a6-4278-ac61-4e3e8c3c3943",
+          "name": "Nicol Bolas, the Ravager // Nicol Bolas, the Arisen",
+          "manaCost": "{1}{U}{B}{R}",
+          "cmc": 4,
+          "typeLine": "Legendary Creature — Elder Dragon // Legendary Planeswalker — Bolas",
+          "colors": [
+            "B",
+            "R",
+            "U"
+          ],
+          "colorIdentity": [
+            "B",
+            "R",
+            "U"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/7/b/7b215968-93a6-4278-ac61-4e3e8c3c3943.jpg?1566971561",
+          "imageUriBack": "https://cards.scryfall.io/normal/back/7/b/7b215968-93a6-4278-ac61-4e3e8c3c3943.jpg?1566971561",
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "rarity": "mythic",
+          "setCode": "m19",
+          "quantity": 1
+        },
+        {
+          "cardId": "77ceba8b-de19-4db8-b5a7-f5df49bf241f",
+          "name": "Old Gnawbone",
+          "manaCost": "{5}{G}{G}",
+          "cmc": 7,
+          "typeLine": "Legendary Creature — Dragon",
+          "colors": [
+            "G"
+          ],
+          "colorIdentity": [
+            "G"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/7/7/77ceba8b-de19-4db8-b5a7-f5df49bf241f.jpg?1627708100",
+          "imageUriBack": null,
+          "power": "7",
+          "toughness": "7",
+          "loyalty": null,
+          "rarity": "mythic",
+          "setCode": "afr",
+          "quantity": 1
+        },
+        {
+          "cardId": "8f95f753-bbaa-4282-9cd9-f1737136fc9e",
+          "name": "Ramos, Dragon Engine",
+          "manaCost": "{6}",
+          "cmc": 6,
+          "typeLine": "Legendary Artifact Creature — Dragon",
+          "colors": [],
+          "colorIdentity": [
+            "B",
+            "G",
+            "R",
+            "U",
+            "W"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/8/f/8f95f753-bbaa-4282-9cd9-f1737136fc9e.jpg?1730491162",
+          "imageUriBack": null,
+          "power": "4",
+          "toughness": "4",
+          "loyalty": null,
+          "rarity": "mythic",
+          "setCode": "fdn",
+          "quantity": 1
+        },
+        {
+          "cardId": "50027d69-8bb0-444c-8e9b-4c9afd91cbda",
+          "name": "Savage Ventmaw",
+          "manaCost": "{4}{R}{G}",
+          "cmc": 6,
+          "typeLine": "Creature — Dragon",
+          "colors": [
+            "G",
+            "R"
+          ],
+          "colorIdentity": [
+            "G",
+            "R"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/5/0/50027d69-8bb0-444c-8e9b-4c9afd91cbda.jpg?1730491117",
+          "imageUriBack": null,
+          "power": "4",
+          "toughness": "4",
+          "loyalty": null,
+          "rarity": "uncommon",
+          "setCode": "fdn",
+          "quantity": 1
+        },
+        {
+          "cardId": "c91c3606-d037-4b97-a7b6-ab1ed09bc976",
+          "name": "Scalelord Reckoner",
+          "manaCost": "{3}{W}{W}",
+          "cmc": 5,
+          "typeLine": "Creature — Dragon",
+          "colors": [
+            "W"
+          ],
+          "colorIdentity": [
+            "W"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/c/9/c91c3606-d037-4b97-a7b6-ab1ed09bc976.jpg?1562623335",
+          "imageUriBack": null,
+          "power": "4",
+          "toughness": "4",
+          "loyalty": null,
+          "rarity": "rare",
+          "setCode": "c17",
+          "quantity": 1
+        },
+        {
+          "cardId": "e6bd7225-b39f-4b3b-8c36-dbc2c09f6e50",
+          "name": "Scourge of Valkas",
+          "manaCost": "{2}{R}{R}{R}",
+          "cmc": 5,
+          "typeLine": "Creature — Dragon",
+          "colors": [
+            "R"
+          ],
+          "colorIdentity": [
+            "R"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/e/6/e6bd7225-b39f-4b3b-8c36-dbc2c09f6e50.jpg?1631587429",
+          "imageUriBack": null,
+          "power": "4",
+          "toughness": "4",
+          "loyalty": null,
+          "rarity": "mythic",
+          "setCode": "afc",
+          "quantity": 1
+        },
+        {
+          "cardId": "cd44f295-c4c8-4f47-9d51-d5ba578f7f8d",
+          "name": "Scourge of the Throne",
+          "manaCost": "{4}{R}{R}",
+          "cmc": 6,
+          "typeLine": "Creature — Dragon",
+          "colors": [
+            "R"
+          ],
+          "colorIdentity": [
+            "R"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/c/d/cd44f295-c4c8-4f47-9d51-d5ba578f7f8d.jpg?1743206768",
+          "imageUriBack": null,
+          "power": "5",
+          "toughness": "5",
+          "loyalty": null,
+          "rarity": "rare",
+          "setCode": "tdc",
+          "quantity": 1
+        },
+        {
+          "cardId": "da6b530c-5a56-4dc1-8d36-6ed8d2c158a9",
+          "name": "Sunscorch Regent",
+          "manaCost": "{3}{W}{W}",
+          "cmc": 5,
+          "typeLine": "Creature — Dragon",
+          "colors": [
+            "W"
+          ],
+          "colorIdentity": [
+            "W"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/d/a/da6b530c-5a56-4dc1-8d36-6ed8d2c158a9.jpg?1682208635",
+          "imageUriBack": null,
+          "power": "4",
+          "toughness": "3",
+          "loyalty": null,
+          "rarity": "rare",
+          "setCode": "moc",
+          "quantity": 1
+        },
+        {
+          "cardId": "ab2b349a-1555-4aaa-8302-28667404e630",
+          "name": "Sylvia Brightspear",
+          "manaCost": "{2}{W}",
+          "cmc": 3,
+          "typeLine": "Legendary Creature — Human Knight",
+          "colors": [
+            "W"
+          ],
+          "colorIdentity": [
+            "W"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/a/b/ab2b349a-1555-4aaa-8302-28667404e630.jpg?1562929513",
+          "imageUriBack": null,
+          "power": "2",
+          "toughness": "2",
+          "loyalty": null,
+          "rarity": "rare",
+          "setCode": "bbd",
+          "quantity": 1
+        },
+        {
+          "cardId": "8caa7115-1b26-4615-842f-671b24dc96d8",
+          "name": "Teneb, the Harvester",
+          "manaCost": "{3}{W}{B}{G}",
+          "cmc": 6,
+          "typeLine": "Legendary Creature — Dragon",
+          "colors": [
+            "B",
+            "G",
+            "W"
+          ],
+          "colorIdentity": [
+            "B",
+            "G",
+            "W"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/8/c/8caa7115-1b26-4615-842f-671b24dc96d8.jpg?1673149181",
+          "imageUriBack": null,
+          "power": "6",
+          "toughness": "6",
+          "loyalty": null,
+          "rarity": "rare",
+          "setCode": "2x2",
+          "quantity": 1
+        },
+        {
+          "cardId": "904ff94a-4db4-44a6-8593-89c32905b3fc",
+          "name": "Terror of the Peaks",
+          "manaCost": "{3}{R}{R}",
+          "cmc": 5,
+          "typeLine": "Creature — Dragon",
+          "colors": [
+            "R"
+          ],
+          "colorIdentity": [
+            "R"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/9/0/904ff94a-4db4-44a6-8593-89c32905b3fc.jpg?1712355862",
+          "imageUriBack": null,
+          "power": "5",
+          "toughness": "4",
+          "loyalty": null,
+          "rarity": "mythic",
+          "setCode": "otj",
+          "quantity": 1
+        },
+        {
+          "cardId": "6dd0b9b0-55f4-4ce7-a916-6f23687f3fe4",
+          "name": "Tiamat",
+          "manaCost": "{2}{W}{U}{B}{R}{G}",
+          "cmc": 7,
+          "typeLine": "Legendary Creature — Dragon God",
+          "colors": [
+            "B",
+            "G",
+            "R",
+            "U",
+            "W"
+          ],
+          "colorIdentity": [
+            "B",
+            "G",
+            "R",
+            "U",
+            "W"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/6/d/6dd0b9b0-55f4-4ce7-a916-6f23687f3fe4.jpg?1627709478",
+          "imageUriBack": null,
+          "power": "7",
+          "toughness": "7",
+          "loyalty": null,
+          "rarity": "mythic",
+          "setCode": "afr",
+          "quantity": 1
+        },
+        {
+          "cardId": "df459109-d6ab-4b1d-9570-c7677ff4a014",
+          "name": "Utvara Hellkite",
+          "manaCost": "{6}{R}{R}",
+          "cmc": 8,
+          "typeLine": "Creature — Dragon",
+          "colors": [
+            "R"
+          ],
+          "colorIdentity": [
+            "R"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/d/f/df459109-d6ab-4b1d-9570-c7677ff4a014.jpg?1702429539",
+          "imageUriBack": null,
+          "power": "6",
+          "toughness": "6",
+          "loyalty": null,
+          "rarity": "mythic",
+          "setCode": "rvr",
+          "quantity": 1
+        },
+        {
+          "cardId": "7811dd72-61b9-4067-ac20-cea153e625d2",
+          "name": "Arcane Signet",
+          "manaCost": "{2}",
+          "cmc": 2,
+          "typeLine": "Artifact",
+          "colors": [],
+          "colorIdentity": [],
+          "imageUri": "https://cards.scryfall.io/normal/front/7/8/7811dd72-61b9-4067-ac20-cea153e625d2.jpg?1775940512",
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "rarity": "uncommon",
+          "setCode": "soc",
+          "quantity": 1
+        },
+        {
+          "cardId": "af3ae93e-6094-483d-b2c0-ae117ad01293",
+          "name": "Armillary Sphere",
+          "manaCost": "{2}",
+          "cmc": 2,
+          "typeLine": "Artifact",
+          "colors": [],
+          "colorIdentity": [],
+          "imageUri": "https://cards.scryfall.io/normal/front/a/f/af3ae93e-6094-483d-b2c0-ae117ad01293.jpg?1608911310",
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "rarity": "common",
+          "setCode": "cmr",
+          "quantity": 1
+        },
+        {
+          "cardId": "3af78d76-ad5c-44ba-880d-b834bcde5398",
+          "name": "Chromatic Orrery",
+          "manaCost": "{7}",
+          "cmc": 7,
+          "typeLine": "Legendary Artifact",
+          "colors": [],
+          "colorIdentity": [],
+          "imageUri": "https://cards.scryfall.io/normal/front/3/a/3af78d76-ad5c-44ba-880d-b834bcde5398.jpg?1594737470",
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "rarity": "mythic",
+          "setCode": "m21",
+          "quantity": 1
+        },
+        {
+          "cardId": "d2312a56-088f-42f9-9bd2-7b0b94935236",
+          "name": "Dragon Arch",
+          "manaCost": "{5}",
+          "cmc": 5,
+          "typeLine": "Artifact",
+          "colors": [],
+          "colorIdentity": [],
+          "imageUri": "https://cards.scryfall.io/normal/front/d/2/d2312a56-088f-42f9-9bd2-7b0b94935236.jpg?1673149361",
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "rarity": "uncommon",
+          "setCode": "2x2",
+          "quantity": 1
+        },
+        {
+          "cardId": "3ee80876-6e87-46c4-a6fd-ff6752db3032",
+          "name": "Dragon's Hoard",
+          "manaCost": "{3}",
+          "cmc": 3,
+          "typeLine": "Artifact",
+          "colors": [],
+          "colorIdentity": [],
+          "imageUri": "https://cards.scryfall.io/normal/front/3/e/3ee80876-6e87-46c4-a6fd-ff6752db3032.jpg?1743207302",
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "rarity": "rare",
+          "setCode": "tdc",
+          "quantity": 1
+        },
+        {
+          "cardId": "aa5e88f1-0ddf-45d7-bbd0-baa88d121867",
+          "name": "Gilded Lotus",
+          "manaCost": "{5}",
+          "cmc": 5,
+          "typeLine": "Artifact",
+          "colors": [],
+          "colorIdentity": [],
+          "imageUri": "https://cards.scryfall.io/normal/front/a/a/aa5e88f1-0ddf-45d7-bbd0-baa88d121867.jpg?1730572766",
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "rarity": "rare",
+          "setCode": "fdn",
+          "quantity": 1
+        },
+        {
+          "cardId": "4bfa71d4-4125-4404-9c24-979401bae592",
+          "name": "Herald's Horn",
+          "manaCost": "{3}",
+          "cmc": 3,
+          "typeLine": "Artifact",
+          "colors": [],
+          "colorIdentity": [],
+          "imageUri": "https://cards.scryfall.io/normal/front/4/b/4bfa71d4-4125-4404-9c24-979401bae592.jpg?1698988513",
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "rarity": "uncommon",
+          "setCode": "lcc",
+          "quantity": 1
+        },
+        {
+          "cardId": "08005be9-fbf4-43e6-a742-b1fb8196c4a5",
+          "name": "Lightning Greaves",
+          "manaCost": "{2}",
+          "cmc": 2,
+          "typeLine": "Artifact — Equipment",
+          "colors": [],
+          "colorIdentity": [],
+          "imageUri": "https://cards.scryfall.io/normal/front/0/8/08005be9-fbf4-43e6-a742-b1fb8196c4a5.jpg?1775942055",
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "rarity": "uncommon",
+          "setCode": "soc",
+          "quantity": 1
+        },
+        {
+          "cardId": "f85ab5f9-508e-45de-8fa1-ce1f16552ffc",
+          "name": "Lotus Petal",
+          "manaCost": "{0}",
+          "cmc": 0,
+          "typeLine": "Artifact",
+          "colors": [],
+          "colorIdentity": [],
+          "imageUri": "https://cards.scryfall.io/normal/front/f/8/f85ab5f9-508e-45de-8fa1-ce1f16552ffc.jpg?1701537448",
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "rarity": "uncommon",
+          "setCode": "tpr",
+          "quantity": 1
+        },
+        {
+          "cardId": "9a1c2cdd-353c-4747-bf0e-b995dd37ffca",
+          "name": "Orb of Dragonkind",
+          "manaCost": "{1}{R}",
+          "cmc": 2,
+          "typeLine": "Artifact",
+          "colors": [
+            "R"
+          ],
+          "colorIdentity": [
+            "R"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/9/a/9a1c2cdd-353c-4747-bf0e-b995dd37ffca.jpg?1627706657",
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "rarity": "rare",
+          "setCode": "afr",
+          "quantity": 1
+        },
+        {
+          "cardId": "870ec754-a76c-40ea-9b81-81b3dca1f62c",
+          "name": "Sol Ring",
+          "manaCost": "{1}",
+          "cmc": 1,
+          "typeLine": "Artifact",
+          "colors": [],
+          "colorIdentity": [],
+          "imageUri": "https://cards.scryfall.io/normal/front/8/7/870ec754-a76c-40ea-9b81-81b3dca1f62c.jpg?1775940518",
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "rarity": "uncommon",
+          "setCode": "soc",
+          "quantity": 1
+        },
+        {
+          "cardId": "c4589226-6072-409b-b598-ebd87f675a6a",
+          "name": "Urza's Incubator",
+          "manaCost": "{3}",
+          "cmc": 3,
+          "typeLine": "Artifact",
+          "colors": [],
+          "colorIdentity": [],
+          "imageUri": "https://cards.scryfall.io/normal/front/c/4/c4589226-6072-409b-b598-ebd87f675a6a.jpg?1717013804",
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "rarity": "rare",
+          "setCode": "mh3",
+          "quantity": 1
+        },
+        {
+          "cardId": "fc70e127-ffc8-45ed-9ca3-7f9f926ac4d5",
+          "name": "Generous Gift",
+          "manaCost": "{2}{W}",
+          "cmc": 3,
+          "typeLine": "Instant",
+          "colors": [
+            "W"
+          ],
+          "colorIdentity": [
+            "W"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/f/c/fc70e127-ffc8-45ed-9ca3-7f9f926ac4d5.jpg?1700321873",
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "rarity": "uncommon",
+          "setCode": "lcc",
+          "quantity": 1
+        },
+        {
+          "cardId": "e32c67d1-187f-40df-b3b3-6036f5c92834",
+          "name": "Heroic Intervention",
+          "manaCost": "{1}{G}",
+          "cmc": 2,
+          "typeLine": "Instant",
+          "colors": [
+            "G"
+          ],
+          "colorIdentity": [
+            "G"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/e/3/e32c67d1-187f-40df-b3b3-6036f5c92834.jpg?1689998584",
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "rarity": "rare",
+          "setCode": "cmm",
+          "quantity": 1
+        },
+        {
+          "cardId": "21f579c9-4b74-4461-8812-dcfd68fd2b97",
+          "name": "Terminate",
+          "manaCost": "{B}{R}",
+          "cmc": 2,
+          "typeLine": "Instant",
+          "colors": [
+            "B",
+            "R"
+          ],
+          "colorIdentity": [
+            "B",
+            "R"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/2/1/21f579c9-4b74-4461-8812-dcfd68fd2b97.jpg?1767731390",
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "rarity": "common",
+          "setCode": "ecc",
+          "quantity": 1
+        },
+        {
+          "cardId": "11721b88-2654-482c-b9d4-80e54efdbf63",
+          "name": "Crux of Fate",
+          "manaCost": "{3}{B}{B}",
+          "cmc": 5,
+          "typeLine": "Sorcery",
+          "colors": [
+            "B"
+          ],
+          "colorIdentity": [
+            "B"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/1/1/11721b88-2654-482c-b9d4-80e54efdbf63.jpg?1562600485",
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "rarity": "rare",
+          "setCode": "c17",
+          "quantity": 1
+        },
+        {
+          "cardId": "f1cc00f9-ae7b-4f7b-95f2-bc5c00e4bd72",
+          "name": "Cultivate",
+          "manaCost": "{2}{G}",
+          "cmc": 3,
+          "typeLine": "Sorcery",
+          "colors": [
+            "G"
+          ],
+          "colorIdentity": [
+            "G"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/f/1/f1cc00f9-ae7b-4f7b-95f2-bc5c00e4bd72.jpg?1775941453",
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "rarity": "common",
+          "setCode": "soc",
+          "quantity": 1
+        },
+        {
+          "cardId": "d650dd8c-edd8-44e4-ae95-aaaf84557a72",
+          "name": "Diabolic Tutor",
+          "manaCost": "{2}{B}{B}",
+          "cmc": 4,
+          "typeLine": "Sorcery",
+          "colors": [
+            "B"
+          ],
+          "colorIdentity": [
+            "B"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/d/6/d650dd8c-edd8-44e4-ae95-aaaf84557a72.jpg?1592672628",
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "rarity": "uncommon",
+          "setCode": "cma",
+          "quantity": 1
+        },
+        {
+          "cardId": "130ee895-1e5e-4f82-bb66-e1275bac75dd",
+          "name": "Doomskar",
+          "manaCost": "{3}{W}{W}",
+          "cmc": 5,
+          "typeLine": "Sorcery",
+          "colors": [
+            "W"
+          ],
+          "colorIdentity": [
+            "W"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/1/3/130ee895-1e5e-4f82-bb66-e1275bac75dd.jpg?1631045641",
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "rarity": "rare",
+          "setCode": "khm",
+          "quantity": 1
+        },
+        {
+          "cardId": "3a9fb2db-228f-4d48-acdf-6330baf356c7",
+          "name": "Eerie Ultimatum",
+          "manaCost": "{W}{W}{B}{B}{B}{G}{G}",
+          "cmc": 7,
+          "typeLine": "Sorcery",
+          "colors": [
+            "B",
+            "G",
+            "W"
+          ],
+          "colorIdentity": [
+            "B",
+            "G",
+            "W"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/3/a/3a9fb2db-228f-4d48-acdf-6330baf356c7.jpg?1591227996",
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "rarity": "rare",
+          "setCode": "iko",
+          "quantity": 1
+        },
+        {
+          "cardId": "90c423cc-1264-4067-9c50-e7c88c68ef2d",
+          "name": "Kodama's Reach",
+          "manaCost": "{2}{G}",
+          "cmc": 3,
+          "typeLine": "Sorcery — Arcane",
+          "colors": [
+            "G"
+          ],
+          "colorIdentity": [
+            "G"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/9/0/90c423cc-1264-4067-9c50-e7c88c68ef2d.jpg?1767731241",
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "rarity": "common",
+          "setCode": "ecc",
+          "quantity": 1
+        },
+        {
+          "cardId": "b65c215d-562d-4c7c-bc9f-b1d741050158",
+          "name": "Search for Glory",
+          "manaCost": "{2}{W}",
+          "cmc": 3,
+          "typeLine": "Snow Sorcery",
+          "colors": [
+            "W"
+          ],
+          "colorIdentity": [
+            "W"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/b/6/b65c215d-562d-4c7c-bc9f-b1d741050158.jpg?1631046197",
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "rarity": "rare",
+          "setCode": "khm",
+          "quantity": 1
+        },
+        {
+          "cardId": "d7a6f4dd-29c9-4084-a622-098b197a6eb7",
+          "name": "Crucible of Fire",
+          "manaCost": "{3}{R}",
+          "cmc": 4,
+          "typeLine": "Enchantment",
+          "colors": [
+            "R"
+          ],
+          "colorIdentity": [
+            "R"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/d/7/d7a6f4dd-29c9-4084-a622-098b197a6eb7.jpg?1562854632",
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "rarity": "rare",
+          "setCode": "ima",
+          "quantity": 1
+        },
+        {
+          "cardId": "39ac7ad0-e570-4209-988c-7c0f9b9d2004",
+          "name": "Dragon Tempest",
+          "manaCost": "{1}{R}",
+          "cmc": 2,
+          "typeLine": "Enchantment",
+          "colors": [
+            "R"
+          ],
+          "colorIdentity": [
+            "R"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/3/9/39ac7ad0-e570-4209-988c-7c0f9b9d2004.jpg?1743206048",
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "rarity": "uncommon",
+          "setCode": "tdc",
+          "quantity": 1
+        },
+        {
+          "cardId": "9952da7c-3cfc-413f-8849-0f10e9c8dceb",
+          "name": "Lurking Predators",
+          "manaCost": "{4}{G}{G}",
+          "cmc": 6,
+          "typeLine": "Enchantment",
+          "colors": [
+            "G"
+          ],
+          "colorIdentity": [
+            "G"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/9/9/9952da7c-3cfc-413f-8849-0f10e9c8dceb.jpg?1601079751",
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "rarity": "rare",
+          "setCode": "jmp",
+          "quantity": 1
+        },
+        {
+          "cardId": "ef4fa4e8-39e8-47a6-b975-ff5d46e59edd",
+          "name": "Mirari's Wake",
+          "manaCost": "{3}{G}{W}",
+          "cmc": 5,
+          "typeLine": "Enchantment",
+          "colors": [
+            "G",
+            "W"
+          ],
+          "colorIdentity": [
+            "G",
+            "W"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/e/f/ef4fa4e8-39e8-47a6-b975-ff5d46e59edd.jpg?1690005224",
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "rarity": "mythic",
+          "setCode": "cmm",
+          "quantity": 1
+        },
+        {
+          "cardId": "c2a6453e-a373-44ec-807a-15c0c8b1af57",
+          "name": "Rhythm of the Wild",
+          "manaCost": "{1}{R}{G}",
+          "cmc": 3,
+          "typeLine": "Enchantment",
+          "colors": [
+            "G",
+            "R"
+          ],
+          "colorIdentity": [
+            "G",
+            "R"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/c/2/c2a6453e-a373-44ec-807a-15c0c8b1af57.jpg?1702429702",
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "rarity": "uncommon",
+          "setCode": "rvr",
+          "quantity": 1
+        },
+        {
+          "cardId": "5cedb54a-a6f6-48aa-acdf-01c988c1c37d",
+          "name": "Temur Ascendancy",
+          "manaCost": "{G}{U}{R}",
+          "cmc": 3,
+          "typeLine": "Enchantment",
+          "colors": [
+            "G",
+            "R",
+            "U"
+          ],
+          "colorIdentity": [
+            "G",
+            "R",
+            "U"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/5/c/5cedb54a-a6f6-48aa-acdf-01c988c1c37d.jpg?1743207231",
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "rarity": "rare",
+          "setCode": "tdc",
+          "quantity": 1
+        },
+        {
+          "cardId": "33f64032-1e87-4d22-a211-c37e11ffa247",
+          "name": "Zendikar Resurgent",
+          "manaCost": "{5}{G}{G}",
+          "cmc": 7,
+          "typeLine": "Enchantment",
+          "colors": [
+            "G"
+          ],
+          "colorIdentity": [
+            "G"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/3/3/33f64032-1e87-4d22-a211-c37e11ffa247.jpg?1562604623",
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "rarity": "rare",
+          "setCode": "c17",
+          "quantity": 1
+        },
+        {
+          "cardId": "8702d6b9-bb01-4841-a76d-4a576066c772",
+          "name": "Alpine Meadow",
+          "manaCost": "",
+          "cmc": 0,
+          "typeLine": "Snow Land — Mountain Plains",
+          "colors": [],
+          "colorIdentity": [
+            "R",
+            "W"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/8/7/8702d6b9-bb01-4841-a76d-4a576066c772.jpg?1631052433",
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "rarity": "common",
+          "setCode": "khm",
+          "quantity": 1
+        },
+        {
+          "cardId": "c75eeb97-3249-4762-84b0-387f27fb255f",
+          "name": "Arcane Sanctum",
+          "manaCost": "",
+          "cmc": 0,
+          "typeLine": "Land",
+          "colors": [],
+          "colorIdentity": [
+            "B",
+            "U",
+            "W"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/c/7/c75eeb97-3249-4762-84b0-387f27fb255f.jpg?1726285349",
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "rarity": "uncommon",
+          "setCode": "dsc",
+          "quantity": 1
+        },
+        {
+          "cardId": "dc506497-4ecd-41d3-9042-f92f498251b0",
+          "name": "Bant Panorama",
+          "manaCost": "",
+          "cmc": 0,
+          "typeLine": "Land",
+          "colors": [],
+          "colorIdentity": [],
+          "imageUri": "https://cards.scryfall.io/normal/front/d/c/dc506497-4ecd-41d3-9042-f92f498251b0.jpg?1673485553",
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "rarity": "common",
+          "setCode": "ncc",
+          "quantity": 1
+        },
+        {
+          "cardId": "94e0ad38-31b3-46ba-9999-9b6ff57906ae",
+          "name": "Blighted Woodland",
+          "manaCost": "",
+          "cmc": 0,
+          "typeLine": "Land",
+          "colors": [],
+          "colorIdentity": [
+            "G"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/9/4/94e0ad38-31b3-46ba-9999-9b6ff57906ae.jpg?1674142793",
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "rarity": "uncommon",
+          "setCode": "clb",
+          "quantity": 1
+        },
+        {
+          "cardId": "c21565d0-fc40-4d89-9b27-87c03385e0af",
+          "name": "City of Brass",
+          "manaCost": "",
+          "cmc": 0,
+          "typeLine": "Land",
+          "colors": [],
+          "colorIdentity": [],
+          "imageUri": "https://cards.scryfall.io/normal/front/c/2/c21565d0-fc40-4d89-9b27-87c03385e0af.jpg?1771424563",
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "rarity": "rare",
+          "setCode": "tmc",
+          "quantity": 1
+        },
+        {
+          "cardId": "c46a217c-0ed2-4b3c-9a01-ee38d12d76f3",
+          "name": "Command Tower",
+          "manaCost": "",
+          "cmc": 0,
+          "typeLine": "Land",
+          "colors": [],
+          "colorIdentity": [],
+          "imageUri": "https://cards.scryfall.io/normal/front/c/4/c46a217c-0ed2-4b3c-9a01-ee38d12d76f3.jpg?1775940525",
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "rarity": "common",
+          "setCode": "soc",
+          "quantity": 1
+        },
+        {
+          "cardId": "257a5ae9-f754-4c45-a47d-5196f1b625b7",
+          "name": "Crucible of the Spirit Dragon",
+          "manaCost": "",
+          "cmc": 0,
+          "typeLine": "Land",
+          "colors": [],
+          "colorIdentity": [],
+          "imageUri": "https://cards.scryfall.io/normal/front/2/5/257a5ae9-f754-4c45-a47d-5196f1b625b7.jpg?1631589508",
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "rarity": "rare",
+          "setCode": "afc",
+          "quantity": 1
+        },
+        {
+          "cardId": "d3600e12-5633-42fd-b1cc-e90790a16b20",
+          "name": "Crumbling Necropolis",
+          "manaCost": "",
+          "cmc": 0,
+          "typeLine": "Land",
+          "colors": [],
+          "colorIdentity": [
+            "B",
+            "R",
+            "U"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/d/3/d3600e12-5633-42fd-b1cc-e90790a16b20.jpg?1698988567",
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "rarity": "uncommon",
+          "setCode": "lcc",
+          "quantity": 1
+        },
+        {
+          "cardId": "a30f5555-2fbe-4c88-9e4f-1f2e81ea6cfd",
+          "name": "Evolving Wilds",
+          "manaCost": "",
+          "cmc": 0,
+          "typeLine": "Land",
+          "colors": [],
+          "colorIdentity": [],
+          "imageUri": "https://cards.scryfall.io/normal/front/a/3/a30f5555-2fbe-4c88-9e4f-1f2e81ea6cfd.jpg?1771424582",
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "rarity": "common",
+          "setCode": "tmc",
+          "quantity": 1
+        },
+        {
+          "cardId": "7db2934a-43a0-46ad-8380-ff6703f8fd6d",
+          "name": "Exotic Orchard",
+          "manaCost": "",
+          "cmc": 0,
+          "typeLine": "Land",
+          "colors": [],
+          "colorIdentity": [],
+          "imageUri": "https://cards.scryfall.io/normal/front/7/d/7db2934a-43a0-46ad-8380-ff6703f8fd6d.jpg?1775942179",
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "rarity": "rare",
+          "setCode": "soc",
+          "quantity": 1
+        },
+        {
+          "cardId": "48810b27-0646-4ff9-9d4d-c6d09b2e0267",
+          "name": "Frontier Bivouac",
+          "manaCost": "",
+          "cmc": 0,
+          "typeLine": "Land",
+          "colors": [],
+          "colorIdentity": [
+            "G",
+            "R",
+            "U"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/4/8/48810b27-0646-4ff9-9d4d-c6d09b2e0267.jpg?1767731558",
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "rarity": "uncommon",
+          "setCode": "ecc",
+          "quantity": 1
+        },
+        {
+          "cardId": "32f1e668-89b8-4f82-afc1-6c3efb1fef3b",
+          "name": "Haunted Ridge",
+          "manaCost": "",
+          "cmc": 0,
+          "typeLine": "Land",
+          "colors": [],
+          "colorIdentity": [
+            "B",
+            "R"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/3/2/32f1e668-89b8-4f82-afc1-6c3efb1fef3b.jpg?1736468677",
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "rarity": "rare",
+          "setCode": "inr",
+          "quantity": 1
+        },
+        {
+          "cardId": "d0c552da-874e-49eb-b221-47220b8b7786",
+          "name": "Haven of the Spirit Dragon",
+          "manaCost": "",
+          "cmc": 0,
+          "typeLine": "Land",
+          "colors": [],
+          "colorIdentity": [],
+          "imageUri": "https://cards.scryfall.io/normal/front/d/0/d0c552da-874e-49eb-b221-47220b8b7786.jpg?1743207602",
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "rarity": "rare",
+          "setCode": "tdc",
+          "quantity": 1
+        },
+        {
+          "cardId": "59f64a32-c364-4750-94ed-d4d71c1a3511",
+          "name": "Highland Forest",
+          "manaCost": "",
+          "cmc": 0,
+          "typeLine": "Snow Land — Mountain Forest",
+          "colors": [],
+          "colorIdentity": [
+            "G",
+            "R"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/5/9/59f64a32-c364-4750-94ed-d4d71c1a3511.jpg?1676452616",
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "rarity": "common",
+          "setCode": "clb",
+          "quantity": 1
+        },
+        {
+          "cardId": "0b1a84b6-4202-4413-80ed-4142c51e619a",
+          "name": "Jungle Shrine",
+          "manaCost": "",
+          "cmc": 0,
+          "typeLine": "Land",
+          "colors": [],
+          "colorIdentity": [
+            "G",
+            "R",
+            "W"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/0/b/0b1a84b6-4202-4413-80ed-4142c51e619a.jpg?1767731593",
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "rarity": "uncommon",
+          "setCode": "ecc",
+          "quantity": 1
+        },
+        {
+          "cardId": "a249b1f4-2b22-4b67-a207-e0c4ae95d2e1",
+          "name": "Ketria Triome",
+          "manaCost": "",
+          "cmc": 0,
+          "typeLine": "Land — Forest Island Mountain",
+          "colors": [],
+          "colorIdentity": [
+            "G",
+            "R",
+            "U"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/a/2/a249b1f4-2b22-4b67-a207-e0c4ae95d2e1.jpg?1601241399",
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "rarity": "rare",
+          "setCode": "iko",
+          "quantity": 1
+        },
+        {
+          "cardId": "a0e2098f-1d94-491a-a7e9-a45a9f69e3a8",
+          "name": "Myriad Landscape",
+          "manaCost": "",
+          "cmc": 0,
+          "typeLine": "Land",
+          "colors": [],
+          "colorIdentity": [],
+          "imageUri": "https://cards.scryfall.io/normal/front/a/0/a0e2098f-1d94-491a-a7e9-a45a9f69e3a8.jpg?1752945395",
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "rarity": "uncommon",
+          "setCode": "eoc",
+          "quantity": 1
+        },
+        {
+          "cardId": "a68fbeaa-941f-4d53-becd-f93ed22b9a54",
+          "name": "Nomad Outpost",
+          "manaCost": "",
+          "cmc": 0,
+          "typeLine": "Land",
+          "colors": [],
+          "colorIdentity": [
+            "B",
+            "R",
+            "W"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/a/6/a68fbeaa-941f-4d53-becd-f93ed22b9a54.jpg?1743205041",
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "rarity": "uncommon",
+          "setCode": "tdm",
+          "quantity": 1
+        },
+        {
+          "cardId": "f0001153-dbcb-44e5-99be-2c186c9b10b0",
+          "name": "Opulent Palace",
+          "manaCost": "",
+          "cmc": 0,
+          "typeLine": "Land",
+          "colors": [],
+          "colorIdentity": [
+            "B",
+            "G",
+            "U"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/f/0/f0001153-dbcb-44e5-99be-2c186c9b10b0.jpg?1767731607",
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "rarity": "uncommon",
+          "setCode": "ecc",
+          "quantity": 1
+        },
+        {
+          "cardId": "9335e773-4b45-4b91-8140-5159fe7e0395",
+          "name": "Path of Ancestry",
+          "manaCost": "",
+          "cmc": 0,
+          "typeLine": "Land",
+          "colors": [],
+          "colorIdentity": [],
+          "imageUri": "https://cards.scryfall.io/normal/front/9/3/9335e773-4b45-4b91-8140-5159fe7e0395.jpg?1775942336",
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "rarity": "common",
+          "setCode": "soc",
+          "quantity": 1
+        },
+        {
+          "cardId": "02138fbb-3962-4348-8d31-faaefba0b8b2",
+          "name": "Raugrin Triome",
+          "manaCost": "",
+          "cmc": 0,
+          "typeLine": "Land — Island Mountain Plains",
+          "colors": [],
+          "colorIdentity": [
+            "R",
+            "U",
+            "W"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/0/2/02138fbb-3962-4348-8d31-faaefba0b8b2.jpg?1591228666",
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "rarity": "rare",
+          "setCode": "iko",
+          "quantity": 1
+        },
+        {
+          "cardId": "e7482def-e87e-4a7f-9c18-7859483b2a66",
+          "name": "Sandsteppe Citadel",
+          "manaCost": "",
+          "cmc": 0,
+          "typeLine": "Land",
+          "colors": [],
+          "colorIdentity": [
+            "B",
+            "G",
+            "W"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/e/7/e7482def-e87e-4a7f-9c18-7859483b2a66.jpg?1767731707",
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "rarity": "uncommon",
+          "setCode": "ecc",
+          "quantity": 1
+        },
+        {
+          "cardId": "b681599f-aa7a-4b3a-a36a-dc6d70fd6a11",
+          "name": "Seaside Citadel",
+          "manaCost": "",
+          "cmc": 0,
+          "typeLine": "Land",
+          "colors": [],
+          "colorIdentity": [
+            "G",
+            "U",
+            "W"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/b/6/b681599f-aa7a-4b3a-a36a-dc6d70fd6a11.jpg?1767731671",
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "rarity": "uncommon",
+          "setCode": "ecc",
+          "quantity": 1
+        },
+        {
+          "cardId": "f09d98db-0176-41a7-b99b-ead29876cdab",
+          "name": "Shimmerdrift Vale",
+          "manaCost": "",
+          "cmc": 0,
+          "typeLine": "Snow Land",
+          "colors": [],
+          "colorIdentity": [],
+          "imageUri": "https://cards.scryfall.io/normal/front/f/0/f09d98db-0176-41a7-b99b-ead29876cdab.jpg?1631053062",
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "rarity": "common",
+          "setCode": "khm",
+          "quantity": 1
+        },
+        {
+          "cardId": "ca17acea-f079-4e53-8176-a2f5c5c408a1",
+          "name": "Snow-Covered Forest",
+          "manaCost": "",
+          "cmc": 0,
+          "typeLine": "Basic Snow Land — Forest",
+          "colors": [],
+          "colorIdentity": [
+            "G"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/c/a/ca17acea-f079-4e53-8176-a2f5c5c408a1.jpg?1723228318",
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "rarity": "common",
+          "setCode": "khm",
+          "quantity": 1
+        },
+        {
+          "cardId": "3bfa5ebc-5623-4eec-89ea-dc187489ee4a",
+          "name": "Snow-Covered Island",
+          "manaCost": "",
+          "cmc": 0,
+          "typeLine": "Basic Snow Land — Island",
+          "colors": [],
+          "colorIdentity": [
+            "U"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/3/b/3bfa5ebc-5623-4eec-89ea-dc187489ee4a.jpg?1631053379",
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "rarity": "common",
+          "setCode": "khm",
+          "quantity": 1
+        },
+        {
+          "cardId": "5474e67c-628f-41b0-aa31-3d85a267265a",
+          "name": "Snow-Covered Mountain",
+          "manaCost": "",
+          "cmc": 0,
+          "typeLine": "Basic Snow Land — Mountain",
+          "colors": [],
+          "colorIdentity": [
+            "R"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/5/4/5474e67c-628f-41b0-aa31-3d85a267265a.jpg?1631053480",
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "rarity": "common",
+          "setCode": "khm",
+          "quantity": 2
+        },
+        {
+          "cardId": "afd2730f-878e-47ee-ad2a-73f8fa4e0794",
+          "name": "Snow-Covered Plains",
+          "manaCost": "",
+          "cmc": 0,
+          "typeLine": "Basic Snow Land — Plains",
+          "colors": [],
+          "colorIdentity": [
+            "W"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/a/f/afd2730f-878e-47ee-ad2a-73f8fa4e0794.jpg?1631053316",
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "rarity": "common",
+          "setCode": "khm",
+          "quantity": 1
+        },
+        {
+          "cardId": "6aa85af8-15f5-4620-8aea-0b45c28372ed",
+          "name": "Snow-Covered Swamp",
+          "manaCost": "",
+          "cmc": 0,
+          "typeLine": "Basic Snow Land — Swamp",
+          "colors": [],
+          "colorIdentity": [
+            "B"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/6/a/6aa85af8-15f5-4620-8aea-0b45c28372ed.jpg?1631053431",
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "rarity": "common",
+          "setCode": "khm",
+          "quantity": 1
+        },
+        {
+          "cardId": "91658f56-12c9-4173-94ad-dfd186b1dbae",
+          "name": "Temple of the Dragon Queen",
+          "manaCost": "",
+          "cmc": 0,
+          "typeLine": "Land",
+          "colors": [],
+          "colorIdentity": [],
+          "imageUri": "https://cards.scryfall.io/normal/front/9/1/91658f56-12c9-4173-94ad-dfd186b1dbae.jpg?1743511747",
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "rarity": "uncommon",
+          "setCode": "tdc",
+          "quantity": 1
+        },
+        {
+          "cardId": "1024f555-e0d7-48ac-b86e-c87290eac832",
+          "name": "Temple of the False God",
+          "manaCost": "",
+          "cmc": 0,
+          "typeLine": "Land",
+          "colors": [],
+          "colorIdentity": [],
+          "imageUri": "https://cards.scryfall.io/normal/front/1/0/1024f555-e0d7-48ac-b86e-c87290eac832.jpg?1775942498",
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "rarity": "uncommon",
+          "setCode": "soc",
+          "quantity": 1
+        },
+        {
+          "cardId": "9a4c5629-fadd-42b9-850f-9f8586a2ca50",
+          "name": "Terramorphic Expanse",
+          "manaCost": "",
+          "cmc": 0,
+          "typeLine": "Land",
+          "colors": [],
+          "colorIdentity": [],
+          "imageUri": "https://cards.scryfall.io/normal/front/9/a/9a4c5629-fadd-42b9-850f-9f8586a2ca50.jpg?1775938853",
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "rarity": "common",
+          "setCode": "sos",
+          "quantity": 1
+        },
+        {
+          "cardId": "27906645-7d43-4c18-a20b-8d683069351e",
+          "name": "Tyrite Sanctum",
+          "manaCost": "",
+          "cmc": 0,
+          "typeLine": "Land",
+          "colors": [],
+          "colorIdentity": [],
+          "imageUri": "https://cards.scryfall.io/normal/front/2/7/27906645-7d43-4c18-a20b-8d683069351e.jpg?1690006779",
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "rarity": "rare",
+          "setCode": "cmm",
+          "quantity": 1
+        },
+        {
+          "cardId": "7f5ad03d-77ae-4e06-96f2-4f03bdfbb226",
+          "name": "Unclaimed Territory",
+          "manaCost": "",
+          "cmc": 0,
+          "typeLine": "Land",
+          "colors": [],
+          "colorIdentity": [],
+          "imageUri": "https://cards.scryfall.io/normal/front/7/f/7f5ad03d-77ae-4e06-96f2-4f03bdfbb226.jpg?1767731751",
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "rarity": "uncommon",
+          "setCode": "ecc",
+          "quantity": 1
+        },
+        {
+          "cardId": "8f203f04-bd73-4d88-bb5e-aab63507dbd1",
+          "name": "Vault of the Archangel",
+          "manaCost": "",
+          "cmc": 0,
+          "typeLine": "Land",
+          "colors": [],
+          "colorIdentity": [
+            "B",
+            "W"
+          ],
+          "imageUri": "https://cards.scryfall.io/normal/front/8/f/8f203f04-bd73-4d88-bb5e-aab63507dbd1.jpg?1743207804",
+          "imageUriBack": null,
+          "power": null,
+          "toughness": null,
+          "loyalty": null,
+          "rarity": "rare",
+          "setCode": "tdc",
+          "quantity": 1
+        }
+      ]
+    }
+  ],
+  "createdAt": "2026-05-06T19:37:11.620Z",
+  "updatedAt": "2026-05-06T21:07:58.170Z"
+}

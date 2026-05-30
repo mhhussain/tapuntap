@@ -1,0 +1,44 @@
+{
+  "id": "381f8362-f45d-45db-9f8a-edec4bac7256",
+  "name": "Test Burn",
+  "format": "standard",
+  "commander": null,
+  "cards": [
+    {
+      "cardId": "e3285e6b-3e79-4d7c-bf96-d920f973b122",
+      "name": "Lightning Bolt",
+      "manaCost": "{R}",
+      "cmc": 1,
+      "typeLine": "Instant",
+      "colors": [
+        "R"
+      ],
+      "imageUri": null,
+      "quantity": 4
+    }
+  ],
+  "version": 1,
+  "versions": [
+    {
+      "version": 1,
+      "timestamp": "2026-05-06T04:26:52.798Z",
+      "changelog": "Initial",
+      "cards": [
+        {
+          "cardId": "e3285e6b-3e79-4d7c-bf96-d920f973b122",
+          "name": "Lightning Bolt",
+          "manaCost": "{R}",
+          "cmc": 1,
+          "typeLine": "Instant",
+          "colors": [
+            "R"
+          ],
+          "imageUri": null,
+          "quantity": 4
+        }
+      ]
+    }
+  ],
+  "createdAt": "2026-05-06T04:26:52.798Z",
+  "updatedAt": "2026-05-06T04:26:52.798Z"
+}
