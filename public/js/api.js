@@ -120,11 +120,24 @@ export const api = {
       changelog: data.changelog || `Version ${newVersion}`,
       cards: newCards
     });
-    return api.getDeck(id);
+    return {
+      id,
+      name: data.name ?? curData.name,
+      format: data.format ?? curData.format,
+      commander: data.commander !== undefined ? data.commander : curData.commander,
+      cards: data.cards ?? curData.cards,
+      version: newVersion,
+      createdAt: tsToIso(curData.createdAt),
+      updatedAt: new Date().toISOString(),
+      versions: curData.versions ?? []
+    };
   },
 
   async deleteDeck(id) {
-    await deleteDoc(doc(decksCol(), id));
+    const ref = doc(decksCol(), id);
+    const versionsSnap = await getDocs(collection(ref, "versions"));
+    await Promise.all(versionsSnap.docs.map(d => deleteDoc(d.ref)));
+    await deleteDoc(ref);
     return { success: true };
   },
 
