@@ -22,7 +22,9 @@ export async function renderLobbyNew(container) {
         <button class="btn" id="j-join">Join</button>
       </section>
     </div>`;
-  container.querySelector("#g-create").onclick = async () => {
+  container.querySelector("#g-create").onclick = async (e) => {
+    const btn = e.currentTarget;
+    btn.disabled = true;
     try {
       const r = await api.createGame({
         name: container.querySelector("#g-name").value || "Untitled",
@@ -30,22 +32,25 @@ export async function renderLobbyNew(container) {
         deckId: container.querySelector("#g-deck").value
       });
       navigate(`/lobby/${r.gameId}`);
-    } catch (e) { toast(e.message, "error"); }
+    } catch (e) { toast(e.message, "error"); btn.disabled = false; }
   };
-  container.querySelector("#j-join").onclick = async () => {
+  container.querySelector("#j-join").onclick = async (e) => {
+    const btn = e.currentTarget;
+    btn.disabled = true;
     try {
       const r = await api.joinGame({
         inviteCode: container.querySelector("#j-code").value.trim().toUpperCase(),
         deckId: container.querySelector("#j-deck").value
       });
       navigate(`/lobby/${r.gameId}`);
-    } catch (e) { toast(e.message, "error"); }
+    } catch (e) { toast(e.message, "error"); btn.disabled = false; }
   };
 }
 
 export function renderLobby(container, gameId) {
   let unsub = null;
   const draw = (g) => {
+    if (!container.isConnected) { if (unsub) unsub(); return; }
     if (!g) { container.innerHTML = `<div class="empty-state">Game not found</div>`; return; }
     if (g.status === "active") { if (unsub) unsub(); navigate(`/games/${gameId}`); return; }
     const me = currentUid();
@@ -56,10 +61,10 @@ export function renderLobby(container, gameId) {
         <div>Invite code: <strong style="font-size:20px">${esc(g.inviteCode)}</strong>
           <button class="btn" id="copy">Copy</button></div>
         <div>
-          <h3>Seats (${g.seats.length}/4)</h3>
-          ${g.seats.map(s => `<div class="player-chip">${esc(s.displayName)} — ${esc(s.deckName)} ${s.ready ? "✓" : ""}${s.uid === me ? " (you)" : ""}</div>`).join("")}
+          <h3>Seats (${(g.seats || []).length}/4)</h3>
+          ${(g.seats || []).map(s => `<div class="player-chip">${esc(s.displayName)} — ${esc(s.deckName)} ${s.ready ? "✓" : ""}${s.uid === me ? " (you)" : ""}</div>`).join("")}
         </div>
-        ${isHost ? `<button class="btn btn-primary" id="start" ${g.seats.length < 2 ? "disabled" : ""}>Start game</button>` : `<div>Waiting for host to start…</div>`}
+        ${isHost ? `<button class="btn btn-primary" id="start" ${(g.seats || []).length < 2 ? "disabled" : ""}>Start game</button>` : `<div>Waiting for host to start…</div>`}
       </div>`;
     container.querySelector("#copy").onclick = () => navigator.clipboard.writeText(g.inviteCode);
     const startBtn = container.querySelector("#start");
