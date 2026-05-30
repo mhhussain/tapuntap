@@ -7,7 +7,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 
 export async function makeEnv() {
   return initializeTestEnvironment({
-    projectId: "tapuntap-test",
+    projectId: "iammoo-tapuntap-test",
     firestore: {
       rules: readFileSync(join(__dirname, "../../firestore.rules"), "utf8"),
       host: "localhost",

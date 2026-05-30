@@ -4,8 +4,8 @@ import { initializeApp } from "firebase-admin/app";
 import { getFirestore } from "firebase-admin/firestore";
 
 // Run against the emulator: FIRESTORE_EMULATOR_HOST is set by `emulators:exec`.
-process.env.GCLOUD_PROJECT ||= "tapuntap";
-initializeApp({ projectId: "tapuntap" });
+process.env.GCLOUD_PROJECT ||= "iammoo-tapuntap";
+initializeApp({ projectId: "iammoo-tapuntap" });
 const db = getFirestore();
 
 // Import the pure handlers (exported for testing) — see Step 3.

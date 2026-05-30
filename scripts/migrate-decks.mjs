@@ -1,6 +1,6 @@
 // Usage (emulator):
 //   TARGET_UID=<uid> FIRESTORE_EMULATOR_HOST=localhost:8080 \
-//   GCLOUD_PROJECT=tapuntap node scripts/migrate-decks.mjs
+//   GCLOUD_PROJECT=iammoo-tapuntap node scripts/migrate-decks.mjs
 // Usage (live): set GOOGLE_APPLICATION_CREDENTIALS to a service-account key instead
 //   of FIRESTORE_EMULATOR_HOST.
 import { readdir, readFile } from "node:fs/promises";
@@ -10,7 +10,7 @@ import admin from "firebase-admin";
 const TARGET_UID = process.env.TARGET_UID;
 if (!TARGET_UID) { console.error("Set TARGET_UID"); process.exit(1); }
 
-admin.initializeApp({ projectId: process.env.GCLOUD_PROJECT || "tapuntap" });
+admin.initializeApp({ projectId: process.env.GCLOUD_PROJECT || "iammoo-tapuntap" });
 const db = admin.firestore();
 
 const dir = join(process.cwd(), "data", "decks");

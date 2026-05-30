@@ -3,8 +3,8 @@ import assert from "node:assert";
 import { getApps, initializeApp } from "firebase-admin/app";
 import { getFirestore } from "firebase-admin/firestore";
 
-process.env.GCLOUD_PROJECT ||= "tapuntap";
-if (!getApps().length) initializeApp({ projectId: "tapuntap" });
+process.env.GCLOUD_PROJECT ||= "iammoo-tapuntap";
+if (!getApps().length) initializeApp({ projectId: "iammoo-tapuntap" });
 const db = getFirestore();
 const { _startGame } = await import("../index.js");
 
