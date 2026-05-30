@@ -1,7 +1,7 @@
 import { renderHome }                    from './views/home.js';
 import { renderDecks }                   from './views/decks.js';
 import { renderBuilder }                 from './views/builder.js';
-import { renderGames, renderNewGame }    from './views/games.js';
+import { renderGames }                   from './views/games.js';
 import { renderGame }                    from './views/game.js';
 import { renderSettings }                from './views/settings.js';
 import { renderLobby, renderLobbyNew }  from './views/lobby.js';
@@ -34,8 +34,7 @@ const routes = [
   { pattern: /^\/decks\/new$/, route: 'decks', handler: () => renderBuilder(app, 'new') },
   { pattern: /^\/decks\/([^/]+)$/, route: 'decks', handler: (m) => renderBuilder(app, m[1]) },
   { pattern: /^\/games$/, route: 'games', handler: () => renderGames(app) },
-  { pattern: /^\/games\/new$/, route: 'games', handler: () => renderNewGame(app) },
-  { pattern: /^\/games\/([^/]+)$/, route: 'gameplay', handler: (m) => renderGame(app, m[1]) },
+{ pattern: /^\/games\/([^/]+)$/, route: 'gameplay', handler: (m) => renderGame(app, m[1]) },
   { pattern: /^\/lobby\/new$/, route: 'games', handler: () => renderLobbyNew(app) },
   { pattern: /^\/lobby\/([^/]+)$/, route: 'games', handler: (m) => renderLobby(app, m[1]) },
   { pattern: /^\/settings$/, route: 'settings', handler: () => renderSettings(app) },

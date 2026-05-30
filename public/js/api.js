@@ -146,7 +146,14 @@ export const api = {
       orderBy("updatedAt", "desc")
     );
     const snap = await getDocs(q);
-    return snap.docs.map(d => ({ id: d.id, ...d.data() }));
+    return snap.docs.map(d => {
+      const x = d.data();
+      return {
+        id: d.id,
+        ...x,
+        updatedAt: x.updatedAt?.toMillis?.() ?? x.updatedAt ?? 0
+      };
+    });
   },
 
   async getGame(id) {
