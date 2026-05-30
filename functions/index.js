@@ -2,6 +2,7 @@ import { onCall, HttpsError } from "firebase-functions/v2/https";
 import { initializeApp, getApps } from "firebase-admin/app";
 import { getFirestore, FieldValue } from "firebase-admin/firestore";
 import { makeCode } from "./lib/invite.js";
+import { buildSeatState } from "./lib/deal.js";
 
 if (!getApps().length) initializeApp();
 const db = getFirestore();
@@ -72,4 +73,39 @@ export const createGame = onCall(async (req) => {
 export const joinGame = onCall(async (req) => {
   if (!req.auth) throw new HttpsError("unauthenticated", "Sign in required");
   return _joinGame(req.auth.uid, req.data, db);
+});
+
+export async function _startGame(uid, data, database) {
+  const { gameId } = data || {};
+  if (!gameId) throw new HttpsError("invalid-argument", "gameId required");
+  const ref = database.doc(`games/${gameId}`);
+  const snap = await ref.get();
+  if (!snap.exists) throw new HttpsError("not-found", "Game not found");
+  const g = snap.data();
+  if (g.hostUid !== uid) throw new HttpsError("permission-denied", "Host only");
+  if (g.status !== "lobby") throw new HttpsError("failed-precondition", "Not in lobby");
+
+  const batch = database.batch();
+  for (const seat of g.seats) {
+    const deck = (await database.doc(`users/${seat.uid}/decks/${seat.deckId}`).get()).data();
+    const { publicDoc, privateDoc } = buildSeatState(seat, deck, g.format);
+    batch.set(database.doc(`games/${gameId}/players/${seat.uid}`), publicDoc);
+    batch.set(database.doc(`games/${gameId}/players/${seat.uid}/private/state`), privateDoc);
+  }
+  batch.update(ref, {
+    status: "active",
+    turnOrder: g.seats.map(s => s.uid),
+    activeSeat: 0, turn: 1, phase: "beginning", phaseIndex: 0,
+    updatedAt: FieldValue.serverTimestamp()
+  });
+  batch.set(database.collection(`games/${gameId}/log`).doc(), {
+    ts: Date.now(), seat: 0, text: `Game "${g.name}" started`
+  });
+  await batch.commit();
+  return { ok: true };
+}
+
+export const startGame = onCall(async (req) => {
+  if (!req.auth) throw new HttpsError("unauthenticated", "Sign in required");
+  return _startGame(req.auth.uid, req.data, db);
 });
