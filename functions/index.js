@@ -51,6 +51,7 @@ export async function _joinGame(uid, data, database) {
   return database.runTransaction(async (tx) => {
     const snap = await tx.get(ref);
     const g = snap.data();
+    if (g.status !== "lobby") throw new HttpsError("failed-precondition", "Game already started");
     if (g.seatUids.includes(uid)) throw new HttpsError("already-exists", "Already joined");
     if (g.seats.length >= 4) throw new HttpsError("failed-precondition", "Game full");
     const seat = { seat: g.seats.length, uid, displayName: deck.data().ownerName || "Player",
