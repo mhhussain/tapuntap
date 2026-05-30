@@ -2,3 +2,9 @@ node_modules/
 data/cards/
 .DS_Store
 .claude/settings.local.json
+functions/node_modules/
+.firebase/
+*-debug.log
+firebase-debug.log
+firestore-debug.log
+ui-debug.log
