@@ -15,7 +15,13 @@ let unsubs = [];
 
 let logOpen = true;
 
-const PHASES = ['Untap', 'Upkeep', 'Draw', 'Main 1', 'Combat', 'Main 2', 'End'];
+const DEFAULT_PHASES = ['beginning', 'main1', 'combat', 'main2', 'end'];
+
+function phaseLabel(slug) {
+  const labels = { beginning: 'Beginning', main1: 'Main 1', combat: 'Combat', main2: 'Main 2', end: 'End' };
+  return labels[slug] || slug;
+}
+
 const TOKEN_PRESETS = [
   { name: 'Soldier',  pt: '1/1', color: 'W' }, { name: 'Spirit',  pt: '1/1', color: 'W' },
   { name: 'Goblin',   pt: '1/1', color: 'R' }, { name: 'Dragon',  pt: '5/5', color: 'R' },
@@ -194,7 +200,7 @@ function buildTopBarInner() {
   return `
     <button class="btn btn-ghost" id="btn-exit">${icon('prev', 14)} Exit</button>
     <div class="topbar-title">${esc(gameMeta?.name || '')}</div>
-    <span class="topbar-sub">Turn ${gameMeta?.turn ?? 1} · ${PHASES[gameMeta?.phaseIndex] || 'Main 1'}</span>
+    <span class="topbar-sub">Turn ${gameMeta?.turn ?? 1} · ${phaseLabel(gameMeta?.phase) || 'Main 1'}</span>
     <div class="topbar-spacer"></div>
     ${isMyTurn() ? `<span style="font-size:11px;color:var(--good);font-family:var(--font-mono);display:flex;align-items:center;gap:6px"><span style="width:6px;height:6px;border-radius:50%;background:var(--good);box-shadow:0 0 8px var(--good)"></span>YOUR TURN</span>` : `<span style="font-size:11px;color:var(--fg-3);font-family:var(--font-mono)">Waiting…</span>`}
     <button class="btn btn-ghost btn-icon" id="btn-undo" title="Undo">${icon('undo', 14)}</button>
@@ -698,26 +704,29 @@ function endTurn() {
     commitMyPublic({ battlefield: bf });
   }
 
+  const phases = gameMeta.phases || DEFAULT_PHASES;
   api.advanceTurn(gameId, {
     activeSeat: nextSeat,
     turn: newTurn,
     phaseIndex: 0,
-    phase: PHASES[0],
+    phase: phases[0],
   }).catch(err => toast('Turn advance failed: ' + err.message, 'error'));
 }
 
 function nextPhase() {
   if (!gameMeta) return;
+  const phases = gameMeta.phases || DEFAULT_PHASES;
   const phaseIndex = (gameMeta.phaseIndex ?? 0) + 1;
-  if (phaseIndex >= PHASES.length) { endTurn(); return; }
-  api.advanceTurn(gameId, { phaseIndex, phase: PHASES[phaseIndex] })
+  if (phaseIndex >= phases.length) { endTurn(); return; }
+  api.advanceTurn(gameId, { phaseIndex, phase: phases[phaseIndex] })
     .catch(err => toast('Phase advance failed: ' + err.message, 'error'));
 }
 
 function prevPhase() {
   if (!gameMeta) return;
+  const phases = gameMeta.phases || DEFAULT_PHASES;
   const phaseIndex = Math.max(0, (gameMeta.phaseIndex ?? 0) - 1);
-  api.advanceTurn(gameId, { phaseIndex, phase: PHASES[phaseIndex] })
+  api.advanceTurn(gameId, { phaseIndex, phase: phases[phaseIndex] })
     .catch(err => toast('Phase advance failed: ' + err.message, 'error'));
 }
 

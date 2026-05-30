@@ -33,6 +33,10 @@ service cloud.firestore {
       allow read: if request.auth != null && (isParticipant() || game().status == 'lobby');
       allow update: if isParticipant() && onlyTurnFields()
         && game().turnOrder[game().activeSeat] == request.auth.uid;
+      allow update: if isParticipant() &&
+        request.resource.data.diff(resource.data).affectedKeys().hasOnly(['notes', 'updatedAt']) &&
+        'notes' in request.resource.data.diff(resource.data).affectedKeys();
+      allow delete: if request.auth != null && resource.data.hostUid == request.auth.uid;
 
       match /log/{entryId} {
         allow read: if isParticipant();
