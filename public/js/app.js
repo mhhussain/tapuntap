@@ -4,9 +4,26 @@ import { renderBuilder }                 from './views/builder.js';
 import { renderGames, renderNewGame }    from './views/games.js';
 import { renderGame }                    from './views/game.js';
 import { renderSettings }                from './views/settings.js';
+import { onAuth, ensureUserDoc, signIn, logOut } from './auth.js';
 
 const app  = document.getElementById('app');
 const rail = document.getElementById('rail');
+
+// ─── Auth gate ────────────────────────────────────────────────────────────────
+
+const loginOverlay = document.getElementById('login-overlay');
+document.getElementById('btn-signin').addEventListener('click', () => signIn());
+
+let booted = false;
+onAuth(async (user) => {
+  if (user) {
+    await ensureUserDoc(user);
+    loginOverlay.classList.add('hidden');
+    if (!booted) { booted = true; route(); }
+  } else {
+    loginOverlay.classList.remove('hidden');
+  }
+});
 
 // ─── Router ───────────────────────────────────────────────────────────────────
 
@@ -54,4 +71,5 @@ rail.querySelectorAll('.rail-btn[data-route]').forEach(btn => {
 });
 
 window.addEventListener('hashchange', route);
-route();
+
+window.__logout = logOut;

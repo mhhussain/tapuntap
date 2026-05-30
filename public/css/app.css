@@ -708,3 +708,11 @@ textarea.input { resize: vertical; }
   position: absolute; top: 1px; width: 16px; height: 16px;
   border-radius: 50%; transition: left 150ms;
 }
+
+/* ============ Login Overlay ============ */
+.login-overlay { position: fixed; inset: 0; display: flex; align-items: center;
+  justify-content: center; background: var(--bg-0, #14151a); z-index: 1000; }
+.login-overlay.hidden { display: none; }
+.login-card { text-align: center; padding: 40px; }
+.login-logo { font-size: 28px; font-weight: 700; margin-bottom: 8px; }
+.login-sub { color: var(--fg-3, #9aa0aa); margin-bottom: 20px; }
