@@ -70,6 +70,6 @@ rail.querySelectorAll('.rail-btn[data-route]').forEach(btn => {
   });
 });
 
-window.addEventListener('hashchange', route);
+window.addEventListener('hashchange', () => { if (booted) route(); });
 
 window.__logout = logOut;
