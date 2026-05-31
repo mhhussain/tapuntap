@@ -2,6 +2,8 @@ node_modules/
 data/cards/
 .DS_Store
 .claude/settings.local.json
+.claude/session.log
+SESSION_HANDOFF.md
 functions/node_modules/
 .firebase/
 *-debug.log

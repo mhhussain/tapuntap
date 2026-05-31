@@ -2,59 +2,91 @@
 
 ## Overview
 
-A multiplayer Magic: The Gathering game simulator. Up to 4 players join a game by invite code and play in real time. The frontend is a vanilla JS SPA served by Firebase Hosting. State is stored in Firestore and synced live via `onSnapshot`. Authentication uses Firebase Auth with Google sign-in.
+A multiplayer Magic: The Gathering game simulator. Up to 4 players join a game by invite code and play in real time. The frontend is a React + TypeScript + Vite SPA (`app/`) served by Firebase Hosting. State is stored in Firestore and synced live via `onSnapshot`. Authentication uses Firebase Auth with Google sign-in and email/password.
 
 ## Running the App
 
 ```bash
-# Start all emulators (Auth 9099, Firestore 8080, Functions 5001, Hosting 5000)
-npm run emulators
+# Terminal 1 — backend emulators
+firebase emulators:start --only firestore,auth,functions
 
-# Run security rules tests
+# Terminal 2 — frontend dev server (Vite)
+cd app && npm run dev
+
+# Rules + functions tests
 npm run test:rules
-
-# Run Cloud Functions tests (against emulator)
 firebase emulators:exec --only firestore,functions "node --test functions/test"
-```
 
-Open http://localhost:5000 against the emulators.
+# Frontend unit tests
+cd app && npm test
+
+# Production build (what Hosting serves)
+npm run build:app
+```
 
 ## Architecture
 
 ```
-Browser (vanilla JS SPA, no build step)
-  • Firebase Auth (Google)
-  • Firestore SDK: reads via onSnapshot, writes own player data
+Browser (React + TypeScript + Vite SPA, built to app/dist)
+  • Firebase Auth (Google + email/password)
+  • Firestore SDK: reads via typed onSnapshot hooks, client writes own low-stakes fields
   • Scryfall fetched directly from browser for card search/lookup
-        │                          │
-        │ realtime listeners       │ callable
-        ▼                          ▼
-Firestore                    Cloud Functions (3)
-  users, decks, games          createGame, joinGame, startGame
-  + security rules
+        │                               │
+        │ realtime listeners            │ callable
+        ▼                               ▼
+Firestore                         Cloud Functions (6)
+  users, decks, games               createGame, joinGame, startGame
+  + security rules                  gameAction, leaveGame, endGame
 ```
 
-No Express server. Firebase Hosting serves the static frontend.
+No Express server. Firebase Hosting serves the built `app/dist` output.
 
-## Frontend (`public/js/`)
+### Client-vs-server action split
 
-Hash-based SPA with no build step. Uses ES modules from the Firebase CDN (`https://www.gstatic.com/firebasejs/10.12.0/...`).
+The client writes its own **low-stakes** player fields directly (tap/untap, counter adjustments, own life, own public-zone moves, notes). Hidden-info operations, cross-player state changes, and shared/turn advancement all go through Cloud Functions:
+
+- **`gameAction`** — draw, mill, scry, shuffle library, play/move cards to/from hand, adjust opponent life, advance phase, end turn
+- **`leaveGame`** — removes the caller from a lobby seat
+- **`endGame`** — marks the game complete; host-only
+
+Security rules deny direct client writes to any field owned by the server (hand/library counts, turn/phase, turnOrder).
+
+## Frontend (`app/src/`)
+
+React 18 + TypeScript 5 SPA built with Vite 5. Uses npm Firebase SDK (`firebase@^10.12.0`).
 
 ```
-firebase-config.js   — web app config (fill in before live deploy)
-firebase.js          — Firebase init + emulator toggle (localhost auto-connects)
-auth.js              — Google sign-in, onAuth, ensureUserDoc
-cards.js             — Scryfall client + optional Firestore cache
-api.js               — Firestore CRUD + onSnapshot subscriptions for all data
-app.js               — router + auth gate (booted flag, onAuth guard)
-views/
-  home.js            — dashboard
-  decks.js           — deck library
-  builder.js         — deck builder (Scryfall search → Firestore save)
-  games.js           — game list (Firestore query)
-  lobby.js           — create/join lobby, seat list, start
-  game.js            — realtime game board (4 subscriptions + per-player writes)
-  settings.js        — settings
+lib/
+  firebase.ts          — typed SDK init + emulator toggle (localhost auto-connects)
+  firebaseConfig.ts    — public web config values
+  scryfall.ts          — Scryfall client + optional Firestore cache
+  format.ts            — pure helpers (time, mana, color tone)
+  cards.ts             — card-instance helpers (isLand, shuffle, newInstanceId)
+types/
+  index.ts             — CardInstance, Deck, GameDoc, Seat, PlayerPublic, PlayerPrivate, LogEntry, GameAction
+auth/
+  AuthProvider.tsx     — context: user, loading, sign-in/up/out
+  useAuth.ts           — hook
+  AuthScreen.tsx       — login + sign-up (Google + email)
+  RequireAuth.tsx      — route guard
+api/
+  decks.ts             — typed deck CRUD
+  games.ts             — typed game reads + callable wrappers
+  hooks.ts             — useGame, usePlayersPublic, useMyPrivate, useLog, useMyDecks, useMyGames
+components/
+  Modal.tsx  Toast.tsx  Icon.tsx  CardFace.tsx  AppShell.tsx
+features/
+  home/HomeView.tsx
+  decks/DecksView.tsx  decks/BuilderView.tsx
+  games/GamesView.tsx
+  lobby/LobbyNewView.tsx  lobby/LobbyView.tsx
+  game/GameView.tsx
+  game/useGameActions.ts  — client-direct writes + callable gameAction wrappers
+  game/endgame/EndGameView.tsx
+  settings/SettingsView.tsx
+test/
+  setup.ts
+  cards.test.ts  format.test.ts  gameActionClient.test.ts
 ```
 
 ## Data Model (Firestore)
@@ -74,16 +106,20 @@ Key structure:
 `firestore.rules` is the only enforcement layer. Key rules:
 - Users/decks: owner-only read/write
 - Cards: any authenticated user can read/write (shared Scryfall cache)
-- Games: participants can read; only the active player can advance turn/phase fields
-- Player public docs: any participant reads; only the owner writes
+- Games: participants can read; turn/phase fields are server-owned (direct client writes denied)
+- Player public docs: any participant reads; only the owner writes own-zone fields
 - Player private docs: only the owner reads AND writes — opponents can never see hand/library
+- hand/library counts are server-owned; clients cannot forge them directly
 
 ## Cloud Functions (`functions/index.js`)
 
-Three callable functions handle operations needing trust/atomicity:
+Six callable functions handle operations needing trust or hidden-info atomicity:
 - `createGame(name, format, deckId)` — creates lobby, generates invite code
 - `joinGame(inviteCode, deckId)` — seats caller atomically (transaction prevents race)
 - `startGame(gameId)` — host-only; server-side Fisher-Yates shuffle; writes all private docs via Admin SDK
+- `gameAction(action)` — dispatches typed actions (draw, mill, scry, shuffleLibrary, play, moveToHand/Library, adjustOpponentLife, advancePhase, endTurn)
+- `leaveGame(gameId)` — removes the caller from a lobby seat
+- `endGame(gameId)` — host-only; marks the game complete
 
 ## Card Data
 
@@ -103,6 +139,6 @@ node scripts/migrate-decks.mjs
 
 ## Live Deployment
 
-1. Fill `public/js/firebase-config.js` with real values from Firebase console
-2. Ensure Google Auth is enabled in Firebase Auth
+1. Confirm real values in `app/src/lib/firebaseConfig.ts` (copied from Firebase console)
+2. Ensure Google Auth and email/password sign-in are enabled in Firebase Auth
 3. Run: `firebase deploy --only firestore:rules,firestore:indexes,functions,hosting`
