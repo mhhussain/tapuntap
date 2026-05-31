@@ -13,14 +13,7 @@ import { GameView } from "./features/game/GameView";
 import { HomeView } from "./features/home/HomeView";
 import { GamesView } from "./features/games/GamesView";
 import { EndGameView } from "./features/game/endgame/EndGameView";
-
-function Placeholder({ title }: { title: string }) {
-  return (
-    <div className="empty-state" style={{ flex: 1, display: "flex" }}>
-      <div className="empty-title">{title}</div>
-    </div>
-  );
-}
+import { SettingsView } from "./features/settings/SettingsView";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
@@ -39,7 +32,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
                 <Route path="/lobby/:gameId" element={<LobbyView />} />
                 <Route path="/games/:gameId" element={<GameView />} />
                 <Route path="/games/:gameId/end" element={<EndGameView />} />
-                <Route path="/settings" element={<Placeholder title="Settings" />} />
+                <Route path="/settings" element={<SettingsView />} />
                 <Route path="*" element={<Navigate to="/" replace />} />
               </Route>
             </Routes>
