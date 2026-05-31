@@ -19,20 +19,22 @@ service cloud.firestore {
     }
 
     match /games/{gameId} {
-      function isParticipant() {
-        return request.auth != null && resource.data.seatUids.hasAny([request.auth.uid]);
+      function gameData() {
+        return get(/databases/$(database)/documents/games/$(gameId)).data;
       }
-      function onlyTurnFields() {
+      function isParticipant() {
+        return request.auth != null && request.auth.uid in gameData().seatUids;
+      }
+      function onlyClientGameFields() {
         return request.resource.data.diff(resource.data).affectedKeys()
-          .hasOnly(['turn', 'activeSeat', 'phase', 'phaseIndex', 'updatedAt']);
+          .hasOnly(['notes', 'updatedAt']);
       }
 
+      // Reads: participants always; lobby readable by any authed user (join-by-code lookup)
       allow read: if request.auth != null && (isParticipant() || resource.data.status == 'lobby');
-      allow update: if isParticipant() && onlyTurnFields()
-        && resource.data.turnOrder[int(resource.data.activeSeat)] == request.auth.uid;
-      allow update: if isParticipant() &&
-        request.resource.data.diff(resource.data).affectedKeys().hasOnly(['notes', 'updatedAt']) &&
-        'notes' in request.resource.data.diff(resource.data).affectedKeys();
+
+      // Clients may ONLY write 'notes' on the game doc. Turn/phase/seats/status are Function-owned.
+      allow update: if isParticipant() && onlyClientGameFields();
       allow delete: if request.auth != null && resource.data.hostUid == request.auth.uid;
 
       match /log/{entryId} {
@@ -42,7 +44,11 @@ service cloud.firestore {
 
       match /players/{uid} {
         allow read: if isParticipant();
-        allow write: if request.auth != null && request.auth.uid == uid;
+        // Owner may write ONLY client-owned low-stakes fields; hidden-info & cross-player are Function-owned.
+        allow update: if request.auth != null && request.auth.uid == uid
+          && request.resource.data.diff(resource.data).affectedKeys()
+             .hasOnly(['battlefield', 'graveyard', 'exile', 'command', 'life', 'poison', 'energy', 'counters']);
+        allow create, delete: if false; // only startGame (Admin SDK) creates; endGame cleans up
 
         match /private/{docId} {
           allow read, write: if request.auth != null && request.auth.uid == uid;
