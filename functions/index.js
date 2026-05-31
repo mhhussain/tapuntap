@@ -143,6 +143,42 @@ export async function _leaveGame(uid, data, database) {
   });
 }
 
+export async function _toggleReady(uid, data, database) {
+  const { gameId } = data || {};
+  if (!gameId) throw new HttpsError("invalid-argument", "gameId required");
+  const ref = database.doc(`games/${gameId}`);
+  return database.runTransaction(async (tx) => {
+    const snap = await tx.get(ref);
+    if (!snap.exists) throw new HttpsError("not-found", "Game not found");
+    const g = snap.data();
+    if (g.status !== "lobby") throw new HttpsError("failed-precondition", "Not in lobby");
+    if (!g.seatUids.includes(uid)) throw new HttpsError("permission-denied", "Not a participant");
+    const seats = g.seats.map((s) => s.uid === uid ? { ...s, ready: !s.ready } : s);
+    tx.update(ref, { seats, updatedAt: FieldValue.serverTimestamp() });
+    return { ok: true };
+  });
+}
+
+export async function _removePlayer(uid, data, database) {
+  const { gameId, targetUid } = data || {};
+  if (!gameId || !targetUid) throw new HttpsError("invalid-argument", "gameId and targetUid required");
+  const ref = database.doc(`games/${gameId}`);
+  return database.runTransaction(async (tx) => {
+    const snap = await tx.get(ref);
+    if (!snap.exists) throw new HttpsError("not-found", "Game not found");
+    const g = snap.data();
+    if (g.hostUid !== uid) throw new HttpsError("permission-denied", "Host only");
+    if (targetUid === g.hostUid) throw new HttpsError("failed-precondition", "Cannot remove the host");
+    if (g.status !== "lobby") throw new HttpsError("failed-precondition", "Not in lobby");
+    tx.update(ref, {
+      seats: g.seats.filter((s) => s.uid !== targetUid),
+      seatUids: g.seatUids.filter((u) => u !== targetUid),
+      updatedAt: FieldValue.serverTimestamp(),
+    });
+    return { ok: true };
+  });
+}
+
 export async function _endGame(uid, data, database) {
   const { gameId, winnerUid } = data || {};
   if (!gameId) throw new HttpsError("invalid-argument", "gameId required");
@@ -162,4 +198,14 @@ export const leaveGame = onCall(async (req) => {
 export const endGame = onCall(async (req) => {
   if (!req.auth) throw new HttpsError("unauthenticated", "Sign in required");
   return _endGame(req.auth.uid, req.data, db);
+});
+
+export const toggleReady = onCall(async (req) => {
+  if (!req.auth) throw new HttpsError("unauthenticated", "Sign in required");
+  return _toggleReady(req.auth.uid, req.data, db);
+});
+
+export const removePlayer = onCall(async (req) => {
+  if (!req.auth) throw new HttpsError("unauthenticated", "Sign in required");
+  return _removePlayer(req.auth.uid, req.data, db);
 });

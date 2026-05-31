@@ -16,6 +16,8 @@ export const startGame = (gameId: string) => call("startGame")({ gameId });
 export const leaveGame = (gameId: string) => call("leaveGame")({ gameId });
 export const endGame = (gameId: string, winnerUid?: string) => call("endGame")({ gameId, winnerUid });
 export const gameAction = (action: GameAction) => call("gameAction")(action);
+export const toggleReady = (gameId: string) => call("toggleReady")({ gameId });
+export const removePlayer = (gameId: string, targetUid: string) => call("removePlayer")({ gameId, targetUid });
 
 // Toggling your own ready flag in a lobby seat: rules allow the host functions to own seats,
 // so ready toggling also routes through a small Function in production. For the baseline we

@@ -9,7 +9,7 @@ initializeApp({ projectId: "iammoo-tapuntap" });
 const db = getFirestore();
 
 // Import the pure handlers (exported for testing) — see Step 3.
-const { _createGame, _joinGame, _leaveGame, _endGame } = await import("../index.js");
+const { _createGame, _joinGame, _leaveGame, _endGame, _toggleReady, _removePlayer } = await import("../index.js");
 
 test("createGame seats host and returns a code", async () => {
   await db.doc("users/host/decks/d1").set({ ownerUid: "host", name: "A", format: "commander" });
@@ -49,4 +49,30 @@ test("endGame marks the game complete", async () => {
   const g = (await db.doc(`games/${gameId}`).get()).data();
   assert.equal(g.status, "complete");
   assert.equal(g.winnerUid, "host");
+});
+
+test("toggleReady flips the caller's own seat ready flag", async () => {
+  await db.doc("users/host/decks/d1").set({ ownerUid: "host", name: "A", format: "commander" });
+  await db.doc("users/bob/decks/d2").set({ ownerUid: "bob", name: "B", format: "commander" });
+  const { gameId, inviteCode } = await _createGame("host", { name: "G", format: "commander", deckId: "d1" }, db);
+  await _joinGame("bob", { inviteCode, deckId: "d2" }, db);
+  await _toggleReady("bob", { gameId }, db);
+  let g = (await db.doc(`games/${gameId}`).get()).data();
+  assert.equal(g.seats.find((s) => s.uid === "bob").ready, true);
+  await _toggleReady("bob", { gameId }, db);
+  g = (await db.doc(`games/${gameId}`).get()).data();
+  assert.equal(g.seats.find((s) => s.uid === "bob").ready, false);
+});
+
+test("removePlayer: host removes a seat; cannot remove host; non-host rejected", async () => {
+  await db.doc("users/host/decks/d1").set({ ownerUid: "host", name: "A", format: "commander" });
+  await db.doc("users/bob/decks/d2").set({ ownerUid: "bob", name: "B", format: "commander" });
+  const { gameId, inviteCode } = await _createGame("host", { name: "G", format: "commander", deckId: "d1" }, db);
+  await _joinGame("bob", { inviteCode, deckId: "d2" }, db);
+  await assert.rejects(() => _removePlayer("bob", { gameId, targetUid: "host" }, db)); // non-host
+  await assert.rejects(() => _removePlayer("host", { gameId, targetUid: "host" }, db)); // can't remove host
+  await _removePlayer("host", { gameId, targetUid: "bob" }, db);
+  const g = (await db.doc(`games/${gameId}`).get()).data();
+  assert.ok(!g.seatUids.includes("bob"));
+  assert.equal(g.seats.length, 1);
 });
