@@ -10,6 +10,8 @@ import { BuilderView } from "./features/decks/BuilderView";
 import { LobbyNewView } from "./features/lobby/LobbyNewView";
 import { LobbyView } from "./features/lobby/LobbyView";
 import { GameView } from "./features/game/GameView";
+import { HomeView } from "./features/home/HomeView";
+import { GamesView } from "./features/games/GamesView";
 
 function Placeholder({ title }: { title: string }) {
   return (
@@ -27,11 +29,11 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
           <RequireAuth>
             <Routes>
               <Route element={<AppShell />}>
-                <Route path="/" element={<Placeholder title="Home" />} />
+                <Route path="/" element={<HomeView />} />
                 <Route path="/decks" element={<DecksView />} />
                 <Route path="/decks/new" element={<BuilderView />} />
                 <Route path="/decks/:deckId" element={<BuilderView />} />
-                <Route path="/games" element={<Placeholder title="Games" />} />
+                <Route path="/games" element={<GamesView />} />
                 <Route path="/lobby/new" element={<LobbyNewView />} />
                 <Route path="/lobby/:gameId" element={<LobbyView />} />
                 <Route path="/games/:gameId" element={<GameView />} />
