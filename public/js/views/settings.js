@@ -1,4 +1,5 @@
 import { icon } from '../utils.js';
+import { logOut } from '../auth.js';
 
 const SHORTCUTS = [
   { keys: 'N', action: 'Next player / end turn' },
@@ -70,9 +71,22 @@ export function renderSettings(container) {
           `).join('')}
         </div>
 
+        <div class="settings-group">
+          <div class="settings-group-title">Account</div>
+          <div class="settings-row" style="border-radius:8px;border-top:1px solid var(--line-1)">
+            <div class="settings-row-label">
+              <div class="settings-row-title">Sign out</div>
+              <div class="settings-row-desc">You will be returned to the sign-in screen.</div>
+            </div>
+            <button class="btn btn-secondary" id="btn-signout">Sign out</button>
+          </div>
+        </div>
+
       </div>
     </div>
   `;
+
+  container.querySelector('#btn-signout').addEventListener('click', () => logOut());
 
   const densitySel = container.querySelector('#density-select');
   densitySel.value = document.documentElement.getAttribute('data-density') || 'comfortable';

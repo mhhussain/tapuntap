@@ -1,11 +1,12 @@
 import { auth, db } from "./firebase.js";
-import { GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged }
+import { GoogleAuthProvider, signInWithPopup, signInWithEmailAndPassword, signOut, onAuthStateChanged }
   from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 import { doc, getDoc, setDoc, serverTimestamp }
   from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
 const provider = new GoogleAuthProvider();
 export const signIn = () => signInWithPopup(auth, provider);
+export const signInEmail = (email, password) => signInWithEmailAndPassword(auth, email, password);
 export const logOut = () => signOut(auth);
 export const currentUid = () => auth.currentUser?.uid || null;
 export const currentUser = () => auth.currentUser;

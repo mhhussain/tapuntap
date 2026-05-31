@@ -716,3 +716,7 @@ textarea.input { resize: vertical; }
 .login-card { text-align: center; padding: 40px; }
 .login-logo { font-size: 28px; font-weight: 700; margin-bottom: 8px; }
 .login-sub { color: var(--fg-3, #9aa0aa); margin-bottom: 20px; }
+.login-card .input { display: block; width: 100%; margin-top: 10px; box-sizing: border-box; }
+.login-card .btn { display: block; width: 100%; margin-top: 10px; }
+.login-divider { display: flex; align-items: center; gap: 10px; margin: 16px 0 6px; color: var(--fg-3,#9aa0aa); font-size: 12px; }
+.login-divider::before, .login-divider::after { content: ''; flex: 1; height: 1px; background: var(--line-1); }

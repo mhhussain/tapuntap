@@ -5,7 +5,7 @@ import { renderGames }                   from './views/games.js';
 import { renderGame }                    from './views/game.js';
 import { renderSettings }                from './views/settings.js';
 import { renderLobby, renderLobbyNew }  from './views/lobby.js';
-import { onAuth, ensureUserDoc, signIn, logOut } from './auth.js';
+import { onAuth, ensureUserDoc, signIn, signInEmail, logOut } from './auth.js';
 
 const app  = document.getElementById('app');
 const rail = document.getElementById('rail');
@@ -14,6 +14,17 @@ const rail = document.getElementById('rail');
 
 const loginOverlay = document.getElementById('login-overlay');
 document.getElementById('btn-signin').addEventListener('click', () => signIn());
+document.getElementById('btn-signin-email').addEventListener('click', async () => {
+  const email = document.getElementById('login-email').value.trim();
+  const password = document.getElementById('login-password').value;
+  const err = document.getElementById('login-error');
+  err.textContent = '';
+  try {
+    await signInEmail(email, password);
+  } catch (e) {
+    err.textContent = e.code === 'auth/invalid-credential' ? 'Invalid email or password.' : e.message;
+  }
+});
 
 let booted = false;
 onAuth(async (user) => {
