@@ -1,5 +1,5 @@
 /* ============ Design Tokens ============ */
-@import url('https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+/* Fonts are loaded via <link> tags in index.html (Geist, Instrument Serif, JetBrains Mono) */
 
 :root {
   --bg-0: oklch(0.16 0.015 250);
@@ -58,7 +58,7 @@
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html, body, #root-wrap { height: 100%; }
+html, body, #root, #root-wrap { height: 100%; }
 
 body {
   font-family: var(--font-sans);
@@ -194,11 +194,11 @@ a { color: var(--accent); text-decoration: none; }
 }
 .input:focus { outline: none; border-color: var(--accent); }
 .input::placeholder { color: var(--fg-4); }
-.input-search {
+.input-search, .search {
   position: relative; display: flex; align-items: center;
 }
-.input-search svg { position: absolute; left: 8px; color: var(--fg-3); pointer-events: none; }
-.input-search .input { padding-left: 28px; }
+.input-search svg, .search svg { position: absolute; left: 8px; color: var(--fg-3); pointer-events: none; }
+.input-search .input, .search .input { padding-left: 28px; }
 
 select.input option { background: var(--bg-2); }
 textarea.input { resize: vertical; }
@@ -329,6 +329,7 @@ textarea.input { resize: vertical; }
 }
 
 @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes spin { to { transform: rotate(360deg); } }
 @keyframes slideUp {
   from { opacity: 0; transform: translateY(12px) scale(0.98); }
   to   { opacity: 1; transform: translateY(0) scale(1); }
@@ -362,6 +363,8 @@ textarea.input { resize: vertical; }
 }
 
 /* ─── Utility ───────────────────────────────────────────────────────────────── */
+.row { display: flex; align-items: center; gap: 8px; }
+.col { display: flex; flex-direction: column; }
 .eyebrow {
   font-size: 10px; text-transform: uppercase;
   letter-spacing: 0.12em; color: var(--fg-3); font-weight: 600;
@@ -382,7 +385,7 @@ textarea.input { resize: vertical; }
 .tag-warn { color: var(--warn); border-color: var(--accent-line); }
 .tag-bad  { color: var(--bad);  border-color: oklch(0.68 0.18 25 / 0.4); }
 
-.empty-state {
+.empty-state, .empty {
   display: flex; flex-direction: column; align-items: center;
   justify-content: center; text-align: center; color: var(--fg-3); padding: 40px; gap: 10px;
 }
@@ -720,3 +723,49 @@ textarea.input { resize: vertical; }
 .login-card .btn { display: block; width: 100%; margin-top: 10px; }
 .login-divider { display: flex; align-items: center; gap: 10px; margin: 16px 0 6px; color: var(--fg-3,#9aa0aa); font-size: 12px; }
 .login-divider::before, .login-divider::after { content: ''; flex: 1; height: 1px; background: var(--line-1); }
+
+/* ============ Auth (design system aliases) ============ */
+.auth-bg {
+  background:
+    radial-gradient(900px 600px at 50% -10%, oklch(0.78 0.14 75 / 0.06), transparent 60%),
+    radial-gradient(700px 500px at 85% 110%, oklch(0.62 0.10 240 / 0.05), transparent 55%),
+    var(--bg-0);
+}
+.auth-link {
+  background: none; border: none; padding: 0;
+  color: var(--fg-3); font-size: 12px; cursor: pointer;
+}
+.auth-link:hover { color: var(--accent); }
+
+/* ============ .card alias for design system (app uses .card-face) ============ */
+/* These aliases allow design-system classes to work alongside app's .card-face classes.
+   The app's primary card class is .card-face; .card is provided for parity with design tokens. */
+.card {
+  width: var(--density-card-w);
+  height: var(--density-card-h);
+  border-radius: 6px; padding: 6px;
+  font-size: 10px; display: flex;
+  flex-direction: column; justify-content: space-between;
+  gap: 3px;
+  border: 1px solid oklch(0 0 0 / 0.4);
+  background: linear-gradient(180deg, var(--bg-3), var(--bg-2));
+  position: relative; cursor: grab; user-select: none;
+  transition: transform 120ms, box-shadow 120ms, border-color 120ms;
+  overflow: hidden; flex-shrink: 0;
+}
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 18px oklch(0 0 0 / 0.55);
+  border-color: var(--accent-line); z-index: 5;
+}
+.card:active { cursor: grabbing; }
+.card.tapped {
+  transform: rotate(90deg) translateX(8px);
+  margin-right: calc(var(--density-card-h) - var(--density-card-w) + 6px);
+}
+.card.tapped:hover { transform: rotate(90deg) translateX(8px) translateY(-2px); }
+.card.summoning-sick { filter: saturate(0.4) brightness(0.85); }
+.card.is-land .card-art {
+  background: repeating-linear-gradient(0deg, oklch(0 0 0 / 0.15) 0 3px, transparent 3px 7px),
+              var(--card-tone, var(--mana-c));
+}
