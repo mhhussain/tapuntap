@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { useMyDecks } from "../../api/hooks";
 import { createGame, joinGame } from "../../api/games";
 import { useToast } from "../../components/Toast";
@@ -45,10 +45,11 @@ export function LobbyNewView() {
   const { decks } = useMyDecks();
   const navigate = useNavigate();
   const toast = useToast();
+  const [searchParams] = useSearchParams();
   const [name, setName] = useState("");
   const [format, setFormat] = useState("commander");
   const [createDeck, setCreateDeck] = useState("");
-  const [code, setCode] = useState("");
+  const [code, setCode] = useState(() => (searchParams.get("code") ?? "").toUpperCase());
   const [joinDeck, setJoinDeck] = useState("");
   const [busy, setBusy] = useState(false);
 

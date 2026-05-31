@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useGame } from "../../api/hooks";
 import { auth } from "../../lib/firebase";
@@ -12,16 +12,20 @@ import type { Seat } from "../../types";
 
 function SeatCard({
   seat,
-  index,
+  hostUid,
   isHostView,
   isYou,
+  pendingReady,
+  pendingRemove,
   onToggleReady,
   onRemove,
 }: {
   seat: Seat;
-  index: number;
+  hostUid: string | undefined;
   isHostView: boolean;
   isYou: boolean;
+  pendingReady: boolean;
+  pendingRemove: boolean;
   onToggleReady: () => void;
   onRemove: () => void;
 }) {
@@ -50,7 +54,7 @@ function SeatCard({
         <div style={{ flex: 1, minWidth: 0 }}>
           <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
             <span style={{ fontWeight: 600, color: "var(--fg-0)" }}>{seat.displayName}</span>
-            {index === 0 && <span className="tag" style={{ padding: "1px 6px" }}>Host</span>}
+            {seat.uid === hostUid && <span className="tag" style={{ padding: "1px 6px" }}>Host</span>}
             {isYou && (
               <span style={{ fontSize: 10, color: "var(--accent)", fontFamily: "var(--font-mono)", textTransform: "uppercase" }}>
                 You
@@ -67,6 +71,7 @@ function SeatCard({
           <button
             className="btn btn-ghost btn-icon btn-sm"
             onClick={onRemove}
+            disabled={pendingRemove}
             title="Remove player"
             style={{ color: "var(--bad)" }}
           >
@@ -79,6 +84,7 @@ function SeatCard({
         {isYou ? (
           <button
             onClick={onToggleReady}
+            disabled={pendingReady}
             className="btn"
             style={{
               width: "100%",
@@ -159,10 +165,17 @@ export function LobbyView() {
   const [confirmLeave, setConfirmLeave] = useState(false);
   const [copied, setCopied] = useState(false);
   const [busy, setBusy] = useState(false);
+  const [pendingReady, setPendingReady] = useState(false);
+  const [pendingRemove, setPendingRemove] = useState<string | null>(null);
+  const copiedTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     if (game?.status === "active") navigate(`/games/${gameId}`, { replace: true });
   }, [game?.status, gameId, navigate]);
+
+  useEffect(() => {
+    return () => { if (copiedTimer.current) clearTimeout(copiedTimer.current); };
+  }, []);
 
   if (!gameId) return null;
   if (game === null) return <div className="empty-state"><div className="empty-title">Game not found</div></div>;
@@ -177,29 +190,37 @@ export function LobbyView() {
   const maxSeats = 4;
   const seatSlots: (Seat | null)[] = Array.from({ length: maxSeats }, (_, i) => seats[i] ?? null);
 
+  function flashCopied() {
+    if (copiedTimer.current) clearTimeout(copiedTimer.current);
+    setCopied(true);
+    copiedTimer.current = setTimeout(() => setCopied(false), 1600);
+  }
+
   function copyInviteLink() {
     const url = `${window.location.origin}/lobby/new?code=${game!.inviteCode}`;
-    navigator.clipboard.writeText(url).catch(() => {});
-    setCopied(true);
-    setTimeout(() => setCopied(false), 1600);
+    if (!navigator.clipboard) { toast("Clipboard not available", "error"); return; }
+    navigator.clipboard.writeText(url).then(flashCopied).catch(() => toast("Copy failed", "error"));
   }
 
   function copyCodeOnly() {
-    navigator.clipboard.writeText(game!.inviteCode).catch(() => {});
-    setCopied(true);
-    setTimeout(() => setCopied(false), 1600);
+    if (!navigator.clipboard) { toast("Clipboard not available", "error"); return; }
+    navigator.clipboard.writeText(game!.inviteCode).then(flashCopied).catch(() => toast("Copy failed", "error"));
   }
 
   async function handleToggleReady() {
-    if (!gameId) return;
+    if (!gameId || pendingReady) return;
+    setPendingReady(true);
     try { await toggleReady(gameId); }
     catch (e) { toast((e as Error).message, "error"); }
+    finally { setPendingReady(false); }
   }
 
   async function handleRemove(uid: string) {
-    if (!gameId) return;
+    if (!gameId || pendingRemove) return;
+    setPendingRemove(uid);
     try { await removePlayer(gameId, uid); }
     catch (e) { toast((e as Error).message, "error"); }
+    finally { setPendingRemove(null); }
   }
 
   async function handleStart() {
@@ -292,9 +313,11 @@ export function LobbyView() {
                   <SeatCard
                     key={seat.uid}
                     seat={seat}
-                    index={i}
+                    hostUid={game.hostUid}
                     isHostView={isHost}
                     isYou={seat.uid === me}
+                    pendingReady={pendingReady}
+                    pendingRemove={pendingRemove === seat.uid}
                     onToggleReady={handleToggleReady}
                     onRemove={() => handleRemove(seat.uid)}
                   />
@@ -353,6 +376,7 @@ export function LobbyView() {
               ) : (
                 <button
                   className="btn btn-primary"
+                  disabled={pendingReady}
                   onClick={handleToggleReady}
                   style={{ padding: "8px 22px" }}
                 >
