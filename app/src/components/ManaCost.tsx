@@ -5,10 +5,6 @@ const SYM_TO_CLASS: Record<string, string> = {
   R: "pip-r",
   G: "pip-g",
   C: "pip-c",
-  S: "pip-c",
-  X: "pip-c",
-  Y: "pip-c",
-  Z: "pip-c",
 };
 
 export interface PipDescriptor {
@@ -24,7 +20,7 @@ export function manaPips(cost: string): PipDescriptor[] {
   return matches.map((token) => {
     const sym = token.slice(1, -1).toUpperCase();
     // Generic numeric pips → colorless styling
-    const cls = SYM_TO_CLASS[sym] ?? (isNaN(Number(sym)) ? "pip-c" : "pip-c");
+    const cls = SYM_TO_CLASS[sym] ?? "pip-c";
     return { sym, cls };
   });
 }

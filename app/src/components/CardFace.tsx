@@ -46,7 +46,6 @@ export function CardFace({ card, zone, onClick, onContextMenu, draggable, onDrag
           <div className="card-name">{card.name}</div>
           <div className="card-art" />
           <div className="card-foot">
-            <span className="card-cost" />
             {ptStr && <span className="card-pt">{ptStr}</span>}
           </div>
         </>
