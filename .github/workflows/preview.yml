@@ -30,6 +30,12 @@ jobs:
       - name: Build app
         run: npm --prefix app install && npm --prefix app run build
 
+      - name: Run rules tests
+        run: npm run test:rules
+
+      - name: Run functions tests
+        run: firebase emulators:exec --only firestore,functions "node --test 'functions/test/**/*.test.js'"
+
       - name: Deploy preview to Firebase Hosting
         uses: FirebaseExtended/action-hosting-deploy@v0
         with:
