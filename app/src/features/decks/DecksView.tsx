@@ -91,22 +91,9 @@ function DeckCardList({
   onRemove?: (cardId: string) => void;
   onAdd?: (cardId: string) => void;
 }) {
-  const grouped: Record<string, DeckCardEntry[]> = {};
-  for (const c of cards) {
-    const typeLine = c.typeLine ?? "";
-    const grp = isLand(typeLine) ? "Lands" : typeLine.split(" ")[0] ? typeLine.split(" ")[0] + "s" : "Other";
-    if (!grouped[grp]) grouped[grp] = [];
-    grouped[grp].push(c);
-  }
-  // sort groups sensibly
-  const ORDER = ["Creatures", "Instants", "Sorceries", "Enchantments", "Artifacts", "Planeswalkers", "Lands", "Other"];
-  const sortedGroups = Object.keys(grouped).sort(
-    (a, b) => (ORDER.indexOf(a) === -1 ? 99 : ORDER.indexOf(a)) - (ORDER.indexOf(b) === -1 ? 99 : ORDER.indexOf(b))
-  );
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-      {sortedGroups.map((grp) => {
-        const items = grouped[grp];
+      {groupCardsByType(cards).map(({ group: grp, cards: items }) => {
         const total = items.reduce((s, c) => s + (c.quantity ?? 1), 0);
         return (
           <div key={grp}>
@@ -179,11 +166,13 @@ export function DecksView() {
   // Load detail when selection changes
   useEffect(() => {
     if (!selectedId) { setSelectedDeck(null); setVersions([]); return; }
+    let cancelled = false;
     setDetailLoading(true);
     Promise.all([getDeck(selectedId), getDeckVersions(selectedId)])
-      .then(([deck, vers]) => { setSelectedDeck(deck); setVersions(vers); })
-      .catch((e) => toast(e.message, "error"))
-      .finally(() => setDetailLoading(false));
+      .then(([deck, vers]) => { if (!cancelled) { setSelectedDeck(deck); setVersions(vers); } })
+      .catch((e) => { if (!cancelled) toast(e.message, "error"); })
+      .finally(() => { if (!cancelled) setDetailLoading(false); });
+    return () => { cancelled = true; };
   }, [selectedId, toast]);
 
   const filteredDecks = useMemo(() => {
