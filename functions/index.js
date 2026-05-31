@@ -3,6 +3,7 @@ import { initializeApp, getApps } from "firebase-admin/app";
 import { getFirestore, FieldValue } from "firebase-admin/firestore";
 import { makeCode } from "./lib/invite.js";
 import { buildSeatState } from "./lib/deal.js";
+import { handleGameAction } from "./lib/actions.js";
 
 if (!getApps().length) initializeApp();
 const db = getFirestore();
@@ -111,4 +112,9 @@ export async function _startGame(uid, data, database) {
 export const startGame = onCall(async (req) => {
   if (!req.auth) throw new HttpsError("unauthenticated", "Sign in required");
   return _startGame(req.auth.uid, req.data, db);
+});
+
+export const gameAction = onCall(async (req) => {
+  if (!req.auth) throw new HttpsError("unauthenticated", "Sign in required");
+  return handleGameAction(req.auth.uid, req.data, db);
 });
