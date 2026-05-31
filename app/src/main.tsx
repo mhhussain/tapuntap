@@ -7,6 +7,8 @@ import { AppShell } from "./components/AppShell";
 import { ToastProvider } from "./components/Toast";
 import { DecksView } from "./features/decks/DecksView";
 import { BuilderView } from "./features/decks/BuilderView";
+import { LobbyNewView } from "./features/lobby/LobbyNewView";
+import { LobbyView } from "./features/lobby/LobbyView";
 
 function Placeholder({ title }: { title: string }) {
   return (
@@ -29,6 +31,8 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
                 <Route path="/decks/new" element={<BuilderView />} />
                 <Route path="/decks/:deckId" element={<BuilderView />} />
                 <Route path="/games" element={<Placeholder title="Games" />} />
+                <Route path="/lobby/new" element={<LobbyNewView />} />
+                <Route path="/lobby/:gameId" element={<LobbyView />} />
                 <Route path="/settings" element={<Placeholder title="Settings" />} />
                 <Route path="*" element={<Navigate to="/" replace />} />
               </Route>
