@@ -6,6 +6,7 @@
   "scripts": {
     "emulators": "firebase emulators:start",
     "test:rules": "firebase emulators:exec --only firestore \"bash -c 'node --test test/rules/*.test.js'\"",
+    "test:functions": "firebase emulators:exec --only firestore,functions \"bash -c 'node --test functions/test/*.test.js'\"",
     "build:app": "npm --prefix app install && npm --prefix app run build"
   },
   "devDependencies": {

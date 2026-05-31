@@ -2165,10 +2165,10 @@ git commit -m "Guard startGame against a seated player's deleted deck"
         run: npm run test:rules
 
       - name: Run functions tests
-        run: firebase emulators:exec --only firestore,functions "node --test functions/test"
+        run: npm run test:functions
 ```
 
-> Note: these run against the emulator in CI; they need `firebase-tools` (already installed via `npm i`) and the functions deps (installed earlier in the workflow).
+> Note: these run against the emulator in CI; they need `firebase-tools` (already installed via `npm i`) and the functions deps (installed earlier in the workflow). Invoke `firebase` **via the npm scripts** (`test:rules`/`test:functions`), not a bare `firebase ...` shell command — npm puts `node_modules/.bin` on PATH, but the raw CI shell does not, so a bare `firebase` errors with `command not found` (exit 127). Add a `test:functions` script to root `package.json` mirroring `test:rules`.
 
 - [ ] **Step 2: Verify locally** the same commands pass
 
