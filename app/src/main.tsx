@@ -12,6 +12,7 @@ import { LobbyView } from "./features/lobby/LobbyView";
 import { GameView } from "./features/game/GameView";
 import { HomeView } from "./features/home/HomeView";
 import { GamesView } from "./features/games/GamesView";
+import { EndGameView } from "./features/game/endgame/EndGameView";
 
 function Placeholder({ title }: { title: string }) {
   return (
@@ -37,6 +38,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
                 <Route path="/lobby/new" element={<LobbyNewView />} />
                 <Route path="/lobby/:gameId" element={<LobbyView />} />
                 <Route path="/games/:gameId" element={<GameView />} />
+                <Route path="/games/:gameId/end" element={<EndGameView />} />
                 <Route path="/settings" element={<Placeholder title="Settings" />} />
                 <Route path="*" element={<Navigate to="/" replace />} />
               </Route>
