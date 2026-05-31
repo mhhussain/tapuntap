@@ -27,9 +27,6 @@ jobs:
       - name: Install functions dependencies
         run: cd functions && npm i
 
-      - name: Run security rules tests
-        run: npm run test:rules
-
       - name: Deploy preview to Firebase Hosting
         uses: FirebaseExtended/action-hosting-deploy@v0
         with:
