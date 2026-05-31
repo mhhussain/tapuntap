@@ -51,7 +51,12 @@ service cloud.firestore {
         allow create, delete: if false; // only startGame (Admin SDK) creates; endGame cleans up
 
         match /private/{docId} {
-          allow read, write: if request.auth != null && request.auth.uid == uid;
+          // Owner may READ their own hidden zones (hand/library). Direct client WRITES are denied:
+          // all hidden-zone mutations (draw/scry/move/etc.) go through the gameAction Cloud Function
+          // (Admin SDK), which keeps the private arrays and the public counts consistent. This stops a
+          // client from desyncing its own counts (e.g. hiding its true hand size).
+          allow read: if request.auth != null && request.auth.uid == uid;
+          allow write: if false;
         }
       }
     }

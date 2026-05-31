@@ -67,6 +67,17 @@ test("players: owner cannot forge counts directly (Function-owned)", async () =>
   await env.cleanup();
 });
 
+test("players: owner can READ but cannot WRITE own private doc (hidden-zone mutations are Function-owned)", async () => {
+  const env = await makeEnv(); await env.clearFirestore(); await seedGame(env);
+  try {
+    const alice = env.authenticatedContext("alice").firestore();
+    await assertSucceeds(getDoc(doc(alice, "games/g1/players/alice/private/state")));
+    await assertFails(updateDoc(doc(alice, "games/g1/players/alice/private/state"), { hand: ["cheat"] }));
+  } finally {
+    await env.cleanup();
+  }
+});
+
 test("log: participant can create, not update", async () => {
   const env = await makeEnv(); await env.clearFirestore(); await seedGame(env);
   try {
