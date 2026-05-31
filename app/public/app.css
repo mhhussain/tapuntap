@@ -221,7 +221,7 @@ textarea.input { resize: vertical; }
 .pip-sm { width: 13px; height: 13px; font-size: 8px; }
 
 /* ─── Abstract card (battlefield) ───────────────────────────────────────────── */
-.card-face {
+.card-face, .card {
   width: var(--density-card-w);
   height: var(--density-card-h);
   border-radius: 6px; padding: 6px;
@@ -234,19 +234,19 @@ textarea.input { resize: vertical; }
   transition: transform 120ms, box-shadow 120ms, border-color 120ms;
   overflow: hidden; flex-shrink: 0;
 }
-.card-face:hover {
+.card-face:hover, .card:hover {
   transform: translateY(-4px);
   box-shadow: 0 8px 18px oklch(0 0 0 / 0.55);
   border-color: var(--accent-line); z-index: 5;
 }
-.card-face:active { cursor: grabbing; }
-.card-face.tapped {
+.card-face:active, .card:active { cursor: grabbing; }
+.card-face.tapped, .card.tapped {
   transform: rotate(90deg) translateX(8px);
   margin-right: calc(var(--density-card-h) - var(--density-card-w) + 6px);
 }
-.card-face.tapped:hover { transform: rotate(90deg) translateX(8px) translateY(-2px); }
-.card-face.summoning-sick { filter: saturate(0.4) brightness(0.85); }
-.card-face.selected { border-color: var(--accent); box-shadow: 0 0 0 2px var(--accent-soft); }
+.card-face.tapped:hover, .card.tapped:hover { transform: rotate(90deg) translateX(8px) translateY(-2px); }
+.card-face.summoning-sick, .card.summoning-sick { filter: saturate(0.4) brightness(0.85); }
+.card-face.selected, .card.selected { border-color: var(--accent); box-shadow: 0 0 0 2px var(--accent-soft); }
 
 .card-color-bar {
   position: absolute; inset: 0 0 auto 0; height: 4px; border-radius: 6px 6px 0 0;
@@ -288,7 +288,7 @@ textarea.input { resize: vertical; }
   background: var(--accent); color: var(--bg-0);
   padding: 1px 4px; border-radius: 3px; font-weight: 700; text-transform: uppercase;
 }
-.card-face.is-land .card-art {
+.card-face.is-land .card-art, .card.is-land .card-art {
   background: repeating-linear-gradient(0deg, oklch(0 0 0 / 0.15) 0 3px, transparent 3px 7px),
               var(--card-tone, var(--mana-c));
 }
@@ -737,35 +737,3 @@ textarea.input { resize: vertical; }
 }
 .auth-link:hover { color: var(--accent); }
 
-/* ============ .card alias for design system (app uses .card-face) ============ */
-/* These aliases allow design-system classes to work alongside app's .card-face classes.
-   The app's primary card class is .card-face; .card is provided for parity with design tokens. */
-.card {
-  width: var(--density-card-w);
-  height: var(--density-card-h);
-  border-radius: 6px; padding: 6px;
-  font-size: 10px; display: flex;
-  flex-direction: column; justify-content: space-between;
-  gap: 3px;
-  border: 1px solid oklch(0 0 0 / 0.4);
-  background: linear-gradient(180deg, var(--bg-3), var(--bg-2));
-  position: relative; cursor: grab; user-select: none;
-  transition: transform 120ms, box-shadow 120ms, border-color 120ms;
-  overflow: hidden; flex-shrink: 0;
-}
-.card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 18px oklch(0 0 0 / 0.55);
-  border-color: var(--accent-line); z-index: 5;
-}
-.card:active { cursor: grabbing; }
-.card.tapped {
-  transform: rotate(90deg) translateX(8px);
-  margin-right: calc(var(--density-card-h) - var(--density-card-w) + 6px);
-}
-.card.tapped:hover { transform: rotate(90deg) translateX(8px) translateY(-2px); }
-.card.summoning-sick { filter: saturate(0.4) brightness(0.85); }
-.card.is-land .card-art {
-  background: repeating-linear-gradient(0deg, oklch(0 0 0 / 0.15) 0 3px, transparent 3px 7px),
-              var(--card-tone, var(--mana-c));
-}
