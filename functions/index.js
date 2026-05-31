@@ -118,3 +118,47 @@ export const gameAction = onCall(async (req) => {
   if (!req.auth) throw new HttpsError("unauthenticated", "Sign in required");
   return handleGameAction(req.auth.uid, req.data, db);
 });
+
+export async function _leaveGame(uid, data, database) {
+  const { gameId } = data || {};
+  if (!gameId) throw new HttpsError("invalid-argument", "gameId required");
+  const ref = database.doc(`games/${gameId}`);
+  return database.runTransaction(async (tx) => {
+    const snap = await tx.get(ref);
+    if (!snap.exists) throw new HttpsError("not-found", "Game not found");
+    const g = snap.data();
+    if (!g.seatUids.includes(uid)) return { ok: true };
+    if (g.hostUid === uid && g.status === "lobby") {
+      // Host leaving an unstarted lobby cancels it.
+      tx.delete(ref);
+      return { cancelled: true };
+    }
+    tx.update(ref, {
+      seats: g.seats.filter((s) => s.uid !== uid),
+      seatUids: g.seatUids.filter((u) => u !== uid),
+      updatedAt: FieldValue.serverTimestamp(),
+    });
+    return { ok: true };
+  });
+}
+
+export async function _endGame(uid, data, database) {
+  const { gameId, winnerUid } = data || {};
+  if (!gameId) throw new HttpsError("invalid-argument", "gameId required");
+  const ref = database.doc(`games/${gameId}`);
+  const snap = await ref.get();
+  if (!snap.exists) throw new HttpsError("not-found", "Game not found");
+  if (snap.data().hostUid !== uid) throw new HttpsError("permission-denied", "Host only");
+  await ref.update({ status: "complete", winnerUid: winnerUid || null, updatedAt: FieldValue.serverTimestamp() });
+  return { ok: true };
+}
+
+export const leaveGame = onCall(async (req) => {
+  if (!req.auth) throw new HttpsError("unauthenticated", "Sign in required");
+  return _leaveGame(req.auth.uid, req.data, db);
+});
+
+export const endGame = onCall(async (req) => {
+  if (!req.auth) throw new HttpsError("unauthenticated", "Sign in required");
+  return _endGame(req.auth.uid, req.data, db);
+});

@@ -9,7 +9,7 @@ initializeApp({ projectId: "iammoo-tapuntap" });
 const db = getFirestore();
 
 // Import the pure handlers (exported for testing) — see Step 3.
-const { _createGame, _joinGame } = await import("../index.js");
+const { _createGame, _joinGame, _leaveGame, _endGame } = await import("../index.js");
 
 test("createGame seats host and returns a code", async () => {
   await db.doc("users/host/decks/d1").set({ ownerUid: "host", name: "A", format: "commander" });
@@ -29,4 +29,24 @@ test("joinGame adds a seat; rejects dup and full", async () => {
   let g = (await db.doc(`games/${gameId}`).get()).data();
   assert.equal(g.seats.length, 2);
   await assert.rejects(() => _joinGame("bob", { inviteCode, deckId: "d2" }, db));
+});
+
+test("leaveGame removes a non-host seat from a lobby", async () => {
+  await db.doc("users/host/decks/d1").set({ ownerUid: "host", name: "A", format: "commander" });
+  await db.doc("users/bob/decks/d2").set({ ownerUid: "bob", name: "B", format: "commander" });
+  const { gameId, inviteCode } = await _createGame("host", { name: "G", format: "commander", deckId: "d1" }, db);
+  await _joinGame("bob", { inviteCode, deckId: "d2" }, db);
+  await _leaveGame("bob", { gameId }, db);
+  const g = (await db.doc(`games/${gameId}`).get()).data();
+  assert.equal(g.seats.length, 1);
+  assert.ok(!g.seatUids.includes("bob"));
+});
+
+test("endGame marks the game complete", async () => {
+  await db.doc("users/host/decks/d1").set({ ownerUid: "host", name: "A", format: "commander" });
+  const { gameId } = await _createGame("host", { name: "G", format: "commander", deckId: "d1" }, db);
+  await _endGame("host", { gameId, winnerUid: "host" }, db);
+  const g = (await db.doc(`games/${gameId}`).get()).data();
+  assert.equal(g.status, "complete");
+  assert.equal(g.winnerUid, "host");
 });
