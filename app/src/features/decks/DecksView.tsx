@@ -6,8 +6,8 @@ import { Icon } from "../../components/Icon";
 import { useState } from "react";
 
 export function DecksView() {
-  const { decks, error } = useMyDecks();
-  const [version, setVersion] = useState(0); // force refetch after delete
+  const [version, setVersion] = useState(0); // bump to refetch after delete
+  const { decks, error } = useMyDecks(version);
   const navigate = useNavigate();
   const toast = useToast();
 

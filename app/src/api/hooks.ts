@@ -50,12 +50,12 @@ export function useLog(gameId: string | undefined) {
   return log;
 }
 
-export function useMyDecks() {
+export function useMyDecks(refreshKey = 0) {
   const [decks, setDecks] = useState<DeckSummary[] | null>(null);
   const [error, setError] = useState<string>("");
   useEffect(() => {
     listDecks().then(setDecks).catch((e) => setError(e.message));
-  }, []);
+  }, [refreshKey]);
   return { decks, error };
 }
 
