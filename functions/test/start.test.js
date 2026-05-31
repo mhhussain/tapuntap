@@ -35,3 +35,13 @@ test("startGame deals public+private and activates", async () => {
   assert.equal(priv.library.length, 3);
   await assert.rejects(() => _startGame("eve", { gameId: "g9" }, db)); // non-host rejected
 });
+
+test("startGame rejects when a seated player's deck is missing", async () => {
+  await db.doc("games/gmissing").set({
+    name: "G", status: "lobby", hostUid: "host", inviteCode: "MMMM", format: "commander",
+    seats: [{ seat: 0, uid: "host", displayName: "Host", deckId: "nope", deckName: "Gone", ready: true }],
+    seatUids: ["host"], turnOrder: [], turn: 0, activeSeat: 0,
+    phase: "beginning", phaseIndex: 0, phases: ["beginning","main1","combat","main2","end"],
+  });
+  await assert.rejects(() => _startGame("host", { gameId: "gmissing" }, db));
+});

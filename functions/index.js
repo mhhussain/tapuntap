@@ -87,8 +87,9 @@ export async function _startGame(uid, data, database) {
   if (g.status !== "lobby") throw new HttpsError("failed-precondition", "Not in lobby");
 
   const seatStates = await Promise.all(g.seats.map(async (seat) => {
-    const deck = (await database.doc(`users/${seat.uid}/decks/${seat.deckId}`).get()).data();
-    return { seat, ...buildSeatState(seat, deck, g.format) };
+    const deckSnap = await database.doc(`users/${seat.uid}/decks/${seat.deckId}`).get();
+    if (!deckSnap.exists) throw new HttpsError("failed-precondition", `Deck missing for ${seat.displayName}`);
+    return { seat, ...buildSeatState(seat, deckSnap.data(), g.format) };
   }));
 
   const batch = database.batch();
