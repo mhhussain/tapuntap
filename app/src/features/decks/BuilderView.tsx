@@ -5,7 +5,7 @@ import { createDeck, getDeck, updateDeck } from "../../api/decks";
 import { useToast } from "../../components/Toast";
 import { Icon } from "../../components/Icon";
 import { ManaCost } from "../../components/ManaCost";
-import { isLand } from "../../lib/cards";
+import { groupCardsByType } from "../../lib/cards";
 import type { DeckCardEntry } from "../../types";
 
 function toEntry(card: any, quantity = 1): DeckCardEntry {
@@ -16,21 +16,6 @@ function toEntry(card: any, quantity = 1): DeckCardEntry {
     imageUriBack: card.card_faces?.[1]?.image_uris?.normal || null,
     power: card.power ?? null, toughness: card.toughness ?? null, loyalty: card.loyalty ?? null,
   };
-}
-
-function groupCards(cards: DeckCardEntry[]) {
-  const grouped: Record<string, DeckCardEntry[]> = {};
-  for (const c of cards) {
-    const typeLine = c.typeLine ?? "";
-    const grp = isLand(typeLine) ? "Lands" : typeLine.split(" ")[0] ? typeLine.split(" ")[0] + "s" : "Other";
-    if (!grouped[grp]) grouped[grp] = [];
-    grouped[grp].push(c);
-  }
-  const ORDER = ["Creatures", "Instants", "Sorceries", "Enchantments", "Artifacts", "Planeswalkers", "Lands", "Other"];
-  const sortedKeys = Object.keys(grouped).sort(
-    (a, b) => (ORDER.indexOf(a) === -1 ? 99 : ORDER.indexOf(a)) - (ORDER.indexOf(b) === -1 ? 99 : ORDER.indexOf(b))
-  );
-  return sortedKeys.map((k) => ({ group: k, cards: grouped[k] }));
 }
 
 export function BuilderView() {
@@ -113,7 +98,7 @@ export function BuilderView() {
   }
 
   const totalCards = cards.reduce((s, c) => s + c.quantity, 0);
-  const groups = groupCards(cards);
+  const groups = groupCardsByType(cards);
 
   const smallImg = (card: any) =>
     card?.image_uris?.small || card?.card_faces?.[0]?.image_uris?.small || null;
