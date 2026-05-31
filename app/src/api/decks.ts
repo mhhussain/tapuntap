@@ -75,6 +75,26 @@ export async function updateDeck(id: string, input: Partial<{ name: string; form
   });
 }
 
+export interface DeckVersion {
+  version: number;
+  timestamp: number | null;
+  changelog: string;
+  cards: DeckCardEntry[];
+}
+
+export async function getDeckVersions(id: string): Promise<DeckVersion[]> {
+  const snap = await getDocs(collection(doc(decksCol(), id), "versions"));
+  return snap.docs.map((d) => {
+    const x = d.data() as any;
+    return {
+      version: x.version,
+      timestamp: x.timestamp?.toMillis?.() ?? null,
+      changelog: x.changelog || "",
+      cards: x.cards || [],
+    };
+  }).sort((a, b) => b.version - a.version);
+}
+
 export async function deleteDeck(id: string): Promise<void> {
   const ref = doc(decksCol(), id);
   const versions = await getDocs(collection(ref, "versions"));
