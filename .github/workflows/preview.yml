@@ -22,10 +22,10 @@ jobs:
           cache: 'npm'
 
       - name: Install root dependencies
-        run: npm ci
+        run: npm i
 
       - name: Install functions dependencies
-        run: cd functions && npm ci
+        run: cd functions && npm i
 
       - name: Run security rules tests
         run: npm run test:rules
