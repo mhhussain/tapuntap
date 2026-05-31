@@ -19,11 +19,5 @@ export const gameAction = (action: GameAction) => call("gameAction")(action);
 export const toggleReady = (gameId: string) => call("toggleReady")({ gameId });
 export const removePlayer = (gameId: string, targetUid: string) => call("removePlayer")({ gameId, targetUid });
 
-// Toggling your own ready flag in a lobby seat: rules allow the host functions to own seats,
-// so ready toggling also routes through a small Function in production. For the baseline we
-// update via a dedicated callable if present; otherwise the host starts when all are seated.
-// Simplest correct path: ready toggling is a client convenience persisted on the seat by a Function.
-// To keep Phase 5 shippable, we treat "joined" as ready and gate Start on seats.length >= 2.
-
 export const setNotes = (gameId: string, notes: string) =>
   updateDoc(doc(db, "games", gameId), { notes });
