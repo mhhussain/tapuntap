@@ -1266,8 +1266,11 @@ import { db, auth } from "../lib/firebase";
 import type { GameDoc, PlayerPublic, PlayerPrivate, LogEntry } from "../types";
 import { listDecks, type DeckSummary } from "./decks";
 
+// Returns: undefined = loading (no snapshot yet), null = not found, object = loaded.
+// Distinguishing undefined-vs-null matters: GameView navigates away only on null,
+// so the initial state must NOT be null (or it would redirect before the first load).
 export function useGame(gameId: string | undefined) {
-  const [game, setGame] = useState<GameDoc | null>(null);
+  const [game, setGame] = useState<GameDoc | null | undefined>(undefined);
   useEffect(() => {
     if (!gameId) return;
     return onSnapshot(doc(db, "games", gameId), (s) =>
