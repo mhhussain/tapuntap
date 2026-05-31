@@ -94,6 +94,11 @@ export async function handleGameAction(uid, data, db) {
       const byId = new Map(top.map((c) => [c.instanceId, c]));
       const newTop = (data.order || []).map((id) => byId.get(id)).filter(Boolean);
       const newBottom = (data.toBottom || []).map((id) => byId.get(id)).filter(Boolean);
+      // Integrity guard: the client must account for exactly the top-n cards (no drops/dupes),
+      // otherwise unmatched cards would be silently lost from the library.
+      if (newTop.length + newBottom.length !== top.length) {
+        throw new HttpsError("invalid-argument", "scry order must reference exactly the scried cards");
+      }
       priv.library = [...newTop, ...rest, ...newBottom];
       await writePrivateAndCounts(db, gameId, uid, priv);
       await appendLog(db, gameId, seatNum, who, g.turn, `scried ${n}`);

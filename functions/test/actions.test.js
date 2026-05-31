@@ -74,3 +74,21 @@ test("moveToLibrary from hand puts a card on top and updates counts", async () =
   assert.equal(priv.hand.length, 0);
   assert.equal(pub.libraryCount, 2);
 });
+
+test("scry reorders the top cards without losing any (counts preserved)", async () => {
+  await seed(); // library: a, b, c
+  // Scry 2: keep 'a' on top, send 'b' to bottom.
+  await handleGameAction("host", { type: "scry", gameId: "ga", order: ["a"], toBottom: ["b"] }, db);
+  const priv = (await db.doc("games/ga/players/host/private/state").get()).data();
+  const pub = (await db.doc("games/ga/players/host").get()).data();
+  assert.deepEqual(priv.library.map((c) => c.instanceId), ["a", "c", "b"]);
+  assert.equal(pub.libraryCount, 3); // no cards lost
+});
+
+test("scry rejects an order that does not account for all scried cards", async () => {
+  await seed(); // library: a, b, c
+  // n = 2 (top a,b) but only 'a' is referenced -> 'b' would be silently dropped -> must reject.
+  await assert.rejects(() => handleGameAction("host", { type: "scry", gameId: "ga", order: ["a"], toBottom: ["zzz"] }, db));
+  const priv = (await db.doc("games/ga/players/host/private/state").get()).data();
+  assert.equal(priv.library.length, 3); // unchanged
+});
