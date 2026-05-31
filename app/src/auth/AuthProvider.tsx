@@ -4,6 +4,7 @@ import {
   signInWithPopup,
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
+  updateProfile,
   signOut,
   onAuthStateChanged,
   type User,
@@ -50,8 +51,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     signInEmail: async (email, password) => {
       await signInWithEmailAndPassword(auth, email, password);
     },
-    signUpEmail: async (email, password) => {
-      await createUserWithEmailAndPassword(auth, email, password);
+    signUpEmail: async (email, password, name?) => {
+      const { user } = await createUserWithEmailAndPassword(auth, email, password);
+      if (name && name.trim()) {
+        await updateProfile(user, { displayName: name.trim() });
+      }
     },
     signOutUser: async () => {
       await signOut(auth);

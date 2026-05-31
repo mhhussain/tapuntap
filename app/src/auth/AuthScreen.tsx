@@ -15,12 +15,13 @@ const pwStrength = (s: string): number => {
 };
 
 // ── friendly Firebase error mapping ──────────────────────────────────────────
-function friendly(code: string, message: string): string {
-  if (code === "auth/invalid-credential") return "That email and password don't match. Try again.";
-  if (code === "auth/email-already-in-use") return "An account with this email already exists. Sign in instead?";
-  if (code === "auth/weak-password") return "Password should be at least 6 characters.";
-  if (code === "auth/invalid-email") return "Enter a valid email address.";
-  return message;
+type ErrorKind = "error" | "email-in-use";
+function friendly(code: string, message: string): { kind: ErrorKind; text: string } {
+  if (code === "auth/invalid-credential") return { kind: "error", text: "That email and password don't match. Try again." };
+  if (code === "auth/email-already-in-use") return { kind: "email-in-use", text: "An account with this email already exists." };
+  if (code === "auth/weak-password") return { kind: "error", text: "Password should be at least 6 characters." };
+  if (code === "auth/invalid-email") return { kind: "error", text: "Enter a valid email address." };
+  return { kind: "error", text: message };
 }
 
 // ── helpers ───────────────────────────────────────────────────────────────────
@@ -90,7 +91,7 @@ export function AuthScreen() {
   const [touched, setTouched] = useState<Record<string, boolean>>({});
   const [submitting, setSubmitting] = useState(false);
   const [googleLoading, setGoogleLoading] = useState(false);
-  const [formError, setFormError] = useState<{ kind: "bad"; text: string } | null>(null);
+  const [formError, setFormError] = useState<{ kind: "error" | "email-in-use"; text: string } | null>(null);
 
   const strength = pwStrength(pw);
   const emailValid = isEmail(email);
@@ -119,7 +120,7 @@ export function AuthScreen() {
     } catch (e) {
       const err = e as { code?: string; message?: string };
       if (err.code === "auth/popup-closed-by-user" || err.code === "auth/cancelled-popup-request") return;
-      setFormError({ kind: "bad", text: friendly(err.code ?? "", err.message ?? "Sign-in failed.") });
+      setFormError(friendly(err.code ?? "", err.message ?? "Sign-in failed."));
     } finally {
       setGoogleLoading(false);
     }
@@ -139,11 +140,11 @@ export function AuthScreen() {
       if (mode === "signin") {
         await signInEmail(email.trim(), pw);
       } else {
-        await signUpEmail(email.trim(), pw);
+        await signUpEmail(email.trim(), pw, name.trim());
       }
     } catch (e) {
       const err = e as { code?: string; message?: string };
-      setFormError({ kind: "bad", text: friendly(err.code ?? "", err.message ?? "Something went wrong.") });
+      setFormError(friendly(err.code ?? "", err.message ?? "Something went wrong."));
     } finally {
       setSubmitting(false);
     }
@@ -204,13 +205,13 @@ export function AuthScreen() {
             }}>
               <span style={{ color: "var(--bad)", marginTop: 1 }}><Icon name="close" size={14} /></span>
               <div style={{ fontSize: 13, color: "var(--fg-1)", flex: 1 }}>
-                {formError.text.includes("Sign in instead?") ? (
+                {formError.kind === "email-in-use" ? (
                   <>
-                    An account with this email already exists.{" "}
+                    {formError.text}{" "}
                     <button onClick={() => switchMode("signin")} style={{
                       background: "none", border: "none", color: "var(--accent)", padding: 0,
                       textDecoration: "underline", cursor: "pointer", fontSize: 13,
-                    }}>Sign in</button>
+                    }}>Sign in instead?</button>
                   </>
                 ) : (
                   formError.text

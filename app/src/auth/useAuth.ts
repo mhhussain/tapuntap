@@ -6,7 +6,7 @@ export interface AuthState {
   loading: boolean;
   signInGoogle: () => Promise<void>;
   signInEmail: (email: string, password: string) => Promise<void>;
-  signUpEmail: (email: string, password: string) => Promise<void>;
+  signUpEmail: (email: string, password: string, name?: string) => Promise<void>;
   signOutUser: () => Promise<void>;
 }
 
