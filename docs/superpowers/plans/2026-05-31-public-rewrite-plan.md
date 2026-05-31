@@ -181,11 +181,13 @@ public/                                (delete at cutover)
     "module": "ESNext",
     "moduleResolution": "bundler",
     "allowSyntheticDefaultImports": true,
-    "strict": true,
-    "noEmit": true
+    "strict": true
   },
   "include": ["vite.config.ts", "vitest.config.ts"]
 }
+```
+
+> Note: do NOT add `"noEmit": true` here — TypeScript forbids `noEmit` together with `composite` (error TS6310). `noEmit` belongs only in the main `tsconfig.json`.
 ```
 
 - [ ] **Step 4: Create `app/vite.config.ts`**
@@ -1308,12 +1310,12 @@ export function useLog(gameId: string | undefined) {
   return log;
 }
 
-export function useMyDecks() {
+export function useMyDecks(refreshKey = 0) {
   const [decks, setDecks] = useState<DeckSummary[] | null>(null);
   const [error, setError] = useState<string>("");
   useEffect(() => {
     listDecks().then(setDecks).catch((e) => setError(e.message));
-  }, []);
+  }, [refreshKey]); // pass a changing refreshKey to force a refetch (e.g. after delete)
   return { decks, error };
 }
 
@@ -1365,8 +1367,8 @@ import { Icon } from "../../components/Icon";
 import { useState } from "react";
 
 export function DecksView() {
-  const { decks, error } = useMyDecks();
-  const [version, setVersion] = useState(0); // force refetch after delete
+  const [version, setVersion] = useState(0); // bump to refetch after delete
+  const { decks, error } = useMyDecks(version);
   const navigate = useNavigate();
   const toast = useToast();
 
