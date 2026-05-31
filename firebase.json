@@ -7,8 +7,9 @@
     { "source": "functions", "codebase": "default" }
   ],
   "hosting": {
-    "public": "public",
+    "public": "app/dist",
     "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+    "predeploy": ["npm --prefix app install", "npm --prefix app run build"],
     "rewrites": [{ "source": "**", "destination": "/index.html" }]
   },
   "emulators": {

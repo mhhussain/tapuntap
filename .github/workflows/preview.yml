@@ -27,6 +27,9 @@ jobs:
       - name: Install functions dependencies
         run: cd functions && npm i
 
+      - name: Build app
+        run: npm --prefix app install && npm --prefix app run build
+
       - name: Deploy preview to Firebase Hosting
         uses: FirebaseExtended/action-hosting-deploy@v0
         with:
