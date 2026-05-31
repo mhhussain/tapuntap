@@ -18,45 +18,58 @@ async function seedGame(env, status = "active") {
 
 test("games: participant reads, non-participant denied on active", async () => {
   const env = await makeEnv(); await env.clearFirestore(); await seedGame(env);
-  const bob = env.authenticatedContext("bob").firestore();
-  const eve = env.authenticatedContext("eve").firestore();
-  await assertSucceeds(getDoc(doc(bob, "games/g1")));
-  await assertFails(getDoc(doc(eve, "games/g1")));
-  await env.cleanup();
+  try {
+    const bob = env.authenticatedContext("bob").firestore();
+    const eve = env.authenticatedContext("eve").firestore();
+    await assertSucceeds(getDoc(doc(bob, "games/g1")));
+    await assertFails(getDoc(doc(eve, "games/g1")));
+  } finally {
+    await env.cleanup();
+  }
 });
 
 test("games: lobby is readable by any authed user", async () => {
   const env = await makeEnv(); await env.clearFirestore(); await seedGame(env, "lobby");
-  const eve = env.authenticatedContext("eve").firestore();
-  await assertSucceeds(getDoc(doc(eve, "games/g1")));
-  await env.cleanup();
+  try {
+    const eve = env.authenticatedContext("eve").firestore();
+    await assertSucceeds(getDoc(doc(eve, "games/g1")));
+  } finally {
+    await env.cleanup();
+  }
 });
 
 test("games: only active player writes turn fields", async () => {
   const env = await makeEnv(); await env.clearFirestore(); await seedGame(env);
-  const alice = env.authenticatedContext("alice").firestore();
-  const bob = env.authenticatedContext("bob").firestore();
-  // bob is not active (activeSeat=0 → alice); write must fail first before alice changes state
-  await assertFails(updateDoc(doc(bob, "games/g1"), { activeSeat: 0 }));
-  // alice IS the active player; write must succeed
-  await assertSucceeds(updateDoc(doc(alice, "games/g1"), { activeSeat: 1, phaseIndex: 0 }));
-  await env.cleanup();
+  try {
+    const alice = env.authenticatedContext("alice").firestore();
+    const bob = env.authenticatedContext("bob").firestore();
+    await assertFails(updateDoc(doc(bob, "games/g1"), { activeSeat: 0 }));
+    await assertSucceeds(updateDoc(doc(alice, "games/g1"), { activeSeat: 1, phaseIndex: 0 }));
+  } finally {
+    await env.cleanup();
+  }
 });
 
 test("players: public owner-write, participant-read; private owner-only", async () => {
   const env = await makeEnv(); await env.clearFirestore(); await seedGame(env);
-  const alice = env.authenticatedContext("alice").firestore();
-  const bob = env.authenticatedContext("bob").firestore();
-  await assertSucceeds(updateDoc(doc(alice, "games/g1/players/alice"), { life: 38 }));
-  await assertFails(updateDoc(doc(bob, "games/g1/players/alice"), { life: 1 }));
-  await assertSucceeds(getDoc(doc(bob, "games/g1/players/alice")));         // public readable
-  await assertFails(getDoc(doc(bob, "games/g1/players/alice/private/state"))); // private hidden
-  await env.cleanup();
+  try {
+    const alice = env.authenticatedContext("alice").firestore();
+    const bob = env.authenticatedContext("bob").firestore();
+    await assertSucceeds(updateDoc(doc(alice, "games/g1/players/alice"), { life: 38 }));
+    await assertFails(updateDoc(doc(bob, "games/g1/players/alice"), { life: 1 }));
+    await assertSucceeds(getDoc(doc(bob, "games/g1/players/alice")));
+    await assertFails(getDoc(doc(bob, "games/g1/players/alice/private/state")));
+  } finally {
+    await env.cleanup();
+  }
 });
 
 test("log: participant can create, not update", async () => {
   const env = await makeEnv(); await env.clearFirestore(); await seedGame(env);
-  const bob = env.authenticatedContext("bob").firestore();
-  await assertSucceeds(addDoc(collection(bob, "games/g1/log"), { ts: 1, seat: 1, text: "hi" }));
-  await env.cleanup();
+  try {
+    const bob = env.authenticatedContext("bob").firestore();
+    await assertSucceeds(addDoc(collection(bob, "games/g1/log"), { ts: 1, seat: 1, text: "hi" }));
+  } finally {
+    await env.cleanup();
+  }
 });
