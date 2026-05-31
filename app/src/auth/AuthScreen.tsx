@@ -37,7 +37,11 @@ export function AuthScreen() {
         <div className="login-logo">tapuntap</div>
         <p className="login-sub">Sign in to build decks and play.</p>
 
-        <button className="btn btn-primary" disabled={busy} onClick={() => signInGoogle().catch((e) => setError(e.message))}>
+        <button className="btn btn-primary" disabled={busy} onClick={() => signInGoogle().catch((e) => {
+          const err = e as { code?: string; message?: string };
+          if (err.code === "auth/popup-closed-by-user" || err.code === "auth/cancelled-popup-request") return;
+          setError(friendly(err.code || "", err.message || "Sign-in failed."));
+        })}>
           Continue with Google
         </button>
 

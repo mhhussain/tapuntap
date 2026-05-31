@@ -32,7 +32,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     return onAuthStateChanged(auth, async (u) => {
-      if (u) await ensureUserDoc(u);
+      if (u) {
+        try { await ensureUserDoc(u); }
+        catch (err) { console.error("ensureUserDoc failed:", err); }
+      }
       setUser(u);
       setLoading(false);
     });

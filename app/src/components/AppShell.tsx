@@ -25,7 +25,7 @@ export function AppShell() {
           <Icon name="settings" size={18} />
         </NavLink>
         <button className="rail-btn" title={`Sign out (${user?.displayName || user?.email || ""})`}
-          onClick={() => signOutUser().then(() => navigate("/"))}>
+          onClick={() => signOutUser().then(() => navigate("/")).catch((e) => console.error("sign-out failed:", e))}>
           {(user?.displayName || user?.email || "?").slice(0, 1).toUpperCase()}
         </button>
       </nav>
