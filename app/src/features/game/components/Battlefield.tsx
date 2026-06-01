@@ -2,14 +2,37 @@ import type { CardInstance } from "../../../types";
 import { CardFace } from "../../../components/CardFace";
 import { isLand } from "../../../lib/cards";
 
+interface DropZoneProps {
+  onDragOver: (e: React.DragEvent) => void;
+  onDragLeave: (e: React.DragEvent) => void;
+  onDrop: (e: React.DragEvent) => void;
+  className?: string;
+}
+
 export function Battlefield({
   cards,
   onCardClick,
   onCardContext,
+  onCardMouseEnter,
+  onCardMouseLeave,
+  onCardMouseMove,
+  cardDragProps,
+  creatureLaneDropProps,
+  landLaneDropProps,
 }: {
   cards: CardInstance[];
   onCardClick: (c: CardInstance) => void;
   onCardContext: (e: React.MouseEvent, c: CardInstance) => void;
+  onCardMouseEnter?: (e: React.MouseEvent, c: CardInstance) => void;
+  onCardMouseLeave?: (e: React.MouseEvent, c: CardInstance) => void;
+  onCardMouseMove?: (e: React.MouseEvent) => void;
+  cardDragProps?: (instanceId: string, fromZone: "battlefield") => {
+    draggable: true;
+    onDragStart: (e: React.DragEvent) => void;
+    onDragEnd: () => void;
+  };
+  creatureLaneDropProps?: DropZoneProps;
+  landLaneDropProps?: DropZoneProps;
 }) {
   const creatures = cards.filter((c) => !isLand(c.typeLine));
   const lands = cards.filter((c) => isLand(c.typeLine));
@@ -18,7 +41,13 @@ export function Battlefield({
   return (
     <div className="bf-zones-wrap">
       {/* Creatures & Spells lane */}
-      <div className="bf-zone" style={{ flex: 1 }}>
+      <div
+        className={`bf-zone${creatureLaneDropProps?.className ? ` ${creatureLaneDropProps.className}` : ""}`}
+        style={{ flex: 1 }}
+        onDragOver={creatureLaneDropProps?.onDragOver}
+        onDragLeave={creatureLaneDropProps?.onDragLeave}
+        onDrop={creatureLaneDropProps?.onDrop}
+      >
         <div className="bf-zone-header">
           <span className="eyebrow">Battlefield · Creatures &amp; Spells</span>
           <span
@@ -32,7 +61,7 @@ export function Battlefield({
           </span>
           <div style={{ flex: 1 }} />
           <span style={{ fontSize: 10, color: "var(--fg-4)" }}>
-            Click to tap · right-click for actions
+            Click for detail · right-click for actions · drag to play
           </span>
         </div>
         <div className="bf-zone-cards">
@@ -47,7 +76,7 @@ export function Battlefield({
                 fontStyle: "italic",
               }}
             >
-              No permanents yet.
+              No permanents yet. Drag a card here from your hand.
             </div>
           ) : (
             creatures.map((c) => (
@@ -57,6 +86,10 @@ export function Battlefield({
                   zone="battlefield"
                   onClick={() => onCardClick(c)}
                   onContextMenu={(e) => onCardContext(e, c)}
+                  {...(cardDragProps ? cardDragProps(c.instanceId, "battlefield") : {})}
+                  onMouseEnter={onCardMouseEnter ? (e) => onCardMouseEnter(e, c) : undefined}
+                  onMouseLeave={onCardMouseLeave ? (e) => onCardMouseLeave(e, c) : undefined}
+                  onMouseMove={onCardMouseMove}
                 />
                 {c.token && (
                   <span
@@ -84,7 +117,12 @@ export function Battlefield({
       </div>
 
       {/* Lands lane */}
-      <div className="bf-zone">
+      <div
+        className={`bf-zone${landLaneDropProps?.className ? ` ${landLaneDropProps.className}` : ""}`}
+        onDragOver={landLaneDropProps?.onDragOver}
+        onDragLeave={landLaneDropProps?.onDragLeave}
+        onDrop={landLaneDropProps?.onDrop}
+      >
         <div className="bf-zone-header">
           <span className="eyebrow">Lands</span>
           <span
@@ -119,6 +157,10 @@ export function Battlefield({
                 zone="battlefield"
                 onClick={() => onCardClick(c)}
                 onContextMenu={(e) => onCardContext(e, c)}
+                {...(cardDragProps ? cardDragProps(c.instanceId, "battlefield") : {})}
+                onMouseEnter={onCardMouseEnter ? (e) => onCardMouseEnter(e, c) : undefined}
+                onMouseLeave={onCardMouseLeave ? (e) => onCardMouseLeave(e, c) : undefined}
+                onMouseMove={onCardMouseMove}
               />
             ))
           )}

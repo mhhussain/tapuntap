@@ -2,13 +2,17 @@ import type { CardInstance } from "../types";
 import { colorTone } from "../lib/format";
 import { isLand } from "../lib/cards";
 
-export function CardFace({ card, zone, onClick, onContextMenu, draggable, onDragStart }: {
+export function CardFace({ card, zone, onClick, onContextMenu, draggable, onDragStart, onDragEnd, onMouseEnter, onMouseLeave, onMouseMove }: {
   card: CardInstance;
   zone: string;
   onClick?: () => void;
   onContextMenu?: (e: React.MouseEvent) => void;
   draggable?: boolean;
   onDragStart?: (e: React.DragEvent) => void;
+  onDragEnd?: (e: React.DragEvent) => void;
+  onMouseEnter?: (e: React.MouseEvent) => void;
+  onMouseLeave?: (e: React.MouseEvent) => void;
+  onMouseMove?: (e: React.MouseEvent) => void;
 }) {
   const tone = colorTone(card.colors || []);
   const imageUri = card.transformed && card.imageUriBack ? card.imageUriBack : card.imageUri;
@@ -37,6 +41,10 @@ export function CardFace({ card, zone, onClick, onContextMenu, draggable, onDrag
       onContextMenu={onContextMenu}
       draggable={draggable}
       onDragStart={onDragStart}
+      onDragEnd={onDragEnd}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
+      onMouseMove={onMouseMove}
     >
       <div className="card-color-bar" style={{ background: tone }} />
       {imageUri ? (

@@ -4,6 +4,13 @@ import type { PlayerPublic, PlayerPrivate, CardInstance } from "../../../types";
 
 type ZoneName = "graveyard" | "exile" | "library" | "command";
 
+interface DropZoneProps {
+  onDragOver: (e: React.DragEvent) => void;
+  onDragLeave: (e: React.DragEvent) => void;
+  onDrop: (e: React.DragEvent) => void;
+  className?: string;
+}
+
 interface ZoneTabProps {
   icon: string;
   label: string;
@@ -35,6 +42,15 @@ interface BottomBarProps {
   onOpenZone: (zone: ZoneName) => void;
   onScry: () => void;
   onToken: () => void;
+  handDropProps?: DropZoneProps;
+  cardDragProps?: (instanceId: string, fromZone: "hand") => {
+    draggable: true;
+    onDragStart: (e: React.DragEvent) => void;
+    onDragEnd: () => void;
+  };
+  onCardMouseEnter?: (e: React.MouseEvent, c: CardInstance) => void;
+  onCardMouseLeave?: (e: React.MouseEvent, c: CardInstance) => void;
+  onCardMouseMove?: (e: React.MouseEvent) => void;
 }
 
 export function BottomBar({
@@ -49,11 +65,21 @@ export function BottomBar({
   onOpenZone,
   onScry,
   onToken,
+  handDropProps,
+  cardDragProps,
+  onCardMouseEnter,
+  onCardMouseLeave,
+  onCardMouseMove,
 }: BottomBarProps) {
   return (
     <div className="bottom-bar">
       {/* Hand */}
-      <div className="hand-area">
+      <div
+        className={`hand-area${handDropProps?.className ? ` ${handDropProps.className}` : ""}`}
+        onDragOver={handDropProps?.onDragOver}
+        onDragLeave={handDropProps?.onDragLeave}
+        onDrop={handDropProps?.onDrop}
+      >
         <div className="hand-label-row">
           <span className="eyebrow">Hand · {player.displayName}</span>
           <span style={{ fontFamily: "var(--font-mono)", fontSize: 11, color: "var(--fg-3)" }}>
@@ -83,6 +109,10 @@ export function BottomBar({
                 zone="hand"
                 onClick={() => onCardClick(c)}
                 onContextMenu={(e) => onHandContext(e, c)}
+                {...(cardDragProps ? cardDragProps(c.instanceId, "hand") : {})}
+                onMouseEnter={onCardMouseEnter ? (e) => onCardMouseEnter(e, c) : undefined}
+                onMouseLeave={onCardMouseLeave ? (e) => onCardMouseLeave(e, c) : undefined}
+                onMouseMove={onCardMouseMove}
               />
             ))
           )}

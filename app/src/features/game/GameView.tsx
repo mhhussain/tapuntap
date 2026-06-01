@@ -17,6 +17,9 @@ import { TokenModal } from "./components/TokenModal";
 import { ZoneDrawer, type ZoneName } from "./components/ZoneDrawer";
 import { ContextMenu, useContextMenu } from "../../components/ContextMenu";
 import { buildHandMenu, buildBattlefieldMenu } from "./useCardMenus";
+import { useDragDrop } from "./useDragDrop";
+import { CardDetailModal } from "./components/CardDetailModal";
+import { HoverPreview, useHoverPreview } from "./components/HoverPreview";
 import type { CardInstance } from "../../types";
 
 export function GameView() {
@@ -38,7 +41,49 @@ export function GameView() {
   const [zoneDrawer, setZoneDrawer] = useState<ZoneName | null>(null);
   const [busyEnd, setBusyEnd] = useState(false);
   const [busyLeave, setBusyLeave] = useState(false);
+  const [detailCard, setDetailCard] = useState<CardInstance | null>(null);
   const { menu, openMenu, closeMenu } = useContextMenu();
+  const hoverPreview = useHoverPreview();
+
+  // Drag-drop hook — called before early return (hook rules). mine/myPrivate may be undefined while loading.
+  function _errDrag(p: Promise<unknown>) { p.catch((e: Error) => toast(e.message, "error")); }
+  const dragDrop = useDragDrop({
+    gameId,
+    actions,
+    mine: players[myUid],
+    myPrivate,
+    onError: _errDrag,
+  });
+
+  // Keyboard shortcuts — must be before early return to satisfy hook rules.
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      // Ignore when focus is in an input, textarea, select, or contentEditable
+      const t = e.target as HTMLElement;
+      if (t.tagName === "INPUT" || t.tagName === "TEXTAREA" || t.tagName === "SELECT" || t.isContentEditable) return;
+
+      if (e.key === "d" || e.key === "D") {
+        if (!game || !gameId) return;
+        actions.action({ type: "draw", gameId, count: 1 }).catch((err: Error) => toast(err.message, "error"));
+      }
+      if (e.key === "n" || e.key === "N") {
+        if (!game || !gameId) return;
+        actions.action({ type: "endTurn", gameId }).catch((err: Error) => toast(err.message, "error"));
+      }
+      if (e.key === "l" || e.key === "L") setLogOpen((o) => !o);
+      if (e.key === "s" || e.key === "S") setShowScry(true);
+      if (e.key === "t" || e.key === "T") setShowToken(true);
+      if (e.key === "Escape") {
+        setShowScry(false);
+        setShowToken(false);
+        setZoneDrawer(null);
+        setDetailCard(null);
+        closeMenu();
+      }
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [game, gameId, actions, toast, closeMenu]);
 
   useEffect(() => {
     if (game === null) { toast("Game not found", "error"); navigate("/games"); }
@@ -71,9 +116,8 @@ export function GameView() {
     }
   }
 
-  // Seam for Task 13 (card-detail modal) — no-op placeholder for now.
-  function onViewCard(_card: CardInstance) {
-    // TODO Task 13: open card detail modal
+  function onViewCard(card: CardInstance) {
+    setDetailCard(card);
   }
 
   const menuHandlers = {
@@ -84,9 +128,12 @@ export function GameView() {
     onError: err,
   };
 
-  function onCardClick(_c: CardInstance) {
-    // TODO Task 13: open card detail on click
+  // Left-click on a card opens detail modal.
+  // Tap/untap stays on the context menu ("Tap"/"Untap" item in buildBattlefieldMenu).
+  function onCardClick(c: CardInstance) {
+    setDetailCard(c);
   }
+
 
   function onBattlefieldContext(e: React.MouseEvent, c: CardInstance) {
     e.preventDefault();
@@ -210,6 +257,12 @@ export function GameView() {
             cards={mine.battlefield || []}
             onCardClick={onCardClick}
             onCardContext={onBattlefieldContext}
+            cardDragProps={(id) => dragDrop.cardDragProps(id, "battlefield")}
+            creatureLaneDropProps={dragDrop.dropZoneProps("battlefield-creatures")}
+            landLaneDropProps={dragDrop.dropZoneProps("battlefield-lands")}
+            onCardMouseEnter={hoverPreview.onMouseEnter}
+            onCardMouseLeave={hoverPreview.onMouseLeave}
+            onCardMouseMove={hoverPreview.onMouseMove}
           />
         </div>
 
@@ -237,6 +290,11 @@ export function GameView() {
         onOpenZone={(zone) => setZoneDrawer(zone)}
         onScry={() => setShowScry(true)}
         onToken={() => setShowToken(true)}
+        handDropProps={dragDrop.dropZoneProps("hand")}
+        cardDragProps={(id) => dragDrop.cardDragProps(id, "hand")}
+        onCardMouseEnter={hoverPreview.onMouseEnter}
+        onCardMouseLeave={hoverPreview.onMouseLeave}
+        onCardMouseMove={hoverPreview.onMouseMove}
       />
 
       {/* ── Context menu ──────────────────────────────────────────── */}
@@ -295,6 +353,14 @@ export function GameView() {
         onConfirm={handleLeaveGame}
         busy={busyLeave}
       />
+
+      {/* ── Card detail modal ─────────────────────────────────────── */}
+      {detailCard && (
+        <CardDetailModal card={detailCard} onClose={() => setDetailCard(null)} />
+      )}
+
+      {/* ── Hover preview (pointer-events:none overlay) ───────────── */}
+      <HoverPreview anchor={hoverPreview.anchor} />
     </div>
   );
 }
