@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useGame, usePlayersPublic, useMyPrivate, useLog } from "../../api/hooks";
 import { auth } from "../../lib/firebase";
@@ -21,6 +21,19 @@ export function GameView() {
   const log = useLog(gameId);
   const myUid = auth.currentUser?.uid!;
   const actions = useGameActions(gameId || "");
+  const [pending, setPending] = useState(false);
+
+  const runAction = useCallback(async (fn: () => Promise<unknown>) => {
+    if (pending) return;
+    setPending(true);
+    try {
+      await fn();
+    } catch (e) {
+      toast((e as Error).message ?? "Action failed", "error");
+    } finally {
+      setPending(false);
+    }
+  }, [pending, toast]);
 
   useEffect(() => {
     if (game === null) { toast("Game not found", "error"); navigate("/games"); }
@@ -36,11 +49,17 @@ export function GameView() {
   const mine = players[myUid];
   const opponents = Object.values(players).filter((p) => p.uid !== myUid);
 
+  // Client-direct writes: fire-and-forget (own life, tap/untap, notes)
   function err(p: Promise<unknown>) { p.catch((e) => toast((e as Error).message, "error")); }
 
   function onLife(targetUid: string, delta: number) {
-    if (targetUid === myUid) err(actions.setLife((mine.life ?? 20) + delta));
-    else err(actions.action({ type: "adjustOpponentLife", gameId: gameId!, targetUid, delta }));
+    if (targetUid === myUid) {
+      // Own life: client-direct, stays snappy — no pending guard
+      err(actions.setLife((mine.life ?? 20) + delta));
+    } else {
+      // Opponent life: goes through gameAction — guard against double-fire
+      runAction(() => actions.action({ type: "adjustOpponentLife", gameId: gameId!, targetUid, delta }));
+    }
   }
 
   function onCardClick(_c: CardInstance) { /* open detail modal — baseline: noop or alert */ }
@@ -65,12 +84,13 @@ export function GameView() {
         <div className="topbar-title">{game.name}</div>
         <span className="topbar-sub">Turn {game.turn} · {game.phase}</span>
         <div className="topbar-spacer" />
-        <button className="btn btn-sm" onClick={() => err(actions.action({ type: "advancePhase", gameId: gameId!, direction: "prev" }))}>Prev phase</button>
-        <button className="btn btn-sm" onClick={() => err(actions.action({ type: "advancePhase", gameId: gameId!, direction: "next" }))}>Next phase</button>
+        <button className="btn btn-sm" disabled={pending} onClick={() => runAction(() => actions.action({ type: "advancePhase", gameId: gameId!, direction: "prev" }))}>Prev phase</button>
+        <button className="btn btn-sm" disabled={pending} onClick={() => runAction(() => actions.action({ type: "advancePhase", gameId: gameId!, direction: "next" }))}>Next phase</button>
       </div>
 
       <PlayerRibbon game={game} players={players} myUid={myUid} myPrivate={myPrivate}
-        onLife={onLife} onEndTurn={() => err(actions.action({ type: "endTurn", gameId: gameId! }))} />
+        onLife={onLife} pending={pending}
+        onEndTurn={() => runAction(() => actions.action({ type: "endTurn", gameId: gameId! }))} />
 
       <div className="gameplay-body">
         <div className="battlefield-column">
@@ -83,8 +103,8 @@ export function GameView() {
       <div className="bottom-bar">
         <Hand cards={myPrivate.hand} displayName={mine.displayName} onCardClick={onCardClick} onCardContext={onHandContext} />
         <div className="zones-actions">
-          <button className="btn btn-sm" onClick={() => err(actions.action({ type: "draw", gameId: gameId!, count: 1 }))}>Draw</button>
-          <button className="btn btn-sm" onClick={() => err(actions.action({ type: "shuffleLibrary", gameId: gameId! }))}>Shuffle</button>
+          <button className="btn btn-sm" disabled={pending} onClick={() => runAction(() => actions.action({ type: "draw", gameId: gameId!, count: 1 }))}>Draw</button>
+          <button className="btn btn-sm" disabled={pending} onClick={() => runAction(() => actions.action({ type: "shuffleLibrary", gameId: gameId! }))}>Shuffle</button>
         </div>
       </div>
     </div>
