@@ -5,8 +5,7 @@ import { getDeck, getDeckVersions, deleteDeck, type DeckVersion } from "../../ap
 import { useToast } from "../../components/Toast";
 import { Icon } from "../../components/Icon";
 import { ManaCost } from "../../components/ManaCost";
-import { computeManaCurve } from "../../lib/cards";
-import { isLand } from "../../lib/cards";
+import { computeManaCurve, groupCardsByType, isLand } from "../../lib/cards";
 import type { Deck, DeckCardEntry } from "../../types";
 
 const COLORS = ["W", "U", "B", "R", "G"] as const;

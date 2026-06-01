@@ -1,14 +1,17 @@
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useGame, usePlayersPublic, useMyPrivate, useLog } from "../../api/hooks";
 import { auth } from "../../lib/firebase";
+import { leaveGame } from "../../api/games";
 import { useGameActions } from "./useGameActions";
 import { useToast } from "../../components/Toast";
+import { Icon } from "../../components/Icon";
 import { PlayerRibbon } from "./components/PlayerRibbon";
 import { OpponentsBar } from "./components/OpponentsBar";
 import { Battlefield } from "./components/Battlefield";
-import { Hand } from "./components/Hand";
 import { SidePanel } from "./components/SidePanel";
+import { BottomBar } from "./components/BottomBar";
+import { EndGameConfirm, LeaveGameConfirm } from "./components/ConfirmModals";
 import type { CardInstance } from "../../types";
 
 export function GameView() {
@@ -21,19 +24,12 @@ export function GameView() {
   const log = useLog(gameId);
   const myUid = auth.currentUser?.uid!;
   const actions = useGameActions(gameId || "");
-  const [pending, setPending] = useState(false);
 
-  const runAction = useCallback(async (fn: () => Promise<unknown>) => {
-    if (pending) return;
-    setPending(true);
-    try {
-      await fn();
-    } catch (e) {
-      toast((e as Error).message ?? "Action failed", "error");
-    } finally {
-      setPending(false);
-    }
-  }, [pending, toast]);
+  const [logOpen, setLogOpen] = useState(true);
+  const [showEndConfirm, setShowEndConfirm] = useState(false);
+  const [showLeaveConfirm, setShowLeaveConfirm] = useState(false);
+  const [busyEnd, setBusyEnd] = useState(false);
+  const [busyLeave, setBusyLeave] = useState(false);
 
   useEffect(() => {
     if (game === null) { toast("Game not found", "error"); navigate("/games"); }
@@ -43,70 +39,202 @@ export function GameView() {
   }, [game?.status, gameId, navigate]);
 
   if (!game || !players[myUid]) {
-    return <div className="empty-state" style={{ flex: 1, display: "flex" }}><div className="empty-title">Loading game…</div></div>;
+    return (
+      <div className="empty-state" style={{ flex: 1, display: "flex" }}>
+        <div className="empty-title">Loading game…</div>
+      </div>
+    );
   }
 
   const mine = players[myUid];
   const opponents = Object.values(players).filter((p) => p.uid !== myUid);
+  const isHost = game.hostUid === myUid;
 
-  // Client-direct writes: fire-and-forget (own life, tap/untap, notes)
-  function err(p: Promise<unknown>) { p.catch((e) => toast((e as Error).message, "error")); }
+  function err(p: Promise<unknown>) {
+    p.catch((e) => toast((e as Error).message, "error"));
+  }
 
   function onLife(targetUid: string, delta: number) {
     if (targetUid === myUid) {
-      // Own life: client-direct, stays snappy — no pending guard
       err(actions.setLife((mine.life ?? 20) + delta));
     } else {
-      // Opponent life: goes through gameAction — guard against double-fire
-      runAction(() => actions.action({ type: "adjustOpponentLife", gameId: gameId!, targetUid, delta }));
+      err(actions.action({ type: "adjustOpponentLife", gameId: gameId!, targetUid, delta }));
     }
   }
 
-  function onCardClick(_c: CardInstance) { /* open detail modal — baseline: noop or alert */ }
+  function onCardClick(_c: CardInstance) {
+    // TODO Task 10: open card detail / context menu
+  }
 
   function onBattlefieldContext(e: React.MouseEvent, c: CardInstance) {
     e.preventDefault();
-    // Baseline: tap/untap toggle. Replace with ContextMenu component for full actions.
-    const next = mine.battlefield.map((x) => x.instanceId === c.instanceId ? { ...x, tapped: !x.tapped } : x);
+    // Tap/untap via click (client-direct write — own battlefield). Task 10 adds full context menu.
+    const next = mine.battlefield.map((x) =>
+      x.instanceId === c.instanceId ? { ...x, tapped: !x.tapped } : x
+    );
     err(actions.writePublicZones({ battlefield: next }));
   }
 
   function onHandContext(e: React.MouseEvent, c: CardInstance) {
     e.preventDefault();
-    // Play from hand touches a hidden zone -> server action.
+    // Play from hand → server action (hidden-info zone).
     err(actions.action({ type: "playFromHand", gameId: gameId!, instanceId: c.instanceId, toZone: "battlefield" }));
   }
 
+  function handleEndGame() {
+    setBusyEnd(true);
+    actions
+      .endGame()
+      .catch((e) => toast((e as Error).message, "error"))
+      .finally(() => {
+        setBusyEnd(false);
+        setShowEndConfirm(false);
+      });
+  }
+
+  function handleLeaveGame() {
+    setBusyLeave(true);
+    leaveGame(gameId!)
+      .then(() => navigate("/games"))
+      .catch((e) => {
+        toast((e as Error).message, "error");
+        setBusyLeave(false);
+        setShowLeaveConfirm(false);
+      });
+  }
+
+  const savedAgo = game.updatedAt
+    ? (() => {
+        const secs = Math.floor((Date.now() - Number(game.updatedAt)) / 1000);
+        if (secs < 60) return "just now";
+        if (secs < 3600) return `${Math.floor(secs / 60)}m ago`;
+        return `${Math.floor(secs / 3600)}h ago`;
+      })()
+    : "just now";
+
   return (
     <div className="gameplay-wrap">
-      <div className="topbar">
-        <button className="btn btn-ghost" onClick={() => navigate("/games")}>Exit</button>
+      {/* ── Topbar ─────────────────────────────────────────────────── */}
+      <div className="topbar" style={{ borderBottom: "1px solid var(--line-1)" }}>
+        <button
+          className="btn btn-ghost btn-icon"
+          onClick={() => setShowLeaveConfirm(true)}
+          title="Leave game"
+        >
+          <Icon name="prev" size={14} />
+        </button>
+
         <div className="topbar-title">{game.name}</div>
         <span className="topbar-sub">Turn {game.turn} · {game.phase}</span>
+
         <div className="topbar-spacer" />
-        <button className="btn btn-sm" disabled={pending} onClick={() => runAction(() => actions.action({ type: "advancePhase", gameId: gameId!, direction: "prev" }))}>Prev phase</button>
-        <button className="btn btn-sm" disabled={pending} onClick={() => runAction(() => actions.action({ type: "advancePhase", gameId: gameId!, direction: "next" }))}>Next phase</button>
+
+        {/* Auto-save indicator */}
+        <span style={{
+          fontSize: 11,
+          color: "var(--fg-3)",
+          fontFamily: "var(--font-mono)",
+          display: "flex",
+          alignItems: "center",
+          gap: 6,
+        }}>
+          <span style={{
+            width: 6,
+            height: 6,
+            borderRadius: "50%",
+            background: "var(--good)",
+            boxShadow: "0 0 8px var(--good)",
+          }} />
+          AUTO-SAVED · {savedAgo}
+        </span>
+
+        {/* Phase controls */}
+        <button
+          className="btn btn-sm btn-ghost"
+          onClick={() => err(actions.action({ type: "advancePhase", gameId: gameId!, direction: "prev" }))}
+          title="Previous phase"
+        >
+          ◀ Phase
+        </button>
+        <button
+          className="btn btn-sm btn-ghost"
+          onClick={() => err(actions.action({ type: "advancePhase", gameId: gameId!, direction: "next" }))}
+          title="Next phase"
+        >
+          Phase ▶
+        </button>
+
+        {isHost && (
+          <button
+            className="btn btn-sm"
+            onClick={() => setShowEndConfirm(true)}
+            style={{ marginLeft: 4 }}
+          >
+            End game
+          </button>
+        )}
       </div>
 
-      <PlayerRibbon game={game} players={players} myUid={myUid} myPrivate={myPrivate}
-        onLife={onLife} pending={pending}
-        onEndTurn={() => runAction(() => actions.action({ type: "endTurn", gameId: gameId! }))} />
+      {/* ── Player ribbon ──────────────────────────────────────────── */}
+      <PlayerRibbon
+        game={game}
+        players={players}
+        myUid={myUid}
+        myPrivate={myPrivate}
+        onLife={onLife}
+        onEndTurn={() => err(actions.action({ type: "endTurn", gameId: gameId! }))}
+      />
 
-      <div className="gameplay-body">
+      {/* ── Battlefield + side panel ───────────────────────────────── */}
+      <div className={`gameplay-body ${logOpen ? "log-open" : "log-closed"}`}>
         <div className="battlefield-column">
           <OpponentsBar opponents={opponents} />
-          <Battlefield cards={mine.battlefield || []} onCardClick={onCardClick} onCardContext={onBattlefieldContext} />
+          <Battlefield
+            cards={mine.battlefield || []}
+            onCardClick={onCardClick}
+            onCardContext={onBattlefieldContext}
+          />
         </div>
-        <SidePanel log={log} notes={game.notes || ""} onNotes={(v) => err(actions.setNotes(v))} />
+
+        {logOpen && (
+          <SidePanel
+            log={log}
+            notes={game.notes || ""}
+            onNotes={(v) => err(actions.setNotes(v))}
+            onClose={() => setLogOpen(false)}
+          />
+        )}
       </div>
 
-      <div className="bottom-bar">
-        <Hand cards={myPrivate.hand} displayName={mine.displayName} onCardClick={onCardClick} onCardContext={onHandContext} />
-        <div className="zones-actions">
-          <button className="btn btn-sm" disabled={pending} onClick={() => runAction(() => actions.action({ type: "draw", gameId: gameId!, count: 1 }))}>Draw</button>
-          <button className="btn btn-sm" disabled={pending} onClick={() => runAction(() => actions.action({ type: "shuffleLibrary", gameId: gameId! }))}>Shuffle</button>
-        </div>
-      </div>
+      {/* ── Bottom bar (hand + zones + actions) ───────────────────── */}
+      <BottomBar
+        player={mine}
+        myPrivate={myPrivate}
+        gameId={gameId!}
+        logOpen={logOpen}
+        onToggleLog={() => setLogOpen((o) => !o)}
+        onCardClick={onCardClick}
+        onHandContext={onHandContext}
+        onDraw={() => err(actions.action({ type: "draw", gameId: gameId!, count: 1 }))}
+        onShuffle={() => err(actions.action({ type: "shuffleLibrary", gameId: gameId! }))}
+        onOpenZone={(_zone) => {
+          // TODO Task 12: open zone drawer modal
+        }}
+      />
+
+      {/* ── Confirm modals ────────────────────────────────────────── */}
+      <EndGameConfirm
+        open={showEndConfirm}
+        onClose={() => setShowEndConfirm(false)}
+        onConfirm={handleEndGame}
+        busy={busyEnd}
+      />
+      <LeaveGameConfirm
+        open={showLeaveConfirm}
+        onClose={() => setShowLeaveConfirm(false)}
+        onConfirm={handleLeaveGame}
+        busy={busyLeave}
+      />
     </div>
   );
 }
