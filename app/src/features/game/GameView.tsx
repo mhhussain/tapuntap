@@ -14,6 +14,7 @@ import { BottomBar } from "./components/BottomBar";
 import { EndGameConfirm, LeaveGameConfirm } from "./components/ConfirmModals";
 import { ScryModal } from "./components/ScryModal";
 import { TokenModal } from "./components/TokenModal";
+import { ZoneDrawer, type ZoneName } from "./components/ZoneDrawer";
 import { ContextMenu, useContextMenu } from "../../components/ContextMenu";
 import { buildHandMenu, buildBattlefieldMenu } from "./useCardMenus";
 import type { CardInstance } from "../../types";
@@ -34,6 +35,7 @@ export function GameView() {
   const [showLeaveConfirm, setShowLeaveConfirm] = useState(false);
   const [showScry, setShowScry] = useState(false);
   const [showToken, setShowToken] = useState(false);
+  const [zoneDrawer, setZoneDrawer] = useState<ZoneName | null>(null);
   const [busyEnd, setBusyEnd] = useState(false);
   const [busyLeave, setBusyLeave] = useState(false);
   const { menu, openMenu, closeMenu } = useContextMenu();
@@ -232,9 +234,7 @@ export function GameView() {
         onHandContext={onHandContext}
         onDraw={() => err(actions.action({ type: "draw", gameId: gameId!, count: 1 }))}
         onShuffle={() => err(actions.action({ type: "shuffleLibrary", gameId: gameId! }))}
-        onOpenZone={(_zone) => {
-          // TODO Task 12: open zone drawer modal
-        }}
+        onOpenZone={(zone) => setZoneDrawer(zone)}
         onScry={() => setShowScry(true)}
         onToken={() => setShowToken(true)}
       />
@@ -265,6 +265,20 @@ export function GameView() {
           currentBattlefield={mine.battlefield || []}
           onWrite={(battlefield) => err(actions.writePublicZones({ battlefield }))}
           onClose={() => setShowToken(false)}
+        />
+      )}
+
+      {/* ── Zone drawers ──────────────────────────────────────────── */}
+      {zoneDrawer && (
+        <ZoneDrawer
+          zone={zoneDrawer}
+          mine={mine}
+          myPrivate={myPrivate}
+          gameId={gameId!}
+          onAction={(a) => err(actions.action(a))}
+          writePublicZones={(patch) => actions.writePublicZones(patch)}
+          onError={err}
+          onClose={() => setZoneDrawer(null)}
         />
       )}
 
