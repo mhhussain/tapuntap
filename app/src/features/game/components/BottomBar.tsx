@@ -33,6 +33,8 @@ interface BottomBarProps {
   onShuffle: () => void;
   /** Seam for Task 12: open zone drawer. Receives zone name. */
   onOpenZone: (zone: ZoneName) => void;
+  onScry: () => void;
+  onToken: () => void;
 }
 
 export function BottomBar({
@@ -45,6 +47,8 @@ export function BottomBar({
   onDraw,
   onShuffle,
   onOpenZone,
+  onScry,
+  onToken,
 }: BottomBarProps) {
   return (
     <div className="bottom-bar">
@@ -131,14 +135,21 @@ export function BottomBar({
           <button className="btn btn-sm" style={{ justifyContent: "center" }} onClick={onShuffle}>
             Shuffle
           </button>
-          {/* Scry / Token placeholders — TODO Task 11 */}
           <button
             className="btn btn-sm"
             style={{ justifyContent: "center" }}
-            onClick={() => { /* TODO Task 11: open scry modal */ }}
-            title="Scry (Task 11)"
+            onClick={onScry}
+            title="Scry"
           >
             <Icon name="scry" size={12} /> Scry
+          </button>
+          <button
+            className="btn btn-sm"
+            style={{ justifyContent: "center" }}
+            onClick={onToken}
+            title="Create token"
+          >
+            <Icon name="token" size={12} /> Token
           </button>
           <button
             className="btn btn-sm btn-icon"

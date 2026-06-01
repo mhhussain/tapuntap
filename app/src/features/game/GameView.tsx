@@ -12,6 +12,8 @@ import { Battlefield } from "./components/Battlefield";
 import { SidePanel } from "./components/SidePanel";
 import { BottomBar } from "./components/BottomBar";
 import { EndGameConfirm, LeaveGameConfirm } from "./components/ConfirmModals";
+import { ScryModal } from "./components/ScryModal";
+import { TokenModal } from "./components/TokenModal";
 import { ContextMenu, useContextMenu } from "../../components/ContextMenu";
 import { buildHandMenu, buildBattlefieldMenu } from "./useCardMenus";
 import type { CardInstance } from "../../types";
@@ -30,6 +32,8 @@ export function GameView() {
   const [logOpen, setLogOpen] = useState(true);
   const [showEndConfirm, setShowEndConfirm] = useState(false);
   const [showLeaveConfirm, setShowLeaveConfirm] = useState(false);
+  const [showScry, setShowScry] = useState(false);
+  const [showToken, setShowToken] = useState(false);
   const [busyEnd, setBusyEnd] = useState(false);
   const [busyLeave, setBusyLeave] = useState(false);
   const { menu, openMenu, closeMenu } = useContextMenu();
@@ -231,6 +235,8 @@ export function GameView() {
         onOpenZone={(_zone) => {
           // TODO Task 12: open zone drawer modal
         }}
+        onScry={() => setShowScry(true)}
+        onToken={() => setShowToken(true)}
       />
 
       {/* ── Context menu ──────────────────────────────────────────── */}
@@ -240,6 +246,25 @@ export function GameView() {
           x={menu.x}
           y={menu.y}
           onClose={closeMenu}
+        />
+      )}
+
+      {/* ── Scry modal ────────────────────────────────────────────── */}
+      {showScry && (
+        <ScryModal
+          topCards={myPrivate.library.slice(0, 3)}
+          gameId={gameId!}
+          onAction={(a) => err(actions.action(a))}
+          onClose={() => setShowScry(false)}
+        />
+      )}
+
+      {/* ── Token modal ───────────────────────────────────────────── */}
+      {showToken && (
+        <TokenModal
+          currentBattlefield={mine.battlefield || []}
+          onWrite={(battlefield) => err(actions.writePublicZones({ battlefield }))}
+          onClose={() => setShowToken(false)}
         />
       )}
 
