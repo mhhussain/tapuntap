@@ -12,6 +12,8 @@ import { Battlefield } from "./components/Battlefield";
 import { SidePanel } from "./components/SidePanel";
 import { BottomBar } from "./components/BottomBar";
 import { EndGameConfirm, LeaveGameConfirm } from "./components/ConfirmModals";
+import { ContextMenu, useContextMenu } from "../../components/ContextMenu";
+import { buildHandMenu, buildBattlefieldMenu } from "./useCardMenus";
 import type { CardInstance } from "../../types";
 
 export function GameView() {
@@ -30,6 +32,7 @@ export function GameView() {
   const [showLeaveConfirm, setShowLeaveConfirm] = useState(false);
   const [busyEnd, setBusyEnd] = useState(false);
   const [busyLeave, setBusyLeave] = useState(false);
+  const { menu, openMenu, closeMenu } = useContextMenu();
 
   useEffect(() => {
     if (game === null) { toast("Game not found", "error"); navigate("/games"); }
@@ -62,23 +65,31 @@ export function GameView() {
     }
   }
 
+  // Seam for Task 13 (card-detail modal) — no-op placeholder for now.
+  function onViewCard(_card: CardInstance) {
+    // TODO Task 13: open card detail modal
+  }
+
+  const menuHandlers = {
+    gameId: gameId!,
+    actions,
+    mine,
+    onView: onViewCard,
+    onError: err,
+  };
+
   function onCardClick(_c: CardInstance) {
-    // TODO Task 10: open card detail / context menu
+    // TODO Task 13: open card detail on click
   }
 
   function onBattlefieldContext(e: React.MouseEvent, c: CardInstance) {
     e.preventDefault();
-    // Tap/untap via click (client-direct write — own battlefield). Task 10 adds full context menu.
-    const next = mine.battlefield.map((x) =>
-      x.instanceId === c.instanceId ? { ...x, tapped: !x.tapped } : x
-    );
-    err(actions.writePublicZones({ battlefield: next }));
+    openMenu(e, buildBattlefieldMenu(c, menuHandlers));
   }
 
   function onHandContext(e: React.MouseEvent, c: CardInstance) {
     e.preventDefault();
-    // Play from hand → server action (hidden-info zone).
-    err(actions.action({ type: "playFromHand", gameId: gameId!, instanceId: c.instanceId, toZone: "battlefield" }));
+    openMenu(e, buildHandMenu(c, menuHandlers));
   }
 
   function handleEndGame() {
@@ -221,6 +232,16 @@ export function GameView() {
           // TODO Task 12: open zone drawer modal
         }}
       />
+
+      {/* ── Context menu ──────────────────────────────────────────── */}
+      {menu && (
+        <ContextMenu
+          items={menu.items}
+          x={menu.x}
+          y={menu.y}
+          onClose={closeMenu}
+        />
+      )}
 
       {/* ── Confirm modals ────────────────────────────────────────── */}
       <EndGameConfirm
