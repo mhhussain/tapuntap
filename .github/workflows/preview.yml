@@ -1,0 +1,45 @@
+name: Preview Deploy
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  preview:
+    runs-on: ubuntu-latest
+    permissions:
+      checks: write
+      contents: read
+      pull-requests: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - name: Install root dependencies
+        run: npm i
+
+      - name: Install functions dependencies
+        run: cd functions && npm i
+
+      - name: Build app
+        run: npm --prefix app install && npm --prefix app run build
+
+      - name: Run rules tests
+        run: npm run test:rules
+
+      - name: Run functions tests
+        run: npm run test:functions
+
+      - name: Deploy preview to Firebase Hosting
+        uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: ${{ secrets.GITHUB_TOKEN }}
+          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_IAMMOO_TAPUNTAP }}
+          projectId: iammoo-tapuntap
+          expires: 7d

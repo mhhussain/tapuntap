@@ -1,0 +1,7 @@
+node_modules/
+dist/
+*.local
+*.tsbuildinfo
+# tsc -b emits these next to the .ts config sources (composite project); they are build artifacts
+vite.config.js
+vitest.config.js

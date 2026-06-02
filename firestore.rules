@@ -1,0 +1,66 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    match /users/{uid} {
+      allow read, write: if request.auth != null && request.auth.uid == uid;
+
+      match /decks/{deckId} {
+        allow read, write: if request.auth != null && request.auth.uid == uid;
+        match /versions/{v} {
+          allow read, write: if request.auth != null && request.auth.uid == uid;
+        }
+      }
+    }
+
+    match /cards/{cardId} {
+      allow read: if request.auth != null;
+      allow write: if request.auth != null;
+    }
+
+    match /games/{gameId} {
+      function gameData() {
+        return get(/databases/$(database)/documents/games/$(gameId)).data;
+      }
+      function isParticipant() {
+        return request.auth != null && request.auth.uid in gameData().seatUids;
+      }
+      function onlyClientGameFields() {
+        return request.resource.data.diff(resource.data).affectedKeys()
+          .hasOnly(['notes', 'updatedAt']);
+      }
+
+      // Reads: participants always; lobby readable by any authed user (join-by-code lookup)
+      allow read: if request.auth != null && (isParticipant() || resource.data.status == 'lobby');
+
+      // Clients may ONLY write 'notes' on the game doc. Turn/phase/seats/status are Function-owned.
+      allow update: if isParticipant() && onlyClientGameFields();
+      allow delete: if request.auth != null && resource.data.hostUid == request.auth.uid;
+
+      match /log/{entryId} {
+        allow read: if isParticipant();
+        allow create: if isParticipant();
+      }
+
+      match /players/{uid} {
+        allow read: if isParticipant();
+        // Owner may write ONLY client-owned low-stakes fields; hidden-info & cross-player are Function-owned.
+        allow update: if request.auth != null && request.auth.uid == uid
+          && request.resource.data.diff(resource.data).affectedKeys()
+             .hasOnly(['battlefield', 'graveyard', 'exile', 'command', 'life', 'poison', 'energy', 'counters']);
+        allow create, delete: if false; // only startGame (Admin SDK) creates; endGame cleans up
+
+        match /private/{docId} {
+          // Owner may READ their own hidden zones (hand/library). Direct client WRITES are denied:
+          // all hidden-zone mutations (draw/scry/move/etc.) go through the gameAction Cloud Function
+          // (Admin SDK), which keeps the private arrays and the public counts consistent. This stops a
+          // client from desyncing its own counts (e.g. hiding its true hand size).
+          allow read: if request.auth != null && request.auth.uid == uid;
+          allow write: if false;
+        }
+      }
+    }
+
+    match /{document=**} { allow read, write: if false; }
+  }
+}

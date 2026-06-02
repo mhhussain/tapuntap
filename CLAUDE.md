@@ -2,212 +2,143 @@
 
 ## Overview
 
-A local-first Magic: The Gathering game simulator. Node.js backend serves a vanilla JS frontend. All data lives in JSON files on disk. No database, no accounts, no external persistence.
+A multiplayer Magic: The Gathering game simulator. Up to 4 players join a game by invite code and play in real time. The frontend is a React + TypeScript + Vite SPA (`app/`) served by Firebase Hosting. State is stored in Firestore and synced live via `onSnapshot`. Authentication uses Firebase Auth with Google sign-in and email/password.
 
 ## Running the App
 
 ```bash
-npm install
-npm start          # → http://localhost:3000
-npm run dev        # (auto-restart with nodemon)
-```
+# Terminal 1 — backend emulators
+firebase emulators:start --only firestore,auth,functions
 
----
+# Terminal 2 — frontend dev server (Vite)
+cd app && npm run dev
+
+# Rules + functions tests
+npm run test:rules
+firebase emulators:exec --only firestore,functions "node --test functions/test"
+
+# Frontend unit tests
+cd app && npm test
+
+# Production build (what Hosting serves)
+npm run build:app
+```
 
 ## Architecture
 
-### Backend (`server.js`)
-
-Single Express file handling three concerns:
-
-1. **Scryfall proxy** — forwards card searches/lookups to `api.scryfall.com`. Card JSON is cached locally in `data/cards/{id}.json` after first fetch. Images are never cached; they're served from Scryfall CDN URLs stored in card data.
-
-2. **Deck API** — CRUD over `data/decks/{id}.json`. Each save bumps the version counter and appends a version entry with a changelog and card snapshot.
-
-3. **Game API** — CRUD over `data/games/{id}.json`. Game creation pulls deck snapshots and builds shuffled player states server-side. Subsequent saves replace the entire game document (PUT with full state).
-
-### Frontend (`public/js/`)
-
-Hash-based SPA with no build step. Uses ES modules (`type="module"`).
-
 ```
-app.js          — router + navigate() helper
-api.js          — thin fetch wrapper for all server routes
-utils.js        — mana rendering, toast, modal, context menu, helpers
-views/
-  home.js       — dashboard: recent games + decks
-  decks.js      — deck library table
-  builder.js    — deck builder (search left, deck center, preview right)
-  games.js      — game list + new game setup
-  game.js       — game board: all gameplay interaction
+Browser (React + TypeScript + Vite SPA, built to app/dist)
+  • Firebase Auth (Google + email/password)
+  • Firestore SDK: reads via typed onSnapshot hooks, client writes own low-stakes fields
+  • Scryfall fetched directly from browser for card search/lookup
+        │                               │
+        │ realtime listeners            │ callable
+        ▼                               ▼
+Firestore                         Cloud Functions (6)
+  users, decks, games               createGame, joinGame, startGame
+  + security rules                  gameAction, leaveGame, endGame
 ```
 
----
+No Express server. Firebase Hosting serves the built `app/dist` output.
 
-## Data Models
+### Client-vs-server action split
 
-### Deck (`data/decks/{id}.json`)
+The client writes its own **low-stakes** player fields directly (tap/untap, counter adjustments, own life, own public-zone moves, notes). Hidden-info operations, cross-player state changes, and shared/turn advancement all go through Cloud Functions:
 
-```json
-{
-  "id": "uuid",
-  "name": "Sultai Value",
-  "format": "commander",
-  "commander": { "cardId": "...", "name": "...", "imageUri": "..." },
-  "cards": [
-    {
-      "cardId": "scryfall-uuid",
-      "name": "Brainstorm",
-      "manaCost": "{U}",
-      "cmc": 1,
-      "typeLine": "Instant",
-      "colors": ["U"],
-      "imageUri": "https://...",
-      "imageUriBack": null,
-      "quantity": 1
-    }
-  ],
-  "version": 3,
-  "versions": [
-    {
-      "version": 1,
-      "timestamp": "2024-01-01T00:00:00Z",
-      "changelog": "Initial version",
-      "cards": [...]
-    }
-  ],
-  "createdAt": "...",
-  "updatedAt": "..."
-}
-```
+- **`gameAction`** — draw, mill, scry, shuffle library, play/move cards to/from hand, adjust opponent life, advance phase, end turn
+- **`leaveGame`** — removes the caller from a lobby seat
+- **`endGame`** — marks the game complete; host-only
 
-**Deck versioning strategy:** Append-only. Every PUT bumps `version` and adds an entry to `versions[]` with the full card list at that point. No pruning. The changelog is a free-text string the user enters on save. Old versions are read-only (accessible via History modal).
+Security rules deny direct client writes to any field owned by the server (hand/library counts, turn/phase, turnOrder).
 
-### Game (`data/games/{id}.json`)
+## Frontend (`app/src/`)
 
-```json
-{
-  "id": "uuid",
-  "name": "Sultai vs Gruul",
-  "status": "active",
-  "turn": 3,
-  "activePlayer": 1,
-  "phase": "main1",
-  "phaseIndex": 1,
-  "phases": ["Beginning", "Main 1", "Combat", "Main 2", "End"],
-  "players": [
-    {
-      "id": 0,
-      "name": "Player 1",
-      "deckId": "uuid",
-      "deckName": "Sultai Value",
-      "life": 18,
-      "poison": 0,
-      "energy": 0,
-      "library": [ { "instanceId": "uuid", "cardId": "...", "name": "...", ... } ],
-      "hand": [ ... ],
-      "battlefield": [
-        {
-          "instanceId": "uuid",
-          "cardId": "...",
-          "name": "Island",
-          "typeLine": "Basic Land — Island",
-          "tapped": true,
-          "counters": {},
-          "attachedTo": null,
-          "token": false
-        }
-      ],
-      "graveyard": [ ... ],
-      "exile": [ ... ],
-      "command": [ ... ]
-    }
-  ],
-  "log": ["[10:32] Turn 3: Player 2's turn", ...],
-  "createdAt": "...",
-  "updatedAt": "..."
-}
-```
-
-**Card instances:** Every card in the game state is an independent object with its own `instanceId`. Copies of the same card (e.g., 4× Lightning Bolt) are four distinct objects. This allows tracking tap state, counters, and zone location per copy without ambiguity.
-
-**Deck snapshot:** When a game is created, each player's deck is copied in full into the player state. Future edits to the deck library have no effect on in-progress games. The `deckId` and `deckName` fields are kept for reference only.
-
----
-
-## File Organization
+React 18 + TypeScript 5 SPA built with Vite 5. Uses npm Firebase SDK (`firebase@^10.12.0`).
 
 ```
-tapuntap/
-├── server.js               # Express server + all routes
-├── package.json
-├── CLAUDE.md               # This file
-├── data/                   # Auto-created on first start
-│   ├── cards/              # {scryfall-id}.json — card data cache
-│   ├── decks/              # {uuid}.json — deck definitions
-│   └── games/              # {uuid}.json — game session state
-└── public/
-    ├── index.html          # SPA shell
-    ├── css/app.css         # Single stylesheet, CSS custom properties
-    └── js/
-        ├── app.js          # Router
-        ├── api.js          # API client
-        ├── utils.js        # Shared helpers
-        └── views/          # One file per view
-            ├── home.js
-            ├── decks.js
-            ├── builder.js
-            ├── games.js
-            └── game.js
+lib/
+  firebase.ts          — typed SDK init + emulator toggle (localhost auto-connects)
+  firebaseConfig.ts    — public web config values
+  scryfall.ts          — Scryfall client + optional Firestore cache
+  format.ts            — pure helpers (time, mana, color tone)
+  cards.ts             — card-instance helpers (isLand, shuffle, newInstanceId)
+types/
+  index.ts             — CardInstance, Deck, GameDoc, Seat, PlayerPublic, PlayerPrivate, LogEntry, GameAction
+auth/
+  AuthProvider.tsx     — context: user, loading, sign-in/up/out
+  useAuth.ts           — hook
+  AuthScreen.tsx       — login + sign-up (Google + email)
+  RequireAuth.tsx      — route guard
+api/
+  decks.ts             — typed deck CRUD
+  games.ts             — typed game reads + callable wrappers
+  hooks.ts             — useGame, usePlayersPublic, useMyPrivate, useLog, useMyDecks, useMyGames
+components/
+  Modal.tsx  Toast.tsx  Icon.tsx  CardFace.tsx  AppShell.tsx
+features/
+  home/HomeView.tsx
+  decks/DecksView.tsx  decks/BuilderView.tsx
+  games/GamesView.tsx
+  lobby/LobbyNewView.tsx  lobby/LobbyView.tsx
+  game/GameView.tsx
+  game/useGameActions.ts  — client-direct writes + callable gameAction wrappers
+  game/endgame/EndGameView.tsx
+  settings/SettingsView.tsx
+test/
+  setup.ts
+  cards.test.ts  format.test.ts  gameActionClient.test.ts
 ```
 
----
+## Data Model (Firestore)
 
-## Game State Persistence
+See `docs/superpowers/specs/2026-05-29-firebase-multiplayer-design.md` for full schema.
 
-Auto-save is triggered 500ms after any state mutation in `game.js`. The full game object is PUT to the server as JSON. On resume, the server sends back the full object and the frontend hydrates from it. There is no optimistic update — the PUT response confirms the write before the next action is possible.
+Key structure:
+- `users/{uid}` — profile
+- `users/{uid}/decks/{deckId}` — deck (+ `versions/{n}` subcollection)
+- `games/{gameId}` — shared game state (seats, turn, phase, seatUids)
+- `games/{gameId}/players/{uid}` — PUBLIC player doc (battlefield, life, handCount, libraryCount)
+- `games/{gameId}/players/{uid}/private/state` — PRIVATE (hand[], library[]) — only readable by {uid}
+- `games/{gameId}/log/{entryId}` — append-only game log
 
----
+## Security Rules
 
-## Concurrent Games
+`firestore.rules` is the only enforcement layer. Key rules:
+- Users/decks: owner-only read/write
+- Cards: any authenticated user can read/write (shared Scryfall cache)
+- Games: participants can read; turn/phase fields are server-owned (direct client writes denied)
+- Player public docs: any participant reads; only the owner writes own-zone fields
+- Player private docs: only the owner reads AND writes — opponents can never see hand/library
+- hand/library counts are server-owned; clients cannot forge them directly
 
-Each game is a self-contained JSON file. Any number of games can exist simultaneously; the games list shows all of them, sorted by `updatedAt`. Resuming a game loads it fresh from disk. There is no locking — concurrent writes from multiple browser tabs to the same game file would corrupt state, but this is a single-user tool.
+## Cloud Functions (`functions/index.js`)
 
----
+Six callable functions handle operations needing trust or hidden-info atomicity:
+- `createGame(name, format, deckId)` — creates lobby, generates invite code
+- `joinGame(inviteCode, deckId)` — seats caller atomically (transaction prevents race)
+- `startGame(gameId)` — host-only; server-side Fisher-Yates shuffle; writes all private docs via Admin SDK
+- `gameAction(action)` — dispatches typed actions (draw, mill, scry, shuffleLibrary, play, moveToHand/Library, adjustOpponentLife, advancePhase, endTurn)
+- `leaveGame(gameId)` — removes the caller from a lobby seat
+- `endGame(gameId)` — host-only; marks the game complete
+
+## Card Data
+
+Cards are fetched directly from Scryfall in the browser. An optional shared `cards/{scryfallId}` Firestore cache reduces repeat lookups.
 
 ## No Automated Rules
 
-The simulator enforces no Magic rules. It is a tracking and visualization layer only:
-- No legal move validation
-- No automatic triggers or state-based actions  
-- No mana pool enforcement
-- No priority passing
+The simulator enforces no Magic rules. It is a tracking and visualization layer only. No legal move validation, no automatic triggers, no mana enforcement.
 
-The user is responsible for all rules adjudication and plays both sides manually.
+## Deck Migration
 
----
+To import existing `data/decks/*.json` into Firestore:
+```bash
+TARGET_UID=<uid> FIRESTORE_EMULATOR_HOST=localhost:8080 GCLOUD_PROJECT=tapuntap \
+node scripts/migrate-decks.mjs
+```
 
-## Assumptions & Creative Decisions
+## Live Deployment
 
-- **Images on-demand:** Card images are Scryfall CDN URLs stored in card data. No local image caching. If Scryfall is unreachable, placeholder colored boxes render instead.
-- **Hand draw on game start:** The simulator does not auto-draw opening hands. The user clicks "Draw N Cards" from the sidebar.
-- **Auto-untap on turn end:** When End Turn is clicked, all of the new active player's permanents are untapped automatically. This mirrors the most common use case; the user can re-tap any that shouldn't untap.
-- **Phase tracking:** Five phases (Beginning, Main 1, Combat, Main 2, End). No sub-phase enforcement. The user advances phases manually.
-- **Tokens:** Custom tokens are created via the token creator dialog. They exist only as card instances with `token: true`; they have no Scryfall backing data.
-- **Commander tax:** Not tracked automatically. Use custom counters on the commander in the command zone if desired.
-- **Two-faced cards:** Front face image shown by default; "Flip Card" button appears in detail/preview views to show back face.
-
----
-
-## Suggested Future Enhancements
-
-- Keyboard shortcuts (D = draw, U = untap all, Enter = next phase)
-- Drag-and-drop card movement between zones
-- Multiplayer via WebSocket (same local network)
-- Import decks from Moxfield/Archidekt URL
-- Mana pool tracker (tap lands, float mana, track spend)
-- Commander damage tracking (matrix of player-to-player damage)
-- Card oracle text displayed in sidebar on hover
-- Undo/redo stack (store snapshots of last N game states)
-- Print/export deck to text list
-- Game replay from log
+1. Confirm real values in `app/src/lib/firebaseConfig.ts` (copied from Firebase console)
+2. Ensure Google Auth and email/password sign-in are enabled in Firebase Auth
+3. Run: `firebase deploy --only firestore:rules,firestore:indexes,functions,hosting`
