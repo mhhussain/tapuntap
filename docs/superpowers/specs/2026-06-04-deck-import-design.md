@@ -55,13 +55,13 @@ Sideboard
 
 ### 4.3 ImportModal — Phase 2 (Resolution)
 
-After parsing, the modal transitions to a resolution view:
+After parsing, the modal fetches the Scryfall card names catalog, then immediately transitions to the resolution view. Cards whose names appear in the catalog begin their Scryfall lookup straight away; cards whose names don't match the catalog are shown as failed immediately (no network call wasted).
 
 - **Progress bar** showing `resolved / total` count
 - **Per-card rows**, one per unique card entry:
   - Status icon: spinner (loading), ✓ (resolved), ✗ (failed)
   - `quantity × name` — name becomes an editable text field when the card fails
-  - **Retry** button on failed rows — re-runs the Scryfall lookup with the (possibly edited) name
+  - **Retry** button on failed rows — re-checks the catalog, then runs the Scryfall lookup if the (possibly edited) name passes
 - **"+ Add card"** button at the bottom to append a new row — the new row starts in failed state with an empty editable name field and a Resolve button; the user types a name and clicks Resolve to look it up
 - **"Add to deck"** button — available immediately; clicking it merges all currently resolved cards into the deck state, skips unresolved/failed rows, shows a toast, and closes the modal
 
@@ -81,16 +81,29 @@ Rules:
 - Parse remaining lines as `<quantity> <name>` (quantity is the first token, name is the rest)
 - Lines that don't match the pattern are skipped
 
-### 5.2 Scryfall Lookup
+### 5.2 Catalog Pre-check
+
+`lib/import.ts` exports `fetchCardNameCatalog(): Promise<Set<string>>`.
+
+- Fetches `GET https://api.scryfall.com/catalog/card-names` once per session
+- Result is cached in module scope (a `Promise` singleton) so subsequent imports reuse it
+- Returns a `Set<string>` of all canonical card names (case-insensitive comparison: names are lowercased before insertion and lookup)
+
+Before any individual card lookup, each name is checked against this set:
+- **Match** → proceed to Scryfall fetch
+- **No match** → immediately mark row as failed; no fetch attempted
+
+### 5.3 Scryfall Lookup
 
 `lib/import.ts` exports `resolveCards(names: string[]): Promise<Map<string, ScryfallCard | null>>`.
 
+- Receives only names that passed the catalog check
 - Deduplicates the name list before fetching
 - Batches requests in groups of 5 using `Promise.allSettled`
 - Each request: `GET https://api.scryfall.com/cards/named?exact=<encoded name>`
 - Returns a map from name → Scryfall card object (or `null` on failure)
 
-### 5.3 Merge
+### 5.4 Merge
 
 When "Add to deck" is clicked:
 - For each resolved card entry: if `cardId` already exists in `cards` state, increment its quantity; otherwise append a new `DeckCardEntry`.
@@ -103,8 +116,10 @@ When "Add to deck" is clicked:
 
 | Scenario | Behavior |
 |---|---|
+| Name not in catalog | Row immediately marked ✗ (no fetch); name becomes editable; Retry re-checks catalog then fetches |
 | Scryfall returns 404 (card not found) | Row marked ✗; name becomes editable; Retry button shown |
 | Network error on a card lookup | Treated same as not found |
+| Catalog fetch fails | All rows proceed directly to Scryfall lookup (catalog check skipped gracefully) |
 | All cards fail | "Add to deck" still available; clicking it adds nothing and shows toast "No cards resolved" |
 | Some cards fail, user clicks "Add to deck" | Resolved cards added; toast: "Added X cards · Y not found" |
 | All cards resolve | Toast: "Added X cards" |
@@ -133,4 +148,6 @@ When "Add to deck" is clicked:
 `lib/import.ts` is pure (no DOM, no React) and should have unit tests covering:
 - Parsing: section headers skipped, `//` comments skipped, blank lines skipped, quantity + name extracted correctly
 - Parsing: lines with no quantity token are skipped
+- `fetchCardNameCatalog`: caching (called twice, fetches once); case-insensitive lookup
 - `resolveCards`: batching logic (mock fetch), success and 404 cases
+- Catalog pre-check: names not in catalog never reach fetch; catalog fetch failure falls through to fetch

@@ -61,7 +61,9 @@ Show these states in the list:
 2. ✓ resolved — `4× Counterspell`
 3. ✓ resolved — `1× Sol Ring`
 4. ⟳ loading — `36× Island`
-5. ✗ failed — `1× [editable field showing "Mox Peerl"]` + Retry button (name has a typo to show the edit flow)
+5. ✗ failed — `1× [editable field showing "Mox Peerl"]` + Retry button (name has a typo — failed catalog pre-check, no fetch attempted)
+
+**Note on failed state:** Cards are pre-checked against Scryfall's full card names catalog before any individual lookup. Names not in the catalog fail immediately (shown in red) without making a network request. The Retry button re-checks the catalog with the edited name, then proceeds to fetch if it passes.
 
 **Footer actions** (below the list):
 - Left: `+ Add card` — small dashed ghost button to append a new row
