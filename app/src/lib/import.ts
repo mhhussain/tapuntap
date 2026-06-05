@@ -18,3 +18,19 @@ export function parseMtgArena(text: string): ParsedCard[] {
   }
   return results;
 }
+
+let _catalogCache: Promise<Set<string> | null> | null = null;
+
+export function _resetCatalogCache(): void {
+  _catalogCache = null;
+}
+
+export function fetchCardNameCatalog(): Promise<Set<string> | null> {
+  if (!_catalogCache) {
+    _catalogCache = fetch("https://api.scryfall.com/catalog/card-names")
+      .then((r) => r.json())
+      .then((data: { data: string[] }) => new Set(data.data.map((n) => n.toLowerCase())))
+      .catch(() => null);
+  }
+  return _catalogCache;
+}

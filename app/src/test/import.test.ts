@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
-import { parseMtgArena } from "../lib/import";
+import { parseMtgArena, fetchCardNameCatalog, _resetCatalogCache } from "../lib/import";
 
 describe("parseMtgArena", () => {
   it("parses quantity and name from standard lines", () => {
@@ -43,5 +43,46 @@ describe("parseMtgArena", () => {
   it("returns empty array for empty or whitespace-only input", () => {
     expect(parseMtgArena("")).toEqual([]);
     expect(parseMtgArena("  \n  \n  ")).toEqual([]);
+  });
+});
+
+describe("fetchCardNameCatalog", () => {
+  beforeEach(() => {
+    _resetCatalogCache();
+    vi.stubGlobal("fetch", vi.fn());
+  });
+
+  afterEach(() => {
+    vi.unstubAllGlobals();
+  });
+
+  it("fetches the catalog URL and returns a Set of lowercased names", async () => {
+    (globalThis.fetch as ReturnType<typeof vi.fn>).mockResolvedValue({
+      json: () => Promise.resolve({ data: ["Lightning Bolt", "Counterspell", "Sol Ring"] }),
+    });
+
+    const catalog = await fetchCardNameCatalog();
+    expect(catalog).not.toBeNull();
+    expect(catalog!.has("lightning bolt")).toBe(true);
+    expect(catalog!.has("Lightning Bolt")).toBe(false);
+    expect(catalog!.has("counterspell")).toBe(true);
+    expect(globalThis.fetch).toHaveBeenCalledTimes(1);
+    expect(globalThis.fetch).toHaveBeenCalledWith("https://api.scryfall.com/catalog/card-names");
+  });
+
+  it("caches the result — calls fetch only once across two awaits", async () => {
+    (globalThis.fetch as ReturnType<typeof vi.fn>).mockResolvedValue({
+      json: () => Promise.resolve({ data: ["Lightning Bolt"] }),
+    });
+
+    await fetchCardNameCatalog();
+    await fetchCardNameCatalog();
+    expect(globalThis.fetch).toHaveBeenCalledTimes(1);
+  });
+
+  it("returns null when the network fetch fails", async () => {
+    (globalThis.fetch as ReturnType<typeof vi.fn>).mockRejectedValue(new Error("Network error"));
+    const catalog = await fetchCardNameCatalog();
+    expect(catalog).toBeNull();
   });
 });
