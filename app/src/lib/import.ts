@@ -34,3 +34,42 @@ export function fetchCardNameCatalog(): Promise<Set<string> | null> {
   }
   return _catalogCache;
 }
+
+export interface ScryfallCard {
+  id: string;
+  name: string;
+  mana_cost?: string;
+  cmc?: number;
+  type_line?: string;
+  colors?: string[];
+  image_uris?: { normal?: string; small?: string };
+  card_faces?: Array<{ image_uris?: { normal?: string; small?: string } }>;
+  power?: string;
+  toughness?: string;
+  loyalty?: string;
+}
+
+export async function resolveCards(names: string[]): Promise<Map<string, ScryfallCard | null>> {
+  const unique = [...new Set(names)];
+  const result = new Map<string, ScryfallCard | null>();
+  if (!unique.length) return result;
+
+  for (let i = 0; i < unique.length; i += 5) {
+    const batch = unique.slice(i, i + 5);
+    const settled = await Promise.allSettled(
+      batch.map((name) =>
+        fetch(`https://api.scryfall.com/cards/named?exact=${encodeURIComponent(name)}`)
+          .then((r) => (r.ok ? r.json() : Promise.reject(r.status)))
+          .then((card: ScryfallCard) => ({ name, card }))
+          .catch(() => ({ name, card: null }))
+      )
+    );
+    for (const outcome of settled) {
+      if (outcome.status === "fulfilled") {
+        result.set(outcome.value.name, outcome.value.card);
+      }
+    }
+  }
+
+  return result;
+}

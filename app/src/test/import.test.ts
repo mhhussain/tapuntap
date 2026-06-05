@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
-import { parseMtgArena, fetchCardNameCatalog, _resetCatalogCache } from "../lib/import";
+import { parseMtgArena, fetchCardNameCatalog, _resetCatalogCache, resolveCards } from "../lib/import";
 
 describe("parseMtgArena", () => {
   it("parses quantity and name from standard lines", () => {
@@ -84,5 +84,71 @@ describe("fetchCardNameCatalog", () => {
     (globalThis.fetch as ReturnType<typeof vi.fn>).mockRejectedValue(new Error("Network error"));
     const catalog = await fetchCardNameCatalog();
     expect(catalog).toBeNull();
+  });
+});
+
+describe("resolveCards", () => {
+  afterEach(() => {
+    vi.unstubAllGlobals();
+  });
+
+  it("fetches each name from the Scryfall named endpoint and returns the card", async () => {
+    const mockCard = { id: "abc123", name: "Lightning Bolt" };
+    vi.stubGlobal("fetch", vi.fn().mockResolvedValue({
+      ok: true,
+      json: () => Promise.resolve(mockCard),
+    }));
+
+    const result = await resolveCards(["Lightning Bolt"]);
+    expect(result.get("Lightning Bolt")).toEqual(mockCard);
+    expect(globalThis.fetch).toHaveBeenCalledWith(
+      "https://api.scryfall.com/cards/named?exact=Lightning%20Bolt"
+    );
+  });
+
+  it("returns null for a name that gets a non-ok response", async () => {
+    vi.stubGlobal("fetch", vi.fn().mockResolvedValue({
+      ok: false,
+      status: 404,
+    }));
+
+    const result = await resolveCards(["Mox Peerl"]);
+    expect(result.get("Mox Peerl")).toBeNull();
+  });
+
+  it("returns null for a name where fetch throws a network error", async () => {
+    vi.stubGlobal("fetch", vi.fn().mockRejectedValue(new Error("Network error")));
+    const result = await resolveCards(["Lightning Bolt"]);
+    expect(result.get("Lightning Bolt")).toBeNull();
+  });
+
+  it("deduplicates names before fetching — calls fetch once for duplicate names", async () => {
+    const mockCard = { id: "abc123", name: "Lightning Bolt" };
+    vi.stubGlobal("fetch", vi.fn().mockResolvedValue({
+      ok: true,
+      json: () => Promise.resolve(mockCard),
+    }));
+
+    const result = await resolveCards(["Lightning Bolt", "Lightning Bolt"]);
+    expect(globalThis.fetch).toHaveBeenCalledTimes(1);
+    expect(result.get("Lightning Bolt")).toEqual(mockCard);
+  });
+
+  it("returns empty map for empty input without calling fetch", async () => {
+    vi.stubGlobal("fetch", vi.fn());
+    const result = await resolveCards([]);
+    expect(result.size).toBe(0);
+    expect(globalThis.fetch).not.toHaveBeenCalled();
+  });
+
+  it("processes all names and returns results for each", async () => {
+    const names = ["A", "B", "C", "D", "E", "F", "G"];
+    vi.stubGlobal("fetch", vi.fn().mockImplementation((_url: string) =>
+      Promise.resolve({ ok: true, json: () => Promise.resolve({ id: "x", name: "Card" }) })
+    ));
+
+    const result = await resolveCards(names);
+    expect(globalThis.fetch).toHaveBeenCalledTimes(7);
+    expect(result.size).toBe(7);
   });
 });
