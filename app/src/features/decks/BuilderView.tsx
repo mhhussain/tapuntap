@@ -7,6 +7,7 @@ import { Icon } from "../../components/Icon";
 import { ManaCost } from "../../components/ManaCost";
 import { groupCardsByType, toEntry } from "../../lib/cards";
 import type { DeckCardEntry } from "../../types";
+import { ImportModal } from "./ImportModal";
 
 export function BuilderView() {
   const { deckId } = useParams();
@@ -25,6 +26,7 @@ export function BuilderView() {
   const [searching, setSearching] = useState(false);
   const [selectedCard, setSelectedCard] = useState<any | null>(null);
   const [changelog, setChangelog] = useState("");
+  const [importOpen, setImportOpen] = useState(false);
   const qRef = useRef(q);
   qRef.current = q;
 
@@ -87,6 +89,31 @@ export function BuilderView() {
     }
   }
 
+  function handleImport(imported: DeckCardEntry[], failedCount: number) {
+    if (imported.length > 0) {
+      setCards((current) => {
+        const updated = current.map((c) => ({ ...c }));
+        for (const entry of imported) {
+          const existing = updated.find((c) => c.cardId === entry.cardId);
+          if (existing) {
+            existing.quantity += entry.quantity;
+          } else {
+            updated.push({ ...entry });
+          }
+        }
+        return updated;
+      });
+    }
+    if (imported.length === 0 && failedCount === 0) return;
+    if (imported.length === 0) {
+      toast("No cards resolved", "error");
+    } else if (failedCount > 0) {
+      toast(`Added ${imported.length} card${imported.length !== 1 ? "s" : ""} · ${failedCount} not found`);
+    } else {
+      toast(`Added ${imported.length} card${imported.length !== 1 ? "s" : ""}`);
+    }
+  }
+
   const totalCards = cards.reduce((s, c) => s + c.quantity, 0);
   const groups = groupCardsByType(cards);
 
@@ -119,6 +146,9 @@ export function BuilderView() {
           <option value="draft">Draft</option>
         </select>
         <div className="topbar-spacer" />
+        <button className="btn btn-ghost" onClick={() => setImportOpen(true)}>
+          Import
+        </button>
         <span style={{ fontFamily: "var(--font-mono)", fontSize: 12, color: "var(--fg-3)" }}>{totalCards} cards</span>
         <button className="btn btn-primary" onClick={save}>
           {isNew ? "Create deck" : "Save"}
@@ -344,6 +374,12 @@ export function BuilderView() {
           </div>
         </div>
       </div>
+      {importOpen && (
+        <ImportModal
+          onClose={() => setImportOpen(false)}
+          onImport={handleImport}
+        />
+      )}
     </>
   );
 }
