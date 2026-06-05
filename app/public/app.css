@@ -737,3 +737,44 @@ textarea.input { resize: vertical; }
 }
 .auth-link:hover { color: var(--accent); }
 
+/* ─── Import Modal ─────────────────────────────────────────────────────────── */
+.imp-label { font-size: 11px; color: var(--fg-3); font-family: var(--font-mono); margin-bottom: 6px; }
+.imp-paste {
+  width: 100%; height: 140px; background: var(--bg-3); border: 1px solid var(--line-1);
+  border-radius: 4px; padding: 8px; font-family: var(--font-mono); font-size: 12px;
+  color: var(--fg-1); resize: vertical; box-sizing: border-box;
+}
+.imp-progress { height: 3px; background: var(--bg-3); border-radius: 2px; overflow: hidden; }
+.imp-progress-fill { height: 100%; background: var(--accent); transition: width 0.2s ease; }
+.imp-list { display: flex; flex-direction: column; gap: 3px; max-height: 260px; overflow-y: auto; }
+.imp-row {
+  display: flex; align-items: center; gap: 8px; padding: 5px 8px;
+  background: var(--bg-2); border-radius: 4px; border: 1px solid transparent;
+}
+.imp-row.is-failed { border-color: var(--bad); }
+.imp-status { display: flex; align-items: center; justify-content: center; flex-shrink: 0; width: 16px; }
+.imp-status.ok { color: var(--good); }
+.imp-status.bad { color: var(--bad); }
+.imp-mid { display: flex; align-items: center; gap: 6px; flex: 1; min-width: 0; }
+.imp-qty { font-family: var(--font-mono); font-size: 11px; color: var(--fg-3); flex-shrink: 0; }
+.imp-cardname { font-size: 12px; color: var(--fg-1); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.imp-edit {
+  flex: 1; font-size: 12px; background: transparent; border: none;
+  border-bottom: 1px solid var(--line-1); color: var(--fg-0); outline: none; padding: 1px 0;
+}
+.imp-edit:focus { border-bottom-color: var(--accent); }
+.imp-retry {
+  font-size: 11px; padding: 2px 8px; border-radius: 3px; background: var(--bg-3);
+  border: 1px solid var(--line-1); cursor: pointer; color: var(--fg-2); flex-shrink: 0;
+}
+.imp-retry:hover { border-color: var(--fg-2); }
+.imp-state { font-size: 11px; color: var(--fg-3); flex-shrink: 0; font-family: var(--font-mono); }
+.imp-add {
+  font-size: 11px; padding: 4px 10px; border-radius: 4px; border: 1px dashed var(--line-1);
+  background: transparent; cursor: pointer; color: var(--fg-3);
+  display: flex; align-items: center; gap: 4px;
+}
+.imp-add:hover { border-color: var(--line-2); color: var(--fg-2); }
+@keyframes imp-spin { to { transform: rotate(360deg); } }
+.imp-spinner { animation: imp-spin 0.8s linear infinite; display: inline-block; font-size: 13px; color: var(--fg-3); line-height: 1; }
+

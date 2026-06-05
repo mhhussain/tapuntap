@@ -1,3 +1,5 @@
+import type { DeckCardEntry } from "../types";
+
 export function isLand(typeLine: string | undefined | null): boolean {
   return !!typeLine && typeLine.includes("Land");
 }
@@ -50,4 +52,21 @@ export function groupCardsByType<T extends { typeLine?: string | null }>(cards: 
   return Object.keys(grouped)
     .sort((a, b) => rank(a) - rank(b))
     .map((group) => ({ group, cards: grouped[group] }));
+}
+
+export function toEntry(card: any, quantity = 1): DeckCardEntry {
+  return {
+    cardId: card.id,
+    name: card.name,
+    quantity,
+    manaCost: card.mana_cost || "",
+    cmc: card.cmc || 0,
+    typeLine: card.type_line || "",
+    colors: card.colors || [],
+    imageUri: card.image_uris?.normal ?? card.card_faces?.[0]?.image_uris?.normal ?? null,
+    imageUriBack: card.card_faces?.[1]?.image_uris?.normal ?? null,
+    power: card.power ?? null,
+    toughness: card.toughness ?? null,
+    loyalty: card.loyalty ?? null,
+  };
 }
