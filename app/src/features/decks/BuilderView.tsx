@@ -5,18 +5,8 @@ import { createDeck, getDeck, updateDeck } from "../../api/decks";
 import { useToast } from "../../components/Toast";
 import { Icon } from "../../components/Icon";
 import { ManaCost } from "../../components/ManaCost";
-import { groupCardsByType } from "../../lib/cards";
+import { groupCardsByType, toEntry } from "../../lib/cards";
 import type { DeckCardEntry } from "../../types";
-
-function toEntry(card: any, quantity = 1): DeckCardEntry {
-  return {
-    cardId: card.id, name: card.name, quantity,
-    manaCost: card.mana_cost || "", cmc: card.cmc || 0, typeLine: card.type_line || "",
-    colors: card.colors || [], imageUri: card.image_uris?.normal || card.card_faces?.[0]?.image_uris?.normal || null,
-    imageUriBack: card.card_faces?.[1]?.image_uris?.normal || null,
-    power: card.power ?? null, toughness: card.toughness ?? null, loyalty: card.loyalty ?? null,
-  };
-}
 
 export function BuilderView() {
   const { deckId } = useParams();
