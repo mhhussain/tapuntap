@@ -14,6 +14,8 @@ import { HomeView } from "./features/home/HomeView";
 import { GamesView } from "./features/games/GamesView";
 import { EndGameView } from "./features/game/endgame/EndGameView";
 import { SettingsView } from "./features/settings/SettingsView";
+import { PlaytestListView } from "./features/playtest/PlaytestListView";
+import { PlaytestNewView } from "./features/playtest/PlaytestNewView";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
@@ -32,6 +34,8 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
                 <Route path="/lobby/:gameId" element={<LobbyView />} />
                 <Route path="/games/:gameId" element={<GameView />} />
                 <Route path="/games/:gameId/end" element={<EndGameView />} />
+                <Route path="/playtest" element={<PlaytestListView />} />
+                <Route path="/playtest/new" element={<PlaytestNewView />} />
                 <Route path="/settings" element={<SettingsView />} />
                 <Route path="*" element={<Navigate to="/" replace />} />
               </Route>

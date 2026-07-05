@@ -9,6 +9,7 @@ export function AppShell() {
     { to: "/", icon: "home", tip: "Home" },
     { to: "/decks", icon: "decks", tip: "Decks" },
     { to: "/games", icon: "games", tip: "Games" },
+    { to: "/playtest", icon: "play", tip: "Playtest" },
   ];
   const displayName = user?.displayName || user?.email || "";
   const initial = (displayName || "?").slice(0, 1).toUpperCase();

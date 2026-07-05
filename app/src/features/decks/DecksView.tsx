@@ -336,6 +336,9 @@ export function DecksView() {
                     <button className="btn btn-icon btn-danger" title="Delete" onClick={() => handleDelete(selectedDeck.id)}>
                       <Icon name="trash" size={14} />
                     </button>
+                    <button className="btn" onClick={() => navigate(`/playtest/new?deckId=${selectedDeck.id}`)}>
+                      <Icon name="play" size={12} /> Playtest
+                    </button>
                     <button className="btn btn-primary" onClick={() => navigate("/games/new")}>
                       <Icon name="play" size={12} /> Play
                     </button>
