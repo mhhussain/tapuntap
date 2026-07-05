@@ -83,6 +83,7 @@ features/
   game/GameView.tsx
   game/useGameActions.ts  — client-direct writes + callable gameAction wrappers
   game/endgame/EndGameView.tsx
+  playtest/                — local solo playtest mode (see below)
   settings/SettingsView.tsx
 test/
   setup.ts
@@ -120,6 +121,10 @@ Six callable functions handle operations needing trust or hidden-info atomicity:
 - `gameAction(action)` — dispatches typed actions (draw, mill, scry, shuffleLibrary, play, moveToHand/Library, adjustOpponentLife, advancePhase, endTurn)
 - `leaveGame(gameId)` — removes the caller from a lobby seat
 - `endGame(gameId)` — host-only; marks the game complete
+
+## Playtest (local)
+
+`app/src/features/playtest/` is a local-only module that replicates the game UI for solo deck testing — it has no Firestore/Functions surface. One signed-in user controls 2-4 seats via a seat switcher, playing all seats themselves to test a deck or a matchup. The engine (`engine/actions.ts`, `engine/deal.ts`) is a client-side TypeScript port of the server's `functions/lib/actions.js` and `functions/lib/deal.js`, so action semantics (draw, mill, scry, shuffle, play, etc.) mirror multiplayer games exactly. Sessions persist in browser `localStorage` under `tapuntap.playtest.*` keys instead of Firestore documents.
 
 ## Card Data
 
