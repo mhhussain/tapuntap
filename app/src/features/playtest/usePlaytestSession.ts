@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { GameAction, PlayerPublic } from "../../types";
 import type { PlaytestSession } from "./engine/types";
 import { applyGameAction } from "./engine/actions";
@@ -24,10 +24,18 @@ export function usePlaytestSession(sessionId: string | undefined) {
   );
   const [controlledUid, setControlledUid] = useState<string>(() => firstSeatUid(session));
 
+  // Mirrors `session` so `mutate` can always read the latest value even when
+  // multiple mutations are issued synchronously in the same tick (e.g. a
+  // double-click). Without this, two calls in one tick would both close over
+  // the same stale `session` state and the second commit would clobber the
+  // first (lost update).
+  const sessionRef = useRef<PlaytestSession | null | undefined>(session);
+
   // Re-load when the route param (sessionId) changes, and guard controlledUid
   // membership in the freshly loaded session's seatUids.
   useEffect(() => {
     const next = sessionId ? loadSession(sessionId) : null;
+    sessionRef.current = next;
     setSession(next);
     setControlledUid((prev) => (next && next.game.seatUids.includes(prev) ? prev : firstSeatUid(next)));
   }, [sessionId]);
@@ -36,6 +44,7 @@ export function usePlaytestSession(sessionId: string | undefined) {
     next.updatedAt = Date.now();
     next.game.updatedAt = next.updatedAt;
     saveSession(next);
+    sessionRef.current = next;
     setSession(next);
   }, []);
 
@@ -43,14 +52,15 @@ export function usePlaytestSession(sessionId: string | undefined) {
   const mutate = useCallback(
     (fn: (s: PlaytestSession) => PlaytestSession): Promise<unknown> => {
       try {
-        if (!session) throw new Error("Session not loaded");
-        commit(fn(session));
+        const current = sessionRef.current;
+        if (!current) throw new Error("Session not loaded");
+        commit(fn(current));
         return Promise.resolve({ ok: true });
       } catch (e) {
         return Promise.reject(e);
       }
     },
-    [session, commit]
+    [commit]
   );
 
   const actions: PlaytestActions = useMemo(
