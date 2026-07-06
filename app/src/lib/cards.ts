@@ -20,11 +20,26 @@ export function newInstanceId(): string {
 export type ManaCurve = Record<0 | 1 | 2 | 3 | 4 | 5 | "6+", number>;
 type ManaCurveBucket = 0 | 1 | 2 | 3 | 4 | 5;
 
+/** Parse a Scryfall mana cost string like "{2}{U}{U}" into a numeric CMC. Fallback for entries missing `cmc`. */
+export function parseCmcFromManaCost(manaCost: string | undefined | null): number {
+  if (!manaCost) return 0;
+  const symbols = manaCost.match(/\{([^}]+)\}/g) ?? [];
+  let total = 0;
+  for (const raw of symbols) {
+    const sym = raw.slice(1, -1);
+    if (sym === "X" || sym === "Y" || sym === "Z") continue;
+    const first = sym.split("/")[0];
+    const num = Number(first);
+    total += Number.isNaN(num) ? 1 : num;
+  }
+  return total;
+}
+
 /** Compute a mana curve from an array of cards with `cmc` and `quantity` fields. */
-export function computeManaCurve(cards: Array<{ cmc?: number; quantity?: number }>): ManaCurve {
+export function computeManaCurve(cards: Array<{ cmc?: number; manaCost?: string; quantity?: number }>): ManaCurve {
   const curve: ManaCurve = { 0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, "6+": 0 };
   for (const card of cards) {
-    const cmc = Math.max(0, Math.floor(card.cmc ?? 0));
+    const cmc = Math.max(0, Math.floor(card.cmc ?? parseCmcFromManaCost(card.manaCost)));
     const qty = card.quantity ?? 1;
     if (cmc >= 6) {
       curve["6+"] += qty;

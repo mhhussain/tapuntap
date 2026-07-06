@@ -72,7 +72,9 @@ function ManaCurveBar({ cards }: { cards: DeckCardEntry[] }) {
         const pct = Math.round((count / max) * 100);
         return (
           <div key={b.label} className="curve-bar-wrap" title={`${b.label}: ${count}`}>
-            <div className="curve-bar" style={{ height: `${pct}%`, minHeight: count > 0 ? 2 : 0 }} />
+            <div className="curve-bar-area">
+              <div className="curve-bar" style={{ height: `${pct}%`, minHeight: count > 0 ? 2 : 0 }} />
+            </div>
             <div className="curve-label">{b.label}</div>
           </div>
         );
