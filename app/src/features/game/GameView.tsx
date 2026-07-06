@@ -19,7 +19,7 @@ import { ContextMenu, useContextMenu } from "../../components/ContextMenu";
 import { buildHandMenu, buildBattlefieldMenu } from "./useCardMenus";
 import { useDragDrop } from "./useDragDrop";
 import { CardDetailModal } from "./components/CardDetailModal";
-import { HoverPreview, useHoverPreview } from "./components/HoverPreview";
+import { HoverPreview, useHoverPreview } from "../../components/HoverPreview";
 import type { CardInstance } from "../../types";
 
 export function GameView() {

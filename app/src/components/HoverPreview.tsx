@@ -4,10 +4,17 @@
  */
 
 import { useState, useRef, useCallback } from "react";
-import type { CardInstance } from "../../../types";
+
+/** Minimal card shape needed to show an image preview. CardInstance and DeckCardEntry both satisfy it. */
+export interface HoverCard {
+  name: string;
+  imageUri?: string | null;
+  imageUriBack?: string | null;
+  transformed?: boolean;
+}
 
 interface HoverAnchor {
-  card: CardInstance;
+  card: HoverCard;
   x: number;
   y: number;
 }
@@ -17,7 +24,7 @@ export function useHoverPreview() {
   const [anchor, setAnchor] = useState<HoverAnchor | null>(null);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  const onMouseEnter = useCallback((e: React.MouseEvent, card: CardInstance) => {
+  const onMouseEnter = useCallback((e: React.MouseEvent, card: HoverCard) => {
     // Small delay avoids flash during fast mouse moves
     timerRef.current = setTimeout(() => {
       setAnchor({ card, x: e.clientX, y: e.clientY });

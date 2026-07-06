@@ -5,6 +5,8 @@ import { getDeck, getDeckVersions, deleteDeck, type DeckVersion } from "../../ap
 import { useToast } from "../../components/Toast";
 import { Icon } from "../../components/Icon";
 import { ManaCost } from "../../components/ManaCost";
+import { HoverPreview, useHoverPreview, type HoverCard } from "../../components/HoverPreview";
+import { CardImageModal } from "../../components/CardImageModal";
 import { computeManaCurve, groupCardsByType, isLand } from "../../lib/cards";
 import type { Deck, DeckCardEntry } from "../../types";
 
@@ -72,7 +74,9 @@ function ManaCurveBar({ cards }: { cards: DeckCardEntry[] }) {
         const pct = Math.round((count / max) * 100);
         return (
           <div key={b.label} className="curve-bar-wrap" title={`${b.label}: ${count}`}>
-            <div className="curve-bar" style={{ height: `${pct}%`, minHeight: count > 0 ? 2 : 0 }} />
+            <div className="curve-bar-area">
+              <div className="curve-bar" style={{ height: `${pct}%`, minHeight: count > 0 ? 2 : 0 }} />
+            </div>
             <div className="curve-label">{b.label}</div>
           </div>
         );
@@ -85,10 +89,18 @@ function DeckCardList({
   cards,
   onRemove,
   onAdd,
+  onHoverEnter,
+  onHoverMove,
+  onHoverLeave,
+  onCardClick,
 }: {
   cards: DeckCardEntry[];
   onRemove?: (cardId: string) => void;
   onAdd?: (cardId: string) => void;
+  onHoverEnter?: (e: React.MouseEvent, card: DeckCardEntry) => void;
+  onHoverMove?: (e: React.MouseEvent) => void;
+  onHoverLeave?: () => void;
+  onCardClick?: (card: DeckCardEntry) => void;
 }) {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
@@ -105,7 +117,11 @@ function DeckCardList({
                 <div
                   key={card.cardId}
                   className="deck-card-row"
-                  style={{ display: "flex", alignItems: "center", gap: 10, padding: "6px 10px", borderBottom: "1px solid var(--line-1)" }}
+                  onMouseEnter={(e) => onHoverEnter?.(e, card)}
+                  onMouseMove={onHoverMove}
+                  onMouseLeave={onHoverLeave}
+                  onClick={() => onCardClick?.(card)}
+                  style={{ display: "flex", alignItems: "center", gap: 10, padding: "6px 10px", borderBottom: "1px solid var(--line-1)", cursor: onCardClick ? "pointer" : undefined }}
                 >
                   <span className="deck-card-qty">{card.quantity ?? 1}×</span>
                   <span className="deck-card-name">{card.name}</span>
@@ -149,6 +165,9 @@ export function DecksView() {
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [search, setSearch] = useState("");
   const [colorFilter, setColorFilter] = useState<string[]>([]);
+
+  const hover = useHoverPreview();
+  const [enlarged, setEnlarged] = useState<HoverCard | null>(null);
 
   // Full deck + versions loaded on selection
   const [selectedDeck, setSelectedDeck] = useState<Deck | null>(null);
@@ -380,7 +399,13 @@ export function DecksView() {
                     </div>
                   </div>
                 ) : (
-                  <DeckCardList cards={selectedDeck.cards} />
+                  <DeckCardList
+                    cards={selectedDeck.cards}
+                    onHoverEnter={hover.onMouseEnter}
+                    onHoverMove={hover.onMouseMove}
+                    onHoverLeave={hover.onMouseLeave}
+                    onCardClick={setEnlarged}
+                  />
                 )}
 
                 {/* Version history */}
@@ -408,6 +433,8 @@ export function DecksView() {
           )}
         </main>
       </div>
+      <HoverPreview anchor={hover.anchor} />
+      {enlarged && <CardImageModal card={enlarged} onClose={() => setEnlarged(null)} />}
     </>
   );
 }

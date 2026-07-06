@@ -458,8 +458,9 @@ textarea.input { resize: vertical; }
 
 .deck-detail-body { flex: 1; padding: 20px 24px; display: flex; flex-direction: column; gap: 20px; }
 
-.mana-curve { display: flex; align-items: flex-end; gap: 4px; height: 56px; }
-.curve-bar-wrap { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px; }
+.mana-curve { display: flex; gap: 4px; height: 56px; }
+.curve-bar-wrap { flex: 1; height: 100%; display: flex; flex-direction: column; align-items: center; gap: 4px; }
+.curve-bar-area { flex: 1; min-height: 0; width: 100%; display: flex; align-items: flex-end; }
 .curve-bar { width: 100%; background: var(--accent); border-radius: 2px; transition: height 200ms; }
 .curve-label { font-size: 9px; color: var(--fg-3); font-family: var(--font-mono); }
 

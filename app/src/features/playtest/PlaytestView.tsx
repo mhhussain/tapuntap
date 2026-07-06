@@ -15,7 +15,7 @@ import { ContextMenu, useContextMenu } from "../../components/ContextMenu";
 import { buildHandMenu, buildBattlefieldMenu } from "../game/useCardMenus";
 import { useDragDrop } from "../game/useDragDrop";
 import { CardDetailModal } from "../game/components/CardDetailModal";
-import { HoverPreview, useHoverPreview } from "../game/components/HoverPreview";
+import { HoverPreview, useHoverPreview } from "../../components/HoverPreview";
 import type { useGameActions } from "../game/useGameActions";
 import type { CardInstance } from "../../types";
 

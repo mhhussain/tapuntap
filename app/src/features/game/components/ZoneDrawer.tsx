@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Modal } from "../../../components/Modal";
 import { CardFace } from "../../../components/CardFace";
 import { Icon } from "../../../components/Icon";
+import { HoverPreview, useHoverPreview } from "../../../components/HoverPreview";
 import { groupCardsByType } from "../../../lib/cards";
 import { moveWithinPublicZones } from "../useGameActions";
 import type { CardInstance, PlayerPublic, PlayerPrivate, GameAction } from "../../../types";
@@ -361,6 +362,7 @@ function LibraryDrawer({
   onAction: (a: GameAction) => void;
   onClose: () => void;
 }) {
+  const hover = useHoverPreview();
   const library = myPrivate.library;
   const groups = groupCardsByType(library);
 
@@ -480,6 +482,9 @@ function LibraryDrawer({
                             });
                             onClose();
                           }}
+                          onMouseEnter={(e) => hover.onMouseEnter(e, card)}
+                          onMouseMove={hover.onMouseMove}
+                          onMouseLeave={hover.onMouseLeave}
                           title={`Tutor ${name} to hand`}
                         >
                           {name}
@@ -496,6 +501,7 @@ function LibraryDrawer({
           })}
         </div>
       )}
+      <HoverPreview anchor={hover.anchor} />
     </Modal>
   );
 }
