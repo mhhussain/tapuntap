@@ -50,17 +50,36 @@ export function computeManaCurve(cards: Array<{ cmc?: number; manaCost?: string;
   return curve;
 }
 
-const GROUP_ORDER = ["Creatures", "Instants", "Sorceries", "Enchantments", "Artifacts", "Planeswalkers", "Lands", "Other"];
+const GROUP_ORDER = ["Planeswalkers", "Creatures", "Artifacts", "Enchantments", "Sorceries", "Instants", "Lands", "Other"];
+
+// Checked in priority order: a compound type takes the first matching group
+// (after the Land check), so "Artifact Creature" → Creatures.
+const TYPE_TO_GROUP: Array<[type: string, group: string]> = [
+  ["Creature", "Creatures"],
+  ["Planeswalker", "Planeswalkers"],
+  ["Artifact", "Artifacts"],
+  ["Enchantment", "Enchantments"],
+  ["Sorcery", "Sorceries"],
+  ["Instant", "Instants"],
+];
+
+function groupForTypeLine(typeLine: string): string {
+  if (isLand(typeLine)) return "Lands";
+  const cardTypes = typeLine.split("—")[0]; // card types live left of the em-dash; subtypes right
+  for (const [type, group] of TYPE_TO_GROUP) {
+    if (cardTypes.includes(type)) return group;
+  }
+  return "Other";
+}
 
 /**
- * Group deck cards by their primary type into ordered sections
- * (Creatures, Instants, …, Lands, Other). Preserves card order within a group.
+ * Group deck cards by their primary card type into ordered sections
+ * (Planeswalkers, Creatures, …, Lands, Other). Preserves card order within a group.
  */
 export function groupCardsByType<T extends { typeLine?: string | null }>(cards: T[]): Array<{ group: string; cards: T[] }> {
   const grouped: Record<string, T[]> = {};
   for (const c of cards) {
-    const typeLine = c.typeLine ?? "";
-    const grp = isLand(typeLine) ? "Lands" : typeLine.split(" ")[0] ? typeLine.split(" ")[0] + "s" : "Other";
+    const grp = groupForTypeLine(c.typeLine ?? "");
     (grouped[grp] ??= []).push(c);
   }
   const rank = (g: string) => (GROUP_ORDER.indexOf(g) === -1 ? 99 : GROUP_ORDER.indexOf(g));
