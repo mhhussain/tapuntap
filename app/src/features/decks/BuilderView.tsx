@@ -8,6 +8,8 @@ import { ManaCost } from "../../components/ManaCost";
 import { groupCardsByType, toEntry } from "../../lib/cards";
 import type { DeckCardEntry } from "../../types";
 import { ImportModal } from "./ImportModal";
+import { HoverPreview, useHoverPreview, type HoverCard } from "../../components/HoverPreview";
+import { CardImageModal } from "../../components/CardImageModal";
 
 export function BuilderView() {
   const { deckId } = useParams();
@@ -29,6 +31,9 @@ export function BuilderView() {
   const [importOpen, setImportOpen] = useState(false);
   const qRef = useRef(q);
   qRef.current = q;
+
+  const hover = useHoverPreview();
+  const [enlarged, setEnlarged] = useState<HoverCard | null>(null);
 
   useEffect(() => {
     if (!isNew && deckId) {
@@ -122,6 +127,12 @@ export function BuilderView() {
   const normalImg = (card: any) =>
     card?.image_uris?.normal || card?.card_faces?.[0]?.image_uris?.normal || null;
 
+  const toHoverCard = (card: any): HoverCard => ({
+    name: card.name,
+    imageUri: normalImg(card),
+    imageUriBack: card?.card_faces?.[1]?.image_uris?.normal ?? null,
+  });
+
   return (
     <>
       {/* Topbar */}
@@ -190,6 +201,9 @@ export function BuilderView() {
                 key={c.id}
                 onClick={() => setSelectedCard(c)}
                 onDoubleClick={() => addCard(c)}
+                onMouseEnter={(e) => hover.onMouseEnter(e, toHoverCard(c))}
+                onMouseMove={hover.onMouseMove}
+                onMouseLeave={hover.onMouseLeave}
                 title="Click to preview · Double-click to add"
                 style={{
                   display: "flex", flexDirection: "column", gap: 4,
@@ -299,7 +313,13 @@ export function BuilderView() {
             {commander && (
               <div style={{ marginBottom: 12 }}>
                 <div className="eyebrow" style={{ marginBottom: 6 }}>Commander</div>
-                <div style={{ display: "flex", alignItems: "center", gap: 8, padding: "6px 10px", background: "var(--bg-2)", borderRadius: 6, border: "1px solid var(--line-1)" }}>
+                <div
+                  onMouseEnter={(e) => hover.onMouseEnter(e, commander)}
+                  onMouseMove={hover.onMouseMove}
+                  onMouseLeave={hover.onMouseLeave}
+                  onClick={() => setEnlarged(commander)}
+                  style={{ display: "flex", alignItems: "center", gap: 8, padding: "6px 10px", background: "var(--bg-2)", borderRadius: 6, border: "1px solid var(--line-1)", cursor: "pointer" }}
+                >
                   {smallImg(commander) && (
                     <img src={smallImg(commander) || ""} alt={commander.name} style={{ width: 30, borderRadius: 4 }} />
                   )}
@@ -329,21 +349,26 @@ export function BuilderView() {
                     <div
                       key={c.cardId}
                       className="deck-card-row"
-                      style={{ display: "flex", alignItems: "center", gap: 8, padding: "5px 10px", borderBottom: "1px solid var(--line-1)" }}
+                      onMouseEnter={(e) => hover.onMouseEnter(e, c)}
+                      onMouseMove={hover.onMouseMove}
+                      onMouseLeave={hover.onMouseLeave}
+                      onClick={() => setEnlarged(c)}
+                      style={{ display: "flex", alignItems: "center", gap: 8, padding: "5px 10px", borderBottom: "1px solid var(--line-1)", cursor: "pointer" }}
                     >
                       <span className="deck-card-qty">{c.quantity}×</span>
                       <span className="deck-card-name">{c.name}</span>
                       <ManaCost cost={c.manaCost ?? ""} />
                       <button
                         className="btn btn-ghost btn-icon btn-sm"
-                        onClick={() => removeCard(c.cardId)}
+                        onClick={(e) => { e.stopPropagation(); removeCard(c.cardId); }}
                         title="Remove one"
                       >
                         <Icon name="minus" size={12} />
                       </button>
                       <button
                         className="btn btn-ghost btn-icon btn-sm"
-                        onClick={() => {
+                        onClick={(e) => {
+                          e.stopPropagation();
                           const found = results.find((r) => r.id === c.cardId);
                           if (found) addCard(found);
                           else setCards((cs) => cs.map((x) => x.cardId === c.cardId ? { ...x, quantity: x.quantity + 1 } : x));
@@ -380,6 +405,8 @@ export function BuilderView() {
           onImport={handleImport}
         />
       )}
+      <HoverPreview anchor={hover.anchor} />
+      {enlarged && <CardImageModal card={enlarged} onClose={() => setEnlarged(null)} />}
     </>
   );
 }
