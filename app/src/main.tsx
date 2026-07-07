@@ -17,15 +17,24 @@ import { SettingsView } from "./features/settings/SettingsView";
 import { PlaytestListView } from "./features/playtest/PlaytestListView";
 import { PlaytestNewView } from "./features/playtest/PlaytestNewView";
 import { PlaytestView } from "./features/playtest/PlaytestView";
+import { LandingView } from "./features/landing/LandingView";
+import { LoginView } from "./auth/LoginView";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <AuthProvider>
       <ToastProvider>
         <BrowserRouter>
-          <RequireAuth>
-            <Routes>
-              <Route element={<AppShell />}>
+          <Routes>
+            <Route path="/welcome" element={<LandingView />} />
+            <Route path="/login" element={<LoginView />} />
+            <Route
+              element={
+                <RequireAuth>
+                  <AppShell />
+                </RequireAuth>
+              }
+            >
                 <Route path="/" element={<HomeView />} />
                 <Route path="/decks" element={<DecksView />} />
                 <Route path="/decks/new" element={<BuilderView />} />
@@ -40,9 +49,8 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
                 <Route path="/playtest/:sessionId" element={<PlaytestView />} />
                 <Route path="/settings" element={<SettingsView />} />
                 <Route path="*" element={<Navigate to="/" replace />} />
-              </Route>
-            </Routes>
-          </RequireAuth>
+            </Route>
+          </Routes>
         </BrowserRouter>
       </ToastProvider>
     </AuthProvider>
