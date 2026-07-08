@@ -782,7 +782,8 @@ textarea.input { resize: vertical; }
 
 /* ============ Landing page ============ */
 .landing {
-  min-height: 100vh;
+  height: 100%;
+  overflow-y: auto;
   background: var(--bg-0);
   color: var(--fg-1);
   display: flex;
