@@ -783,84 +783,101 @@ textarea.input { resize: vertical; }
 /* ============ Landing page ============ */
 .landing {
   min-height: 100vh;
-  overflow-y: auto;
   background: var(--bg-0);
   color: var(--fg-1);
   display: flex;
   flex-direction: column;
-  align-items: center;
-  padding: 0 24px;
 }
 .landing-nav {
+  position: sticky;
+  top: 0;
+  z-index: 10;
   width: 100%;
-  max-width: 960px;
+  background: oklch(0.16 0.015 250 / 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--line-1);
+}
+.landing-nav-inner {
+  max-width: 1040px;
+  margin: 0 auto;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 20px 0;
+  padding: 16px 32px;
 }
 .landing-brand {
   font-family: var(--font-serif);
   font-style: italic;
-  font-size: 22px;
+  font-size: 26px;
   color: var(--fg-0);
 }
+.landing-main {
+  flex: 1;
+  width: 100%;
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 0 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 .landing-hero {
-  max-width: 640px;
+  max-width: 680px;
   text-align: center;
-  padding: 72px 0 56px;
+  padding: clamp(64px, 12vh, 140px) 0 clamp(48px, 8vh, 96px);
 }
 .landing-title {
   font-family: var(--font-serif);
   font-style: italic;
   font-weight: 400;
-  font-size: 56px;
+  font-size: clamp(48px, 7vw, 72px);
   color: var(--fg-0);
-  margin: 0 0 18px;
+  margin: 0 0 22px;
   line-height: 1;
 }
 .landing-tagline {
-  font-size: 16px;
-  line-height: 1.65;
+  font-size: 17px;
+  line-height: 1.7;
   color: var(--fg-2);
-  margin: 0 0 28px;
+  margin: 0 auto 36px;
+  max-width: 560px;
 }
-.landing-cta { display: flex; gap: 12px; justify-content: center; }
-.landing-cta-btn { padding: 10px 22px; font-size: 14px; font-weight: 600; display: inline-flex; align-items: center; gap: 8px; }
+.landing-cta { display: flex; gap: 14px; justify-content: center; }
+.landing-cta-btn { padding: 12px 26px; font-size: 14px; font-weight: 600; display: inline-flex; align-items: center; gap: 8px; }
 .landing-features {
   width: 100%;
-  max-width: 960px;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-  gap: 16px;
-  padding-bottom: 64px;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+  padding-bottom: clamp(56px, 9vh, 104px);
 }
 .landing-card {
   background: var(--bg-1);
   border: 1px solid var(--line-1);
   border-radius: 12px;
-  padding: 20px;
+  padding: 24px;
 }
 .landing-card-icon {
   display: inline-flex;
-  padding: 8px;
+  padding: 9px;
   border-radius: 8px;
   background: var(--accent-soft);
   color: var(--accent);
-  margin-bottom: 12px;
+  margin-bottom: 14px;
 }
 .landing-card h3 { margin: 0 0 8px; font-size: 15px; color: var(--fg-0); }
 .landing-card p { margin: 0; font-size: 13px; line-height: 1.6; color: var(--fg-2); }
-.landing-steps { width: 100%; max-width: 960px; padding-bottom: 72px; text-align: center; }
+.landing-steps { width: 100%; padding-bottom: clamp(64px, 10vh, 120px); text-align: center; }
 .landing-steps-heading {
   font-family: var(--font-serif);
   font-style: italic;
   font-weight: 400;
-  font-size: 28px;
+  font-size: 30px;
   color: var(--fg-0);
-  margin: 0 0 28px;
+  margin: 0 0 36px;
 }
-.landing-steps-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 24px; text-align: left; }
+.landing-steps-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 32px; text-align: left; }
 .landing-step-n {
   font-family: var(--font-mono);
   font-size: 12px;
@@ -871,9 +888,15 @@ textarea.input { resize: vertical; }
 .landing-step p { margin: 0; font-size: 13px; line-height: 1.6; color: var(--fg-2); }
 .landing-footer {
   width: 100%;
-  max-width: 960px;
+  margin-top: auto;
+  background: var(--bg-1);
   border-top: 1px solid var(--line-1);
-  padding: 24px 0 40px;
+}
+.landing-footer-inner {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 28px 32px 32px;
   text-align: center;
 }
 .landing-footer p { margin: 0 0 8px; font-size: 11px; line-height: 1.6; color: var(--fg-4); }
+.landing-footer p:last-child { margin-bottom: 0; }

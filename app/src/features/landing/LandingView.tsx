@@ -40,9 +40,13 @@ export function LandingView() {
   return (
     <div className="landing">
       <header className="landing-nav">
-        <span className="landing-brand">tapuntap</span>
-        <Link to="/login" className="btn">Sign in</Link>
+        <div className="landing-nav-inner">
+          <span className="landing-brand">tapuntap</span>
+          <Link to="/login" className="btn btn-primary">Sign in</Link>
+        </div>
       </header>
+
+      <main className="landing-main">
 
       <section className="landing-hero">
         <h1 className="landing-title">tapuntap</h1>
@@ -81,14 +85,18 @@ export function LandingView() {
         </div>
       </section>
 
+      </main>
+
       <footer className="landing-footer">
-        <p>
+        <div className="landing-footer-inner">
+          <p>
           tapuntap is unofficial Fan Content permitted under the Wizards of the Coast Fan
           Content Policy. Not approved or endorsed by Wizards. Portions of the materials
           used are property of Wizards of the Coast. © Wizards of the Coast LLC.
         </p>
-        <p>Card data and imagery courtesy of Scryfall.</p>
-        <p>© 2026 tapuntap</p>
+          <p>Card data and imagery courtesy of Scryfall.</p>
+          <p>© 2026 tapuntap</p>
+        </div>
       </footer>
     </div>
   );
