@@ -49,33 +49,24 @@ export interface ScryfallCard {
   loyalty?: string;
 }
 
-export const RESOLVE_BATCH_SIZE = 10;
-export const RESOLVE_BATCH_DELAY_MS = 100;
-
-export function delay(ms: number): Promise<void> {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-}
+export const RESOLVE_CAP = 20;
 
 export async function resolveCards(names: string[]): Promise<Map<string, ScryfallCard | null>> {
   const unique = [...new Set(names)];
   const result = new Map<string, ScryfallCard | null>();
   if (!unique.length) return result;
 
-  for (let i = 0; i < unique.length; i += RESOLVE_BATCH_SIZE) {
-    if (i > 0) await delay(RESOLVE_BATCH_DELAY_MS);
-    const batch = unique.slice(i, i + RESOLVE_BATCH_SIZE);
-    const settled = await Promise.allSettled(
-      batch.map((name) =>
-        fetch(`https://api.scryfall.com/cards/named?exact=${encodeURIComponent(name)}`)
-          .then((r) => (r.ok ? r.json() : Promise.reject(r.status)))
-          .then((card: ScryfallCard) => ({ name, card }))
-          .catch(() => ({ name, card: null }))
-      )
-    );
-    for (const outcome of settled) {
-      if (outcome.status === "fulfilled") {
-        result.set(outcome.value.name, outcome.value.card);
-      }
+  const settled = await Promise.allSettled(
+    unique.map((name) =>
+      fetch(`https://api.scryfall.com/cards/named?exact=${encodeURIComponent(name)}`)
+        .then((r) => (r.ok ? r.json() : Promise.reject(r.status)))
+        .then((card: ScryfallCard) => ({ name, card }))
+        .catch(() => ({ name, card: null }))
+    )
+  );
+  for (const outcome of settled) {
+    if (outcome.status === "fulfilled") {
+      result.set(outcome.value.name, outcome.value.card);
     }
   }
 

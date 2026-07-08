@@ -1,11 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import { Icon } from "../../components/Icon";
 import { toEntry } from "../../lib/cards";
-import { parseMtgArena, fetchCardNameCatalog, resolveCards, delay, RESOLVE_BATCH_SIZE, RESOLVE_BATCH_DELAY_MS } from "../../lib/import";
+import { parseMtgArena, fetchCardNameCatalog, resolveCards, RESOLVE_CAP } from "../../lib/import";
 import type { ScryfallCard } from "../../lib/import";
 import type { DeckCardEntry } from "../../types";
 
-type RowStatus = "loading" | "resolved" | "failed";
+type RowStatus = "pending" | "loading" | "resolved" | "failed";
 
 interface ImportRow {
   id: string;
@@ -51,7 +51,31 @@ export function ImportModal({ onClose, onImport }: ImportModalProps) {
   const total = rows.length;
   const pct = total ? (resolved / total) * 100 : 0;
   const failedRemaining = rows.filter((r) => r.status === "failed" && r.name.trim()).length;
+  const pendingRemaining = rows.filter((r) => r.status === "pending").length;
   const anyLoading = rows.some((r) => r.status === "loading");
+
+  // Resolves up to RESOLVE_CAP of the given rows: marks them loading, fetches, then
+  // settles each to resolved/failed. Any rows beyond the cap are left untouched by
+  // the caller (they stay pending/failed until explicitly resolved again).
+  async function resolveBatch(batchRows: ImportRow[]) {
+    const batch = batchRows.slice(0, RESOLVE_CAP);
+    if (!batch.length || abortRef.current) return;
+
+    const ids = new Set(batch.map((r) => r.id));
+    setRows((rs) => rs.map((r) => (ids.has(r.id) ? { ...r, status: "loading" } : r)));
+
+    const names = [...new Set(batch.map((r) => r.name.trim()))];
+    const cardMap = await resolveCards(names);
+    if (abortRef.current) return;
+
+    setRows((current) =>
+      current.map((r) => {
+        if (!ids.has(r.id)) return r;
+        const card = cardMap.get(r.name.trim()) ?? null;
+        return { ...r, status: card ? "resolved" : "failed", card };
+      })
+    );
+  }
 
   async function startResolve() {
     const parsed = parseMtgArena(text);
@@ -65,7 +89,7 @@ export function ImportModal({ onClose, onImport }: ImportModalProps) {
         id: "r" + rowSeq++,
         qty: p.quantity,
         name: p.name,
-        status: inCatalog ? "loading" : "failed",
+        status: inCatalog ? "pending" : "failed",
         card: null,
       };
     });
@@ -73,21 +97,11 @@ export function ImportModal({ onClose, onImport }: ImportModalProps) {
     setRows(initialRows);
     setPhase("resolve");
 
-    const toFetch = [...new Set(initialRows.filter((r) => r.status === "loading").map((r) => r.name))];
+    await resolveBatch(initialRows.filter((r) => r.status === "pending"));
+  }
 
-    for (let i = 0; i < toFetch.length; i += RESOLVE_BATCH_SIZE) {
-      if (abortRef.current) break;
-      if (i > 0) await delay(RESOLVE_BATCH_DELAY_MS);
-      const batch = toFetch.slice(i, i + RESOLVE_BATCH_SIZE);
-      const batchMap = await resolveCards(batch);
-      setRows((current) =>
-        current.map((r) => {
-          if (r.status !== "loading" || !batchMap.has(r.name)) return r;
-          const card = batchMap.get(r.name) ?? null;
-          return { ...r, status: card ? "resolved" : "failed", card };
-        })
-      );
-    }
+  function resolveMore() {
+    void resolveBatch(rows.filter((r) => r.status === "pending"));
   }
 
   function editName(id: string, name: string) {
@@ -102,12 +116,7 @@ export function ImportModal({ onClose, onImport }: ImportModalProps) {
     const inCatalog = catalog === null || catalog.has(row.name.trim().toLowerCase());
     if (!inCatalog) return;
 
-    setRows((rs) => rs.map((r) => r.id === id ? { ...r, status: "loading" } : r));
-    const cardMap = await resolveCards([row.name.trim()]);
-    const card = cardMap.get(row.name.trim()) ?? null;
-    setRows((rs) =>
-      rs.map((r) => r.id === id ? { ...r, status: card ? "resolved" : "failed", card } : r)
-    );
+    await resolveBatch([row]);
   }
 
   async function retryAllFailed() {
@@ -120,23 +129,9 @@ export function ImportModal({ onClose, onImport }: ImportModalProps) {
     );
     if (!retryable.length) return;
 
-    const retryableIds = new Set(retryable.map((r) => r.id));
-    setRows((rs) => rs.map((r) => (retryableIds.has(r.id) ? { ...r, status: "loading" } : r)));
-
-    const names = [...new Set(retryable.map((r) => r.name.trim()))];
-    for (let i = 0; i < names.length; i += RESOLVE_BATCH_SIZE) {
-      if (abortRef.current) break;
-      if (i > 0) await delay(RESOLVE_BATCH_DELAY_MS);
-      const batch = names.slice(i, i + RESOLVE_BATCH_SIZE);
-      const batchMap = await resolveCards(batch);
-      setRows((current) =>
-        current.map((r) => {
-          if (r.status !== "loading" || !retryableIds.has(r.id) || !batchMap.has(r.name.trim())) return r;
-          const card = batchMap.get(r.name.trim()) ?? null;
-          return { ...r, status: card ? "resolved" : "failed", card };
-        })
-      );
-    }
+    // Cap at RESOLVE_CAP per invocation — remaining failed rows stay failed and can
+    // be retried again (individually or via another "retry all") afterward.
+    await resolveBatch(retryable);
   }
 
   function addRow() {
@@ -206,6 +201,11 @@ export function ImportModal({ onClose, onImport }: ImportModalProps) {
               <button className="imp-add" onClick={addRow}>
                 <Icon name="plus" size={12} /> Add card
               </button>
+              {pendingRemaining > 0 && !anyLoading && (
+                <button className="btn btn-ghost btn-sm" onClick={resolveMore}>
+                  Resolve 20 more ({pendingRemaining} remaining)
+                </button>
+              )}
               {failedRemaining > 0 && !anyLoading && (
                 <button className="btn btn-ghost btn-sm" onClick={retryAllFailed}>
                   Retry all failed ({failedRemaining})
@@ -253,6 +253,7 @@ function ImportRowItem({
           <span className="imp-cardname">{row.name}</span>
         )}
       </div>
+      {row.status === "pending" && <span className="imp-state">queued</span>}
       {row.status === "loading" && <span className="imp-state">looking up…</span>}
       {row.status === "resolved" && <span className="imp-state">resolved</span>}
       {failed && (

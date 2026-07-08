@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
-import { parseMtgArena, fetchCardNameCatalog, _resetCatalogCache, resolveCards } from "../lib/import";
+import { parseMtgArena, fetchCardNameCatalog, _resetCatalogCache, resolveCards, RESOLVE_CAP } from "../lib/import";
 
 describe("parseMtgArena", () => {
   it("parses quantity and name from standard lines", () => {
@@ -150,5 +150,22 @@ describe("resolveCards", () => {
     const result = await resolveCards(names);
     expect(globalThis.fetch).toHaveBeenCalledTimes(7);
     expect(result.size).toBe(7);
+  });
+
+  it("fires all requests together without batching delays", async () => {
+    const names = Array.from({ length: 25 }, (_, i) => `Card ${i}`);
+    vi.stubGlobal("fetch", vi.fn().mockImplementation((_url: string) =>
+      Promise.resolve({ ok: true, json: () => Promise.resolve({ id: "x", name: "Card" }) })
+    ));
+
+    const result = await resolveCards(names);
+    expect(globalThis.fetch).toHaveBeenCalledTimes(25);
+    expect(result.size).toBe(25);
+  });
+});
+
+describe("RESOLVE_CAP", () => {
+  it("is 20", () => {
+    expect(RESOLVE_CAP).toBe(20);
   });
 });
