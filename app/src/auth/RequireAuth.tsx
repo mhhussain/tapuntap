@@ -1,10 +1,11 @@
 import type { ReactNode } from "react";
+import { Navigate, useLocation } from "react-router-dom";
 import { useAuth } from "./useAuth";
-import { AuthScreen } from "./AuthScreen";
 import { Spinner } from "../components/Spinner";
 
 export function RequireAuth({ children }: { children: ReactNode }) {
   const { user, loading } = useAuth();
+  const location = useLocation();
 
   if (loading) {
     return (
@@ -24,6 +25,10 @@ export function RequireAuth({ children }: { children: ReactNode }) {
     );
   }
 
-  if (!user) return <AuthScreen />;
+  if (!user) {
+    if (location.pathname === "/") return <Navigate to="/welcome" replace />;
+    const next = encodeURIComponent(location.pathname + location.search);
+    return <Navigate to={`/login?next=${next}`} replace />;
+  }
   return <>{children}</>;
 }
