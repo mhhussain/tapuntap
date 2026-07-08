@@ -8,6 +8,7 @@ import { ManaCost } from "../../components/ManaCost";
 import { groupCardsByType, toEntry } from "../../lib/cards";
 import type { DeckCardEntry } from "../../types";
 import { ImportModal } from "./ImportModal";
+import { ExportModal } from "./ExportModal";
 import { HoverPreview, useHoverPreview, type HoverCard } from "../../components/HoverPreview";
 import { CardImageModal } from "../../components/CardImageModal";
 
@@ -29,6 +30,7 @@ export function BuilderView() {
   const [selectedCard, setSelectedCard] = useState<any | null>(null);
   const [changelog, setChangelog] = useState("");
   const [importOpen, setImportOpen] = useState(false);
+  const [exportOpen, setExportOpen] = useState(false);
   const qRef = useRef(q);
   qRef.current = q;
 
@@ -159,6 +161,9 @@ export function BuilderView() {
         <div className="topbar-spacer" />
         <button className="btn btn-ghost" onClick={() => setImportOpen(true)}>
           Import
+        </button>
+        <button className="btn btn-ghost" onClick={() => setExportOpen(true)}>
+          Export
         </button>
         <span style={{ fontFamily: "var(--font-mono)", fontSize: 12, color: "var(--fg-3)" }}>{totalCards} cards</span>
         <button className="btn btn-primary" onClick={save}>
@@ -404,6 +409,9 @@ export function BuilderView() {
           onClose={() => setImportOpen(false)}
           onImport={handleImport}
         />
+      )}
+      {exportOpen && (
+        <ExportModal deck={{ commander, cards }} onClose={() => setExportOpen(false)} />
       )}
       <HoverPreview anchor={hover.anchor} />
       {enlarged && <CardImageModal card={enlarged} onClose={() => setEnlarged(null)} />}

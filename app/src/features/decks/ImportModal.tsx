@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Icon } from "../../components/Icon";
 import { toEntry } from "../../lib/cards";
-import { parseMtgArena, fetchCardNameCatalog, resolveCards } from "../../lib/import";
+import { parseMtgArena, fetchCardNameCatalog, resolveCards, delay, RESOLVE_BATCH_SIZE, RESOLVE_BATCH_DELAY_MS } from "../../lib/import";
 import type { ScryfallCard } from "../../lib/import";
 import type { DeckCardEntry } from "../../types";
 
@@ -50,6 +50,8 @@ export function ImportModal({ onClose, onImport }: ImportModalProps) {
   const resolved = rows.filter((r) => r.status === "resolved").length;
   const total = rows.length;
   const pct = total ? (resolved / total) * 100 : 0;
+  const failedRemaining = rows.filter((r) => r.status === "failed" && r.name.trim()).length;
+  const anyLoading = rows.some((r) => r.status === "loading");
 
   async function startResolve() {
     const parsed = parseMtgArena(text);
@@ -73,9 +75,10 @@ export function ImportModal({ onClose, onImport }: ImportModalProps) {
 
     const toFetch = [...new Set(initialRows.filter((r) => r.status === "loading").map((r) => r.name))];
 
-    for (let i = 0; i < toFetch.length; i += 5) {
+    for (let i = 0; i < toFetch.length; i += RESOLVE_BATCH_SIZE) {
       if (abortRef.current) break;
-      const batch = toFetch.slice(i, i + 5);
+      if (i > 0) await delay(RESOLVE_BATCH_DELAY_MS);
+      const batch = toFetch.slice(i, i + RESOLVE_BATCH_SIZE);
       const batchMap = await resolveCards(batch);
       setRows((current) =>
         current.map((r) => {
@@ -105,6 +108,35 @@ export function ImportModal({ onClose, onImport }: ImportModalProps) {
     setRows((rs) =>
       rs.map((r) => r.id === id ? { ...r, status: card ? "resolved" : "failed", card } : r)
     );
+  }
+
+  async function retryAllFailed() {
+    const failedRows = rows.filter((r) => r.status === "failed" && r.name.trim());
+    if (!failedRows.length) return;
+
+    const catalog = await fetchCardNameCatalog();
+    const retryable = failedRows.filter(
+      (r) => catalog === null || catalog.has(r.name.trim().toLowerCase())
+    );
+    if (!retryable.length) return;
+
+    const retryableIds = new Set(retryable.map((r) => r.id));
+    setRows((rs) => rs.map((r) => (retryableIds.has(r.id) ? { ...r, status: "loading" } : r)));
+
+    const names = [...new Set(retryable.map((r) => r.name.trim()))];
+    for (let i = 0; i < names.length; i += RESOLVE_BATCH_SIZE) {
+      if (abortRef.current) break;
+      if (i > 0) await delay(RESOLVE_BATCH_DELAY_MS);
+      const batch = names.slice(i, i + RESOLVE_BATCH_SIZE);
+      const batchMap = await resolveCards(batch);
+      setRows((current) =>
+        current.map((r) => {
+          if (r.status !== "loading" || !retryableIds.has(r.id) || !batchMap.has(r.name.trim())) return r;
+          const card = batchMap.get(r.name.trim()) ?? null;
+          return { ...r, status: card ? "resolved" : "failed", card };
+        })
+      );
+    }
   }
 
   function addRow() {
@@ -170,9 +202,16 @@ export function ImportModal({ onClose, onImport }: ImportModalProps) {
           </div>
         ) : (
           <div className="modal-footer" style={{ justifyContent: "space-between" }}>
-            <button className="imp-add" onClick={addRow}>
-              <Icon name="plus" size={12} /> Add card
-            </button>
+            <div style={{ display: "flex", gap: 8 }}>
+              <button className="imp-add" onClick={addRow}>
+                <Icon name="plus" size={12} /> Add card
+              </button>
+              {failedRemaining > 0 && !anyLoading && (
+                <button className="btn btn-ghost btn-sm" onClick={retryAllFailed}>
+                  Retry all failed ({failedRemaining})
+                </button>
+              )}
+            </div>
             <button className="btn btn-primary" onClick={handleAddToDeck}>
               Add to deck
             </button>

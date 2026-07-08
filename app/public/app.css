@@ -635,7 +635,9 @@ textarea.input { resize: vertical; }
 .zone-tab:hover { background: var(--bg-3); border-color: var(--line-3); color: var(--fg-0); }
 .zone-tab-label { font-size: 10px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; }
 .zone-tab-count { font-family: var(--font-mono); font-size: 11px; color: var(--fg-0); }
-.action-row { display: grid; grid-template-columns: 1fr 1fr 1fr auto; gap: 6px; }
+.action-row { display: flex; flex-wrap: wrap; gap: 6px; }
+.action-row > button { flex: 1 1 calc(50% - 6px); min-width: 0; }
+.action-row > button.btn-icon { flex: 0 0 auto; }
 
 /* ============ Deck Builder ============ */
 .builder-layout { display: grid; grid-template-columns: 300px 1fr 260px; flex: 1; overflow: hidden; }

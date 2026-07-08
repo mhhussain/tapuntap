@@ -1,8 +1,20 @@
 import { colorTone } from "../../../lib/format";
 import { isLand } from "../../../lib/cards";
-import type { PlayerPublic } from "../../../types";
+import type { PlayerPublic, CardInstance } from "../../../types";
 
-export function OpponentsBar({ opponents }: { opponents: PlayerPublic[] }) {
+export function OpponentsBar({
+  opponents,
+  onCardClick,
+  onCardMouseEnter,
+  onCardMouseLeave,
+  onCardMouseMove,
+}: {
+  opponents: PlayerPublic[];
+  onCardClick?: (c: CardInstance) => void;
+  onCardMouseEnter?: (e: React.MouseEvent, c: CardInstance) => void;
+  onCardMouseLeave?: (e: React.MouseEvent, c: CardInstance) => void;
+  onCardMouseMove?: (e: React.MouseEvent) => void;
+}) {
   if (opponents.length === 0) return null;
   return (
     <div className="opponents-bar">
@@ -64,8 +76,13 @@ export function OpponentsBar({ opponents }: { opponents: PlayerPublic[] }) {
                     className={`opponent-perm${perm.tapped ? " tapped" : ""}`}
                     style={{
                       background: colorTone(perm.colors || []),
+                      cursor: onCardClick ? "pointer" : undefined,
                     }}
                     title={perm.name}
+                    onClick={onCardClick ? () => onCardClick(perm) : undefined}
+                    onMouseEnter={onCardMouseEnter ? (e) => onCardMouseEnter(e, perm) : undefined}
+                    onMouseLeave={onCardMouseLeave ? (e) => onCardMouseLeave(e, perm) : undefined}
+                    onMouseMove={onCardMouseMove}
                   >
                     <div
                       style={{

@@ -16,7 +16,7 @@ import { ScryModal } from "./components/ScryModal";
 import { TokenModal } from "./components/TokenModal";
 import { ZoneDrawer, type ZoneName } from "./components/ZoneDrawer";
 import { ContextMenu, useContextMenu } from "../../components/ContextMenu";
-import { buildHandMenu, buildBattlefieldMenu } from "./useCardMenus";
+import { buildHandMenu, buildBattlefieldMenu, toggleZoneCardTap } from "./useCardMenus";
 import { useDragDrop } from "./useDragDrop";
 import { CardDetailModal } from "./components/CardDetailModal";
 import { HoverPreview, useHoverPreview } from "../../components/HoverPreview";
@@ -128,12 +128,16 @@ export function GameView() {
     onError: err,
   };
 
-  // Left-click on a card opens detail modal.
-  // Tap/untap stays on the context menu ("Tap"/"Untap" item in buildBattlefieldMenu).
+  // Left-click on a hand card opens detail modal.
   function onCardClick(c: CardInstance) {
     setDetailCard(c);
   }
 
+  // Left-click on a battlefield card taps/untaps it. "View card" remains
+  // available via the right-click context menu (buildBattlefieldMenu).
+  function onBattlefieldClick(c: CardInstance) {
+    toggleZoneCardTap(c, "battlefield", mine, actions, err);
+  }
 
   function onBattlefieldContext(e: React.MouseEvent, c: CardInstance) {
     e.preventDefault();
@@ -252,10 +256,16 @@ export function GameView() {
       {/* ── Battlefield + side panel ───────────────────────────────── */}
       <div className={`gameplay-body ${logOpen ? "log-open" : "log-closed"}`}>
         <div className="battlefield-column">
-          <OpponentsBar opponents={opponents} />
+          <OpponentsBar
+            opponents={opponents}
+            onCardClick={onViewCard}
+            onCardMouseEnter={hoverPreview.onMouseEnter}
+            onCardMouseLeave={hoverPreview.onMouseLeave}
+            onCardMouseMove={hoverPreview.onMouseMove}
+          />
           <Battlefield
             cards={mine.battlefield || []}
-            onCardClick={onCardClick}
+            onCardClick={onBattlefieldClick}
             onCardContext={onBattlefieldContext}
             cardDragProps={(id) => dragDrop.cardDragProps(id, "battlefield")}
             creatureLaneDropProps={dragDrop.dropZoneProps("battlefield-creatures")}
@@ -337,6 +347,7 @@ export function GameView() {
           writePublicZones={(patch) => actions.writePublicZones(patch)}
           onError={err}
           onClose={() => setZoneDrawer(null)}
+          onView={onViewCard}
         />
       )}
 

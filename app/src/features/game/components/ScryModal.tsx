@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Modal } from "../../../components/Modal";
 import { CardFace } from "../../../components/CardFace";
+import { HoverPreview, useHoverPreview } from "../../../components/HoverPreview";
 import type { CardInstance, GameAction } from "../../../types";
 
 type Decision = "top" | "bottom";
@@ -35,6 +36,7 @@ interface ScryModalProps {
 }
 
 export function ScryModal({ topCards, gameId, onAction, onClose }: ScryModalProps) {
+  const hover = useHoverPreview();
   const [decisions, setDecisions] = useState<Record<string, Decision>>(() => {
     const init: Record<string, Decision> = {};
     for (const c of topCards) init[c.instanceId] = "top";
@@ -95,7 +97,12 @@ export function ScryModal({ topCards, gameId, onAction, onClose }: ScryModalProp
                 key={card.instanceId}
                 style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 8 }}
               >
-                <div style={{ width: 100, height: 140 }}>
+                <div
+                  style={{ width: 100, height: 140 }}
+                  onMouseEnter={(e) => hover.onMouseEnter(e, card)}
+                  onMouseMove={hover.onMouseMove}
+                  onMouseLeave={hover.onMouseLeave}
+                >
                   <CardFace card={card} zone="library" />
                 </div>
                 <div style={{ display: "flex", flexDirection: "column", gap: 4, width: "100%" }}>
@@ -131,6 +138,7 @@ export function ScryModal({ topCards, gameId, onAction, onClose }: ScryModalProp
           })}
         </div>
       )}
+      <HoverPreview anchor={hover.anchor} />
     </Modal>
   );
 }
