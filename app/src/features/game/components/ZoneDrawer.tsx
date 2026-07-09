@@ -4,7 +4,7 @@ import { CardFace } from "../../../components/CardFace";
 import { Icon } from "../../../components/Icon";
 import { HoverPreview, useHoverPreview } from "../../../components/HoverPreview";
 import { ContextMenu, type MenuItem } from "../../../components/ContextMenu";
-import { groupCardsByType } from "../../../lib/cards";
+import { groupCardsByType, sortCardsByName } from "../../../lib/cards";
 import { moveWithinPublicZones } from "../useGameActions";
 import type { CardInstance, PlayerPublic, PlayerPrivate, GameAction } from "../../../types";
 
@@ -366,7 +366,7 @@ function LibraryDrawer({
   const hover = useHoverPreview();
   const [tutorMenu, setTutorMenu] = useState<{ x: number; y: number; card: CardInstance } | null>(null);
   const library = myPrivate.library;
-  const groups = groupCardsByType(library);
+  const groups = groupCardsByType(library).map(({ group, cards }) => ({ group, cards: sortCardsByName(cards) }));
 
   const footer = (
     <div style={{ display: "flex", gap: 8, alignItems: "center" }}>

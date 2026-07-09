@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { isLand, shuffle, newInstanceId, groupCardsByType } from "../lib/cards";
+import { isLand, shuffle, newInstanceId, groupCardsByType, sortCardsByName } from "../lib/cards";
 
 describe("isLand", () => {
   it("detects land type lines", () => {
@@ -69,5 +69,19 @@ describe("groupCardsByType", () => {
   it("only creature-type subtypes right of the em-dash do not misclassify", () => {
     // "Instant — Arcane" must not match on subtype words
     expect(groupCardsByType([card("Instant — Arcane")])[0].group).toBe("Instants");
+  });
+});
+
+describe("sortCardsByName", () => {
+  it("sorts alphabetically, case-insensitive", () => {
+    const cards = [{ name: "Zombie" }, { name: "apple" }, { name: "Bear" }];
+    expect(sortCardsByName(cards).map((c) => c.name)).toEqual(["apple", "Bear", "Zombie"]);
+  });
+
+  it("does not mutate the input array", () => {
+    const cards = [{ name: "Zombie" }, { name: "Apple" }];
+    const out = sortCardsByName(cards);
+    expect(out).not.toBe(cards);
+    expect(cards.map((c) => c.name)).toEqual(["Zombie", "Apple"]);
   });
 });
