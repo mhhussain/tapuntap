@@ -25,6 +25,10 @@ export function useHoverPreview() {
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const onMouseEnter = useCallback((e: React.MouseEvent, card: HoverCard) => {
+    // Touch-primary devices synthesize a mouseenter after a tap; bail so a
+    // stale preview doesn't flash on screen.
+    const noHover = typeof window !== "undefined" && window.matchMedia("(hover: none)").matches;
+    if (noHover) return;
     // Small delay avoids flash during fast mouse moves
     timerRef.current = setTimeout(() => {
       setAnchor({ card, x: e.clientX, y: e.clientY });

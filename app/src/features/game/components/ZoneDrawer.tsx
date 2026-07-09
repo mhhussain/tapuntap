@@ -166,20 +166,19 @@ function ZoneCard({
     onError(writePublicZones({ [fromZone]: updated }));
   }
 
-  function openMenu(e: React.MouseEvent) {
-    e.preventDefault();
+  function openMenuAtPoint(x: number, y: number) {
     if (readOnly) return;
-    setMenuPos({ x: e.clientX, y: e.clientY });
+    setMenuPos({ x, y });
   }
 
-  function handleClick(e: React.MouseEvent) {
+  function handleTap(x: number, y: number) {
     if (readOnly) return;
-    // Command zone (and battlefield, if ever routed here): click taps/untaps.
-    // "View card" remains available via the right-click context menu.
+    // Command zone (and battlefield, if ever routed here): tap taps/untaps.
+    // "View card" remains available via the long-press/right-click context menu.
     if (fromZone === "command") {
       toggleTap();
     } else {
-      openMenu(e);
+      openMenuAtPoint(x, y);
     }
   }
 
@@ -187,14 +186,14 @@ function ZoneCard({
     <div style={{ display: "inline-block" }}>
       <div
         style={{ cursor: readOnly ? "default" : "pointer" }}
-        onClick={handleClick}
-        onContextMenu={openMenu}
         onMouseEnter={(e) => onMouseEnter(e, card)}
         onMouseLeave={(e) => onMouseLeave(e, card)}
         onMouseMove={onMouseMove}
         title={card.name}
       >
-        <CardFace card={card} zone={fromZone} />
+        <CardFace card={card} zone={fromZone}
+          onTap={readOnly ? undefined : handleTap}
+          onMenu={readOnly ? undefined : openMenuAtPoint} />
       </div>
       {!readOnly && menuPos && (
         <ContextMenu

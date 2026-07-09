@@ -18,6 +18,7 @@ import { ZoneDrawer, type ZoneName } from "./components/ZoneDrawer";
 import { ContextMenu, useContextMenu } from "../../components/ContextMenu";
 import { buildHandMenu, buildBattlefieldMenu, buildDrawMenu, toggleZoneCardTap } from "./useCardMenus";
 import { useDragDrop } from "./useDragDrop";
+import { DragGhost } from "../../components/DragGhost";
 import { CardDetailModal } from "./components/CardDetailModal";
 import { DrawNModal } from "./components/DrawNModal";
 import { HoverPreview, useHoverPreview } from "../../components/HoverPreview";
@@ -48,7 +49,7 @@ export function GameView() {
   const [busyMulligan, setBusyMulligan] = useState(false);
   const [showShuffleConfirm, setShowShuffleConfirm] = useState(false);
   const [busyShuffle, setBusyShuffle] = useState(false);
-  const { menu, openMenu, closeMenu } = useContextMenu();
+  const { menu, openMenu, openMenuAt, closeMenu } = useContextMenu();
   const hoverPreview = useHoverPreview();
 
   // Drag-drop hook — called before early return (hook rules). mine/myPrivate may be undefined while loading.
@@ -137,25 +138,23 @@ export function GameView() {
     onError: err,
   };
 
-  // Left-click on a hand card opens detail modal.
-  function onCardClick(c: CardInstance) {
+  // Tapping a hand card opens detail modal.
+  function onCardTap(c: CardInstance) {
     setDetailCard(c);
   }
 
-  // Left-click on a battlefield card taps/untaps it. "View card" remains
-  // available via the right-click context menu (buildBattlefieldMenu).
-  function onBattlefieldClick(c: CardInstance) {
+  // Tapping a battlefield card taps/untaps it. "View card" remains
+  // available via the long-press/right-click menu (buildBattlefieldMenu).
+  function onBattlefieldTap(c: CardInstance) {
     toggleZoneCardTap(c, "battlefield", mine, actions, err);
   }
 
-  function onBattlefieldContext(e: React.MouseEvent, c: CardInstance) {
-    e.preventDefault();
-    openMenu(e, buildBattlefieldMenu(c, menuHandlers));
+  function onBattlefieldMenu(c: CardInstance, x: number, y: number) {
+    openMenuAt(x, y, buildBattlefieldMenu(c, menuHandlers));
   }
 
-  function onHandContext(e: React.MouseEvent, c: CardInstance) {
-    e.preventDefault();
-    openMenu(e, buildHandMenu(c, menuHandlers));
+  function onHandMenu(c: CardInstance, x: number, y: number) {
+    openMenuAt(x, y, buildHandMenu(c, menuHandlers));
   }
 
   function handleEndGame() {
@@ -297,9 +296,9 @@ export function GameView() {
           />
           <Battlefield
             cards={mine.battlefield || []}
-            onCardClick={onBattlefieldClick}
-            onCardContext={onBattlefieldContext}
-            cardDragProps={(id) => dragDrop.cardDragProps(id, "battlefield")}
+            onCardTap={onBattlefieldTap}
+            onCardMenu={onBattlefieldMenu}
+            cardGestureDrag={(c) => dragDrop.cardGestureDrag(c, "battlefield")}
             creatureLaneDropProps={dragDrop.dropZoneProps("battlefield-creatures")}
             landLaneDropProps={dragDrop.dropZoneProps("battlefield-lands")}
             onCardMouseEnter={hoverPreview.onMouseEnter}
@@ -325,8 +324,8 @@ export function GameView() {
         gameId={gameId!}
         logOpen={logOpen}
         onToggleLog={() => setLogOpen((o) => !o)}
-        onCardClick={onCardClick}
-        onHandContext={onHandContext}
+        onCardTap={onCardTap}
+        onHandMenu={onHandMenu}
         onDraw={(e) =>
           openMenu(
             e,
@@ -345,7 +344,7 @@ export function GameView() {
         onScry={() => setShowScry(true)}
         onToken={() => setShowToken(true)}
         handDropProps={dragDrop.dropZoneProps("hand")}
-        cardDragProps={(id) => dragDrop.cardDragProps(id, "hand")}
+        cardGestureDrag={(c) => dragDrop.cardGestureDrag(c, "hand")}
         onCardMouseEnter={hoverPreview.onMouseEnter}
         onCardMouseLeave={hoverPreview.onMouseLeave}
         onCardMouseMove={hoverPreview.onMouseMove}
@@ -438,6 +437,9 @@ export function GameView() {
 
       {/* ── Hover preview (pointer-events:none overlay) ───────────── */}
       <HoverPreview anchor={hoverPreview.anchor} />
+
+      {/* ── Drag ghost (follows pointer during gesture drag) ──────── */}
+      {dragDrop.ghost && <DragGhost ghost={dragDrop.ghost} />}
     </div>
   );
 }

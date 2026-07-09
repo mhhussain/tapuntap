@@ -1,36 +1,31 @@
 import type { CardInstance } from "../../../types";
 import { CardFace } from "../../../components/CardFace";
 import { isLand } from "../../../lib/cards";
+import type { GestureDragHandlers, DropZone } from "../useDragDrop";
 
 interface DropZoneProps {
-  onDragOver: (e: React.DragEvent) => void;
-  onDragLeave: (e: React.DragEvent) => void;
-  onDrop: (e: React.DragEvent) => void;
+  "data-dropzone": DropZone;
   className?: string;
 }
 
 export function Battlefield({
   cards,
-  onCardClick,
-  onCardContext,
+  onCardTap,
+  onCardMenu,
   onCardMouseEnter,
   onCardMouseLeave,
   onCardMouseMove,
-  cardDragProps,
+  cardGestureDrag,
   creatureLaneDropProps,
   landLaneDropProps,
 }: {
   cards: CardInstance[];
-  onCardClick: (c: CardInstance) => void;
-  onCardContext: (e: React.MouseEvent, c: CardInstance) => void;
+  onCardTap: (c: CardInstance) => void;
+  onCardMenu: (c: CardInstance, x: number, y: number) => void;
   onCardMouseEnter?: (e: React.MouseEvent, c: CardInstance) => void;
   onCardMouseLeave?: (e: React.MouseEvent, c: CardInstance) => void;
   onCardMouseMove?: (e: React.MouseEvent) => void;
-  cardDragProps?: (instanceId: string, fromZone: "battlefield") => {
-    draggable: true;
-    onDragStart: (e: React.DragEvent) => void;
-    onDragEnd: () => void;
-  };
+  cardGestureDrag?: (c: CardInstance, fromZone: "battlefield") => GestureDragHandlers;
   creatureLaneDropProps?: DropZoneProps;
   landLaneDropProps?: DropZoneProps;
 }) {
@@ -44,9 +39,7 @@ export function Battlefield({
       <div
         className={`bf-zone${creatureLaneDropProps?.className ? ` ${creatureLaneDropProps.className}` : ""}`}
         style={{ flex: 1 }}
-        onDragOver={creatureLaneDropProps?.onDragOver}
-        onDragLeave={creatureLaneDropProps?.onDragLeave}
-        onDrop={creatureLaneDropProps?.onDrop}
+        {...(creatureLaneDropProps ? { "data-dropzone": creatureLaneDropProps["data-dropzone"] } : {})}
       >
         <div className="bf-zone-header">
           <span className="eyebrow">Battlefield · Creatures &amp; Spells</span>
@@ -61,7 +54,7 @@ export function Battlefield({
           </span>
           <div style={{ flex: 1 }} />
           <span style={{ fontSize: 10, color: "var(--fg-4)" }}>
-            Click for detail · right-click for actions · drag to play
+            Tap to tap/untap · hold or right-click for actions · drag to move
           </span>
         </div>
         <div className="bf-zone-cards">
@@ -84,9 +77,9 @@ export function Battlefield({
                 <CardFace
                   card={c}
                   zone="battlefield"
-                  onClick={() => onCardClick(c)}
-                  onContextMenu={(e) => onCardContext(e, c)}
-                  {...(cardDragProps ? cardDragProps(c.instanceId, "battlefield") : {})}
+                  onTap={() => onCardTap(c)}
+                  onMenu={(x, y) => onCardMenu(c, x, y)}
+                  gestureDrag={cardGestureDrag ? cardGestureDrag(c, "battlefield") : undefined}
                   onMouseEnter={onCardMouseEnter ? (e) => onCardMouseEnter(e, c) : undefined}
                   onMouseLeave={onCardMouseLeave ? (e) => onCardMouseLeave(e, c) : undefined}
                   onMouseMove={onCardMouseMove}
@@ -119,9 +112,7 @@ export function Battlefield({
       {/* Lands lane */}
       <div
         className={`bf-zone${landLaneDropProps?.className ? ` ${landLaneDropProps.className}` : ""}`}
-        onDragOver={landLaneDropProps?.onDragOver}
-        onDragLeave={landLaneDropProps?.onDragLeave}
-        onDrop={landLaneDropProps?.onDrop}
+        {...(landLaneDropProps ? { "data-dropzone": landLaneDropProps["data-dropzone"] } : {})}
       >
         <div className="bf-zone-header">
           <span className="eyebrow">Lands</span>
@@ -155,9 +146,9 @@ export function Battlefield({
                 key={c.instanceId}
                 card={c}
                 zone="battlefield"
-                onClick={() => onCardClick(c)}
-                onContextMenu={(e) => onCardContext(e, c)}
-                {...(cardDragProps ? cardDragProps(c.instanceId, "battlefield") : {})}
+                onTap={() => onCardTap(c)}
+                onMenu={(x, y) => onCardMenu(c, x, y)}
+                gestureDrag={cardGestureDrag ? cardGestureDrag(c, "battlefield") : undefined}
                 onMouseEnter={onCardMouseEnter ? (e) => onCardMouseEnter(e, c) : undefined}
                 onMouseLeave={onCardMouseLeave ? (e) => onCardMouseLeave(e, c) : undefined}
                 onMouseMove={onCardMouseMove}
