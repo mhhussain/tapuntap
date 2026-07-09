@@ -1,19 +1,42 @@
+import { useRef } from "react";
 import type { CardInstance } from "../types";
 import { colorTone } from "../lib/format";
 import { isLand } from "../lib/cards";
+import { createGestureRecognizer } from "../lib/gestures";
+import type { GestureDragHandlers } from "../features/game/useDragDrop";
 
-export function CardFace({ card, zone, onClick, onContextMenu, draggable, onDragStart, onDragEnd, onMouseEnter, onMouseLeave, onMouseMove }: {
+export function CardFace({ card, zone, onTap, onMenu, gestureDrag, onMouseEnter, onMouseLeave, onMouseMove }: {
   card: CardInstance;
   zone: string;
-  onClick?: () => void;
-  onContextMenu?: (e: React.MouseEvent) => void;
-  draggable?: boolean;
-  onDragStart?: (e: React.DragEvent) => void;
-  onDragEnd?: (e: React.DragEvent) => void;
+  onTap?: (x: number, y: number) => void;
+  onMenu?: (x: number, y: number) => void;
+  gestureDrag?: GestureDragHandlers;
   onMouseEnter?: (e: React.MouseEvent) => void;
   onMouseLeave?: (e: React.MouseEvent) => void;
   onMouseMove?: (e: React.MouseEvent) => void;
 }) {
+  // Latest-callback refs so the recognizer (created once) never goes stale.
+  const cbRef = useRef({ onTap, onMenu, gestureDrag });
+  cbRef.current = { onTap, onMenu, gestureDrag };
+
+  const recognizerRef = useRef<ReturnType<typeof createGestureRecognizer> | null>(null);
+  if (recognizerRef.current === null) {
+    recognizerRef.current = createGestureRecognizer({
+      onTap: (x, y) => cbRef.current.onTap?.(x, y),
+      onLongPress: (x, y) => cbRef.current.onMenu?.(x, y),
+      onDragStart: (x, y) => cbRef.current.gestureDrag?.onStart(x, y),
+      onDragMove: (x, y) => cbRef.current.gestureDrag?.onMove(x, y),
+      onDragEnd: (x, y) => cbRef.current.gestureDrag?.onEnd(x, y),
+      onDragCancel: () => cbRef.current.gestureDrag?.onCancel(),
+    });
+  }
+  const recognizer = recognizerRef.current;
+  const interactive = Boolean(onTap || onMenu || gestureDrag);
+
+  // Guards against multi-touch re-entry: a second finger touching the card
+  // while a gesture is already in progress must not abort it.
+  const activePointerIdRef = useRef<number | null>(null);
+
   const tone = colorTone(card.colors || []);
   const imageUri = card.transformed && card.imageUriBack ? card.imageUriBack : card.imageUri;
   const ptStr = card.power != null && card.toughness != null
@@ -37,11 +60,53 @@ export function CardFace({ card, zone, onClick, onContextMenu, draggable, onDrag
       style={{ ["--card-tone" as string]: tone } as React.CSSProperties}
       data-zone={zone}
       title={`${card.name}${ptStr ? ` • ${ptStr}` : ""}`}
-      onClick={onClick}
-      onContextMenu={onContextMenu}
-      draggable={draggable}
-      onDragStart={onDragStart}
-      onDragEnd={onDragEnd}
+      onPointerDown={
+        interactive
+          ? (e) => {
+              if (activePointerIdRef.current !== null) return; // ignore second finger
+              if (e.button !== 0 && e.pointerType === "mouse") return; // right/middle: let contextmenu fire
+              activePointerIdRef.current = e.pointerId;
+              e.preventDefault(); // suppress compatibility mouse events / synthesized click / selection
+              e.currentTarget.setPointerCapture(e.pointerId);
+              recognizer.down(e.clientX, e.clientY);
+            }
+          : undefined
+      }
+      onPointerMove={
+        interactive
+          ? (e) => {
+              if (e.pointerId !== activePointerIdRef.current) return;
+              recognizer.move(e.clientX, e.clientY);
+            }
+          : undefined
+      }
+      onPointerUp={
+        interactive
+          ? (e) => {
+              if (e.pointerId !== activePointerIdRef.current) return;
+              activePointerIdRef.current = null;
+              recognizer.up(e.clientX, e.clientY);
+            }
+          : undefined
+      }
+      onPointerCancel={
+        interactive
+          ? (e) => {
+              if (e.pointerId !== activePointerIdRef.current) return;
+              activePointerIdRef.current = null;
+              recognizer.cancel();
+            }
+          : undefined
+      }
+      onContextMenu={
+        interactive
+          ? (e) => {
+              e.preventDefault(); // always: also blocks iOS native long-press callout
+              // If our own long-press timer already opened the menu, don't double-fire.
+              if (!recognizer.longPressFired()) onMenu?.(e.clientX, e.clientY);
+            }
+          : undefined
+      }
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
       onMouseMove={onMouseMove}
