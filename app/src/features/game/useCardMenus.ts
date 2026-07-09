@@ -102,6 +102,45 @@ export function buildHandMenu(card: CardInstance, h: CardMenuHandlers): MenuItem
   ];
 }
 
+// ─── draw menu ────────────────────────────────────────────────────────────────
+// Draw button opens a small menu instead of drawing 1 immediately: quick counts,
+// a custom-N modal seam, and mulligan (both hidden-info, so both route through
+// gameAction — same as buildHandMenu above).
+export interface DrawMenuHandlers {
+  gameId: string;
+  actions: Actions;
+  onError: (p: Promise<unknown>) => void;
+  /** Opens the DrawNModal for a custom count. */
+  onDrawN: () => void;
+  /** Opens the MulliganConfirm dialog. */
+  onMulligan: () => void;
+}
+
+export function buildDrawMenu(h: DrawMenuHandlers): MenuItem[] {
+  const { gameId, actions, onError, onDrawN, onMulligan } = h;
+
+  return [
+    { header: "Draw" },
+    {
+      label: "Draw 1",
+      onClick: () => onError(actions.action({ type: "draw", gameId, count: 1 })),
+    },
+    {
+      label: "Draw 7",
+      onClick: () => onError(actions.action({ type: "draw", gameId, count: 7 })),
+    },
+    {
+      label: "Draw N…",
+      onClick: onDrawN,
+    },
+    "sep",
+    {
+      label: "Mulligan…",
+      onClick: onMulligan,
+    },
+  ];
+}
+
 /**
  * Generic tap/untap toggle for a card in any own public zone array
  * (battlefield, command, etc). Writes the updated zone array via writePublicZones.
