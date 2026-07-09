@@ -41,7 +41,7 @@ export function LandingView() {
     <div className="landing">
       <header className="landing-nav">
         <div className="landing-nav-inner">
-          <span className="landing-brand">tapuntap</span>
+          <img src="/brand/tapuntap-logo.svg" alt="tapuntap" className="landing-brand-logo" />
           <Link to="/login" className="btn btn-primary">Sign in</Link>
         </div>
       </header>
@@ -49,7 +49,7 @@ export function LandingView() {
       <main className="landing-main">
 
       <section className="landing-hero">
-        <h1 className="landing-title">tapuntap</h1>
+        <img src="/brand/tapuntap-hero.svg" alt="tapuntap" className="landing-hero-img" />
         <p className="landing-tagline">
           Play Magic: The Gathering with friends, right in the browser. A shared virtual
           table that tracks the game state while you play — no rules engine, no friction.
@@ -95,7 +95,7 @@ export function LandingView() {
           used are property of Wizards of the Coast. © Wizards of the Coast LLC.
         </p>
           <p>Card data and imagery courtesy of Scryfall.</p>
-          <p>© 2026 tapuntap</p>
+          <p>© 2026 tapuntap · v{__APP_VERSION__}</p>
         </div>
       </footer>
     </div>

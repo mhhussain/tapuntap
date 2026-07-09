@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 570" width="720" height="570">
+  
+  <g transform="translate(240,30) scale(2)">
+    <rect x="38" y="33" width="44" height="62" rx="7" fill="#DFA652" transform="rotate(90 60 64)"></rect>
+    <rect x="38" y="33" width="44" height="62" rx="7" fill="none" stroke="#F7F4EC" stroke-width="3.5"></rect>
+    <path d="M 60 16 A 48 48 0 0 1 108 64" fill="none" stroke="#DFA652" stroke-width="3.5" stroke-linecap="round" opacity="0.9"></path>
+    <polygon points="101,61 115,61 108,75" fill="#DFA652" opacity="0.9"></polygon>
+  </g>
+  <text x="360" y="428" text-anchor="middle" font-family="&#39;Instrument Serif&#39;, Georgia, &#39;Times New Roman&#39;, serif" font-style="italic" font-size="96" letter-spacing="-1"><tspan fill="#F7F4EC">tap</tspan><tspan fill="#DFA652">un</tspan><tspan fill="#F7F4EC">tap</tspan></text>
+  <text x="360" y="500" text-anchor="middle" font-family="&#39;JetBrains Mono&#39;, ui-monospace, monospace" font-size="19" letter-spacing="7" fill="#9B9789">TAP · UNTAP · REPEAT</text>
+</svg>

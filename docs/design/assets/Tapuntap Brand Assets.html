@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>tapuntap — Brand Assets</title>
+<style>
+  :root {
+    --bg-0: oklch(0.16 0.015 250);
+    --bg-1: oklch(0.20 0.015 250);
+    --bg-2: oklch(0.235 0.015 250);
+    --line-1: oklch(0.30 0.012 250);
+    --fg-0: oklch(0.97 0.01 80);
+    --fg-2: oklch(0.70 0.01 80);
+    --fg-3: oklch(0.55 0.01 80);
+    --accent: oklch(0.78 0.14 75);
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg-0);
+    color: var(--fg-2);
+    font-family: ui-sans-serif, system-ui, sans-serif;
+    font-size: 14px;
+  }
+  a { color: var(--accent); }
+  a:hover { color: var(--fg-0); }
+  .section { border-bottom: 1px solid var(--line-1); }
+  .label {
+    font-family: ui-monospace, monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--fg-3);
+    padding: 14px 24px 10px;
+    display: flex;
+    justify-content: space-between;
+  }
+  .label span { text-transform: none; letter-spacing: 0; }
+
+  .headerbar {
+    height: 52px;
+    background: var(--bg-1);
+    border-top: 1px solid var(--line-1);
+    border-bottom: 1px solid var(--line-1);
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+  }
+  .headerbar img { height: 30px; display: block; }
+
+  .hero {
+    background-image: url("tapuntap-background.svg");
+    background-size: cover;
+    background-position: center;
+    display: grid;
+    place-items: center;
+    padding: 60px 0 70px;
+  }
+  .hero img { width: 480px; max-width: 90%; display: block; }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+    padding: 10px 24px 28px;
+  }
+  .cell {
+    background: var(--bg-1);
+    border: 1px solid var(--line-1);
+    border-radius: 8px;
+    padding: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: center;
+  }
+  .cell .name { font-family: ui-monospace, monospace; font-size: 12px; color: var(--fg-0); }
+  .cell .use { font-size: 12px; color: var(--fg-3); text-align: center; }
+  .cell img { display: block; }
+</style>
+</head>
+<body>
+
+  <div class="section">
+    <div class="label">In context — header <span>tapuntap-logo.svg @ 30px tall</span></div>
+    <div class="headerbar"><img src="tapuntap-logo.svg" alt="tapuntap"></div>
+  </div>
+
+  <div class="section">
+    <div class="label">In context — hero <span>tapuntap-hero.svg over tapuntap-background.svg</span></div>
+    <div class="hero"><img src="tapuntap-hero.svg" alt="tapuntap"></div>
+  </div>
+
+  <div class="section">
+    <div class="label">Files (in assets/)</div>
+    <div class="grid">
+      <div class="cell">
+        <img src="tapuntap-mark.svg" alt="mark" width="72" height="72">
+        <div class="name">tapuntap-mark.svg</div>
+        <div class="use">Icon only — favicon, rail logo, compact spots</div>
+      </div>
+      <div class="cell">
+        <img src="tapuntap-logo.svg" alt="logo" style="width: 200px;">
+        <div class="name">tapuntap-logo.svg</div>
+        <div class="use">Horizontal lockup — header / topbar (fonts embedded)</div>
+      </div>
+      <div class="cell">
+        <img src="tapuntap-hero.svg" alt="hero" style="width: 170px;">
+        <div class="name">tapuntap-hero.svg</div>
+        <div class="use">Stacked lockup + tagline — hero, auth screen (fonts embedded)</div>
+      </div>
+      <div class="cell">
+        <img src="tapuntap-background.svg" alt="background" style="width: 220px; border: 1px solid var(--line-1); border-radius: 4px;">
+        <div class="name">tapuntap-background.svg</div>
+        <div class="use">1920×1080 background — use as background-image, cover</div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

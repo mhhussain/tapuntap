@@ -4,6 +4,12 @@
 
 A multiplayer Magic: The Gathering game simulator. Up to 4 players join a game by invite code and play in real time. The frontend is a React + TypeScript + Vite SPA (`app/`) served by Firebase Hosting. State is stored in Firestore and synced live via `onSnapshot`. Authentication uses Firebase Auth with Google sign-in and email/password.
 
+## Versioning
+
+Every PR merged to `main` MUST bump the version in `app/package.json` (the only version source of truth — the root `package.json` version is not used). The bump is surfaced to users in the landing-page footer (`app/vite.config.ts` injects it as `__APP_VERSION__`, mirrored in `vitest.config.ts` so tests resolve the global).
+
+Before merging any PR, the agent must **confirm the bump level with the user** (patch / minor / major) rather than deciding unilaterally, then apply it to `app/package.json`.
+
 ## Running the App
 
 ```bash
