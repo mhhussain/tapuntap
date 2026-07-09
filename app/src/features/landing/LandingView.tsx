@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import { Link, Navigate } from "react-router-dom";
 import { useAuth } from "../../auth/useAuth";
 import { Icon } from "../../components/Icon";
@@ -41,7 +42,7 @@ export function LandingView() {
     <div className="landing">
       <header className="landing-nav">
         <div className="landing-nav-inner">
-          <span className="landing-brand">tapuntap</span>
+          <img src="/brand/tapuntap-logo.svg" alt="tapuntap" className="landing-brand-logo" />
           <Link to="/login" className="btn btn-primary">Sign in</Link>
         </div>
       </header>
@@ -49,7 +50,7 @@ export function LandingView() {
       <main className="landing-main">
 
       <section className="landing-hero">
-        <h1 className="landing-title">tapuntap</h1>
+        <img src="/brand/tapuntap-hero.svg" alt="tapuntap" className="landing-hero-img" />
         <p className="landing-tagline">
           Play Magic: The Gathering with friends, right in the browser. A shared virtual
           table that tracks the game state while you play — no rules engine, no friction.
@@ -75,12 +76,19 @@ export function LandingView() {
       <section className="landing-steps">
         <h2 className="landing-steps-heading">How it works</h2>
         <div className="landing-steps-grid">
-          {STEPS.map((s) => (
-            <div key={s.n} className="landing-step">
-              <span className="landing-step-n">{s.n}</span>
-              <h3>{s.title}</h3>
-              <p>{s.body}</p>
-            </div>
+          {STEPS.map((s, i) => (
+            <Fragment key={s.n}>
+              <div className="landing-step">
+                <span className="landing-step-n">{s.n}</span>
+                <h3>{s.title}</h3>
+                <p>{s.body}</p>
+              </div>
+              {i < STEPS.length - 1 && (
+                <span className="landing-step-arrow" aria-hidden="true">
+                  <Icon name="arrow-right" size={18} />
+                </span>
+              )}
+            </Fragment>
           ))}
         </div>
       </section>
@@ -95,7 +103,7 @@ export function LandingView() {
           used are property of Wizards of the Coast. © Wizards of the Coast LLC.
         </p>
           <p>Card data and imagery courtesy of Scryfall.</p>
-          <p>© 2026 tapuntap</p>
+          <p>© 2026 tapuntap · v{__APP_VERSION__}</p>
         </div>
       </footer>
     </div>
