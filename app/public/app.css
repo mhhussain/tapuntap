@@ -619,6 +619,14 @@ textarea.input { resize: vertical; }
   display: grid; grid-template-columns: 1fr auto;
   border-top: 1px solid var(--line-1); background: var(--bg-1); flex-shrink: 0;
 }
+@keyframes activeTurnGlow {
+  0%, 100% { box-shadow: 0 0 0 1px var(--accent-line), 0 0 16px 2px var(--accent-soft); }
+  50% { box-shadow: 0 0 0 1px var(--accent), 0 0 26px 6px var(--accent-soft); }
+}
+.bottom-bar.active-turn {
+  border-top: 1px solid var(--accent);
+  animation: activeTurnGlow 2.4s ease-in-out infinite;
+}
 .hand-area { padding: 12px 16px; }
 .hand-label-row { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
 .hand-cards { display: flex; gap: var(--density-gap); overflow-x: auto; padding-bottom: 4px; min-height: var(--density-card-h); }
