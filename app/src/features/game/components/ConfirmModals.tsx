@@ -72,3 +72,70 @@ export function LeaveGameConfirm({ open, onClose, onConfirm, busy }: LeaveGameCo
     </Modal>
   );
 }
+
+// ---- ShuffleConfirm ---------------------------------------------------------
+export interface ShuffleConfirmProps {
+  open: boolean;
+  onClose: () => void;
+  onConfirm: () => void;
+  busy?: boolean;
+}
+
+export function ShuffleConfirm({ open, onClose, onConfirm, busy }: ShuffleConfirmProps) {
+  if (!open) return null;
+  return (
+    <Modal
+      title="Shuffle your library?"
+      onClose={onClose}
+      width={440}
+      footer={
+        <>
+          <button className="btn" onClick={onClose} disabled={busy}>
+            Cancel
+          </button>
+          <button className="btn btn-primary" onClick={onConfirm} disabled={busy}>
+            Shuffle
+          </button>
+        </>
+      }
+    >
+      <p style={{ margin: 0, color: "var(--fg-2)", lineHeight: 1.6 }}>
+        This randomizes the order of the cards remaining in your library. It can't be undone.
+      </p>
+    </Modal>
+  );
+}
+
+// ---- MulliganConfirm ---------------------------------------------------------
+export interface MulliganConfirmProps {
+  open: boolean;
+  onClose: () => void;
+  onConfirm: () => void;
+  busy?: boolean;
+}
+
+export function MulliganConfirm({ open, onClose, onConfirm, busy }: MulliganConfirmProps) {
+  if (!open) return null;
+  return (
+    <Modal
+      title="Mulligan your hand?"
+      onClose={onClose}
+      width={440}
+      footer={
+        <>
+          <button className="btn" onClick={onClose} disabled={busy}>
+            Cancel
+          </button>
+          <button className="btn btn-primary" onClick={onConfirm} disabled={busy}>
+            Mulligan
+          </button>
+        </>
+      }
+    >
+      <p style={{ margin: 0, color: "var(--fg-2)", lineHeight: 1.6 }}>
+        Your entire hand shuffles back into your library. You'll need to draw and bottom cards
+        manually afterward — this action alone draws nothing.
+      </p>
+    </Modal>
+  );
+}

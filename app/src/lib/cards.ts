@@ -88,6 +88,11 @@ export function groupCardsByType<T extends { typeLine?: string | null }>(cards: 
     .map((group) => ({ group, cards: grouped[group] }));
 }
 
+/** Sort cards alphabetically by name (case-insensitive). Does not mutate the input. */
+export function sortCardsByName<T extends { name: string }>(cards: T[]): T[] {
+  return [...cards].sort((a, b) => a.name.localeCompare(b.name, undefined, { sensitivity: "base" }));
+}
+
 export function toEntry(card: any, quantity = 1): DeckCardEntry {
   return {
     cardId: card.id,

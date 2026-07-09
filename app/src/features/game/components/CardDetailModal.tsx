@@ -16,7 +16,7 @@ export function CardDetailModal({ card, onClose }: { card: CardInstance; onClose
       : null;
 
   return (
-    <Modal title={card.name} onClose={onClose} width={480}>
+    <Modal title={card.name} onClose={onClose} width="min(90vw, 760px)">
       <div style={{ display: "flex", gap: 20, alignItems: "flex-start" }}>
         {/* Card image */}
         <div style={{ flexShrink: 0 }}>
@@ -25,8 +25,8 @@ export function CardDetailModal({ card, onClose }: { card: CardInstance; onClose
               src={imageUri}
               alt={card.name}
               style={{
-                width: 200,
-                height: 280,
+                width: "min(320px, 38vw)",
+                aspectRatio: "63 / 88",
                 borderRadius: 10,
                 objectFit: "cover",
                 border: "1px solid var(--line-2)",
@@ -36,8 +36,8 @@ export function CardDetailModal({ card, onClose }: { card: CardInstance; onClose
           ) : (
             <div
               style={{
-                width: 200,
-                height: 280,
+                width: "min(320px, 38vw)",
+                aspectRatio: "63 / 88",
                 borderRadius: 10,
                 background: "var(--bg-2)",
                 border: "1px solid var(--line-2)",

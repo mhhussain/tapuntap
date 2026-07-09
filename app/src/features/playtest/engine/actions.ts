@@ -66,6 +66,15 @@ export function applyGameAction(session: PlaytestSession, actorUid: string, a: G
       log(s, actorUid, "shuffled library");
       break;
     }
+    case "mulligan": {
+      const n = priv.hand.length;
+      priv.library = priv.library.concat(priv.hand);
+      priv.hand = [];
+      shuffleInPlace(priv.library);
+      syncCounts(s, actorUid);
+      log(s, actorUid, `mulliganed (${n} card${n === 1 ? "" : "s"})`);
+      break;
+    }
     case "shuffleGraveyardIntoLibrary": {
       priv.library = priv.library.concat(pub.graveyard || []);
       shuffleInPlace(priv.library);

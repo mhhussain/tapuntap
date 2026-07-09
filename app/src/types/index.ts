@@ -114,6 +114,7 @@ export type GameAction =
   | { type: "scry"; gameId: string; order: string[] /* instanceIds top->bottom */; toBottom: string[] }
   | { type: "shuffleLibrary"; gameId: string }
   | { type: "shuffleGraveyardIntoLibrary"; gameId: string }
+  | { type: "mulligan"; gameId: string }
   | { type: "moveToHand"; gameId: string; instanceId: string; fromZone: "battlefield" | "graveyard" | "exile" | "command" | "library" }
   | { type: "moveToLibrary"; gameId: string; instanceId: string; fromZone: "battlefield" | "graveyard" | "exile" | "command" | "hand"; position: "top" | "bottom" }
   | { type: "tutorToHand"; gameId: string; instanceId: string }

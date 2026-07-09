@@ -36,7 +36,7 @@ interface BottomBarProps {
   onToggleLog: () => void;
   onCardClick: (c: CardInstance) => void;
   onHandContext: (e: React.MouseEvent, c: CardInstance) => void;
-  onDraw: () => void;
+  onDraw: (e: React.MouseEvent) => void;
   onShuffle: () => void;
   /** Seam for Task 12: open zone drawer. Receives zone name. */
   onOpenZone: (zone: ZoneName) => void;
@@ -53,6 +53,8 @@ interface BottomBarProps {
   onCardMouseEnter?: (e: React.MouseEvent, c: CardInstance) => void;
   onCardMouseLeave?: (e: React.MouseEvent, c: CardInstance) => void;
   onCardMouseMove?: (e: React.MouseEvent) => void;
+  /** True when it's the local player's turn — drives the active-turn glow (Task 10). */
+  isMyTurn?: boolean;
 }
 
 export function BottomBar({
@@ -73,9 +75,10 @@ export function BottomBar({
   onCardMouseEnter,
   onCardMouseLeave,
   onCardMouseMove,
+  isMyTurn = false,
 }: BottomBarProps) {
   return (
-    <div className="bottom-bar">
+    <div className={`bottom-bar${isMyTurn ? " active-turn" : ""}`}>
       {/* Hand */}
       <div
         className={`hand-area${handDropProps?.className ? ` ${handDropProps.className}` : ""}`}

@@ -4,7 +4,7 @@ import { CardFace } from "../../../components/CardFace";
 import { Icon } from "../../../components/Icon";
 import { HoverPreview, useHoverPreview } from "../../../components/HoverPreview";
 import { ContextMenu, type MenuItem } from "../../../components/ContextMenu";
-import { groupCardsByType } from "../../../lib/cards";
+import { groupCardsByType, sortCardsByName } from "../../../lib/cards";
 import { moveWithinPublicZones } from "../useGameActions";
 import type { CardInstance, PlayerPublic, PlayerPrivate, GameAction } from "../../../types";
 
@@ -22,6 +22,12 @@ interface ZoneDrawerProps {
   onClose: () => void;
   /** Opens the card-detail modal. Wired to "View card" in each card's context menu. */
   onView: (card: CardInstance) => void;
+  /**
+   * True when `mine` is an OPPONENT's public doc rather than the caller's own — hides all
+   * mutating actions, since writePublicZones/onAction always target the CALLER's own doc,
+   * not `mine`'s. Only graveyard/exile are ever opened read-only (library/hand stay self-only).
+   */
+  readOnly?: boolean;
 }
 
 const ZONE_LABEL: Record<string, string> = {
@@ -133,6 +139,7 @@ interface ZoneCardProps {
   onMouseEnter: (e: React.MouseEvent, c: CardInstance) => void;
   onMouseLeave: (e: React.MouseEvent, c: CardInstance) => void;
   onMouseMove: (e: React.MouseEvent) => void;
+  readOnly?: boolean;
 }
 
 function ZoneCard({
@@ -147,6 +154,7 @@ function ZoneCard({
   onMouseEnter,
   onMouseLeave,
   onMouseMove,
+  readOnly,
 }: ZoneCardProps) {
   const [menuPos, setMenuPos] = useState<{ x: number; y: number } | null>(null);
 
@@ -160,10 +168,12 @@ function ZoneCard({
 
   function openMenu(e: React.MouseEvent) {
     e.preventDefault();
+    if (readOnly) return;
     setMenuPos({ x: e.clientX, y: e.clientY });
   }
 
   function handleClick(e: React.MouseEvent) {
+    if (readOnly) return;
     // Command zone (and battlefield, if ever routed here): click taps/untaps.
     // "View card" remains available via the right-click context menu.
     if (fromZone === "command") {
@@ -176,7 +186,7 @@ function ZoneCard({
   return (
     <div style={{ display: "inline-block" }}>
       <div
-        style={{ cursor: "pointer" }}
+        style={{ cursor: readOnly ? "default" : "pointer" }}
         onClick={handleClick}
         onContextMenu={openMenu}
         onMouseEnter={(e) => onMouseEnter(e, card)}
@@ -186,7 +196,7 @@ function ZoneCard({
       >
         <CardFace card={card} zone={fromZone} />
       </div>
-      {menuPos && (
+      {!readOnly && menuPos && (
         <ContextMenu
           items={buildCardActionMenu({
             card,
@@ -218,6 +228,7 @@ function PublicZoneDrawer({
   onError,
   onClose,
   onView,
+  readOnly,
 }: {
   zone: PublicZone;
   cards: CardInstance[];
@@ -228,6 +239,7 @@ function PublicZoneDrawer({
   onError: (p: Promise<unknown>) => void;
   onClose: () => void;
   onView: (card: CardInstance) => void;
+  readOnly?: boolean;
 }) {
   const hover = useHoverPreview();
 
@@ -250,23 +262,27 @@ function PublicZoneDrawer({
 
   const footer = (
     <div style={{ display: "flex", gap: 8, alignItems: "center", flex: 1 }}>
-      <button className="btn btn-sm" onClick={allToBattlefield} disabled={cards.length === 0}>
-        All → Battlefield
-      </button>
-      <button className="btn btn-sm" onClick={allToHand} disabled={cards.length === 0}>
-        All → Hand
-      </button>
-      {zone === "graveyard" && (
-        <button
-          className="btn btn-sm"
-          disabled={cards.length === 0}
-          onClick={() => {
-            onAction({ type: "shuffleGraveyardIntoLibrary", gameId });
-            onClose();
-          }}
-        >
-          Shuffle into library
-        </button>
+      {!readOnly && (
+        <>
+          <button className="btn btn-sm" onClick={allToBattlefield} disabled={cards.length === 0}>
+            All → Battlefield
+          </button>
+          <button className="btn btn-sm" onClick={allToHand} disabled={cards.length === 0}>
+            All → Hand
+          </button>
+          {zone === "graveyard" && (
+            <button
+              className="btn btn-sm"
+              disabled={cards.length === 0}
+              onClick={() => {
+                onAction({ type: "shuffleGraveyardIntoLibrary", gameId });
+                onClose();
+              }}
+            >
+              Shuffle into library
+            </button>
+          )}
+        </>
       )}
       <div style={{ flex: 1 }} />
       <button className="btn" onClick={onClose}>
@@ -323,6 +339,7 @@ function PublicZoneDrawer({
               onMouseEnter={hover.onMouseEnter}
               onMouseLeave={hover.onMouseLeave}
               onMouseMove={hover.onMouseMove}
+              readOnly={readOnly}
             />
           ))}
         </div>
@@ -349,7 +366,7 @@ function LibraryDrawer({
   const hover = useHoverPreview();
   const [tutorMenu, setTutorMenu] = useState<{ x: number; y: number; card: CardInstance } | null>(null);
   const library = myPrivate.library;
-  const groups = groupCardsByType(library);
+  const groups = groupCardsByType(library).map(({ group, cards }) => ({ group, cards: sortCardsByName(cards) }));
 
   const footer = (
     <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
@@ -516,6 +533,7 @@ export function ZoneDrawer({
   onError,
   onClose,
   onView,
+  readOnly,
 }: ZoneDrawerProps) {
   if (zone === "library") {
     return (
@@ -542,6 +560,7 @@ export function ZoneDrawer({
       onError={onError}
       onClose={onClose}
       onView={onView}
+      readOnly={readOnly}
     />
   );
 }

@@ -35,11 +35,13 @@ function Vital({ label, value, large, disabled, onMinus, onPlus }: VitalProps) {
 interface CompactVitalProps {
   label: string;
   value: number;
+  onClick?: (e: React.MouseEvent) => void;
 }
 
-function CompactVital({ label, value }: CompactVitalProps) {
+function CompactVital({ label, value, onClick }: CompactVitalProps) {
   return (
     <div
+      onClick={onClick}
       style={{
         display: "flex",
         alignItems: "center",
@@ -47,6 +49,7 @@ function CompactVital({ label, value }: CompactVitalProps) {
         fontSize: 10,
         color: "var(--fg-3)",
         fontFamily: "var(--font-mono)",
+        cursor: onClick ? "pointer" : undefined,
       }}
     >
       <span style={{ textTransform: "uppercase" }}>{label}</span>
@@ -64,6 +67,7 @@ export function PlayerRibbon({
   myPrivate,
   onLife,
   onEndTurn,
+  onOpenZone,
   pending,
 }: {
   game: GameDoc;
@@ -72,6 +76,7 @@ export function PlayerRibbon({
   myPrivate: PlayerPrivate;
   onLife: (targetUid: string, delta: number) => void;
   onEndTurn: () => void;
+  onOpenZone: (targetUid: string, zone: "graveyard" | "exile") => void;
   pending?: boolean;
 }) {
   const activeUid = game.turnOrder[game.activeSeat];
@@ -150,6 +155,22 @@ export function PlayerRibbon({
               >
                 <CompactVital label="HAND" value={handCount} />
                 <CompactVital label="LIB" value={libCount} />
+                <CompactVital
+                  label="GY"
+                  value={p.graveyard?.length ?? 0}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onOpenZone(uid, "graveyard");
+                  }}
+                />
+                <CompactVital
+                  label="EX"
+                  value={p.exile?.length ?? 0}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onOpenZone(uid, "exile");
+                  }}
+                />
               </div>
             </div>
           </div>
