@@ -41,7 +41,7 @@ export function PlaytestView() {
 
   const [showScry, setShowScry] = useState(false);
   const [showToken, setShowToken] = useState(false);
-  const [zoneDrawer, setZoneDrawer] = useState<ZoneName | null>(null);
+  const [zoneDrawerTarget, setZoneDrawerTarget] = useState<{ uid: string; zone: ZoneName } | null>(null);
   const [detailCard, setDetailCard] = useState<CardInstance | null>(null);
   const [showDrawN, setShowDrawN] = useState(false);
   const [showMulliganConfirm, setShowMulliganConfirm] = useState(false);
@@ -92,7 +92,7 @@ export function PlaytestView() {
       if (e.key === "Escape") {
         setShowScry(false);
         setShowToken(false);
-        setZoneDrawer(null);
+        setZoneDrawerTarget(null);
         setDetailCard(null);
         setShowDrawN(false);
         setShowMulliganConfirm(false);
@@ -274,6 +274,7 @@ export function PlaytestView() {
         myPrivate={myPrivate}
         onLife={onLife}
         onEndTurn={() => err(actions.action({ type: "endTurn", gameId: sessionId! }))}
+        onOpenZone={(targetUid, zone) => setZoneDrawerTarget({ uid: targetUid, zone })}
       />
 
       {/* ── Battlefield (playtest has no play log — the space is reclaimed) ── */}
@@ -324,7 +325,7 @@ export function PlaytestView() {
         }
         onShuffle={() => setShowShuffleConfirm(true)}
         isMyTurn={myUid === game.turnOrder[game.activeSeat]}
-        onOpenZone={(zone) => setZoneDrawer(zone)}
+        onOpenZone={(zone) => setZoneDrawerTarget({ uid: myUid, zone })}
         onScry={() => setShowScry(true)}
         onToken={() => setShowToken(true)}
         handDropProps={dragDrop.dropZoneProps("hand")}
@@ -373,17 +374,18 @@ export function PlaytestView() {
       )}
 
       {/* ── Zone drawers ──────────────────────────────────────────── */}
-      {zoneDrawer && (
+      {zoneDrawerTarget && (
         <ZoneDrawer
-          zone={zoneDrawer}
-          mine={mine}
+          zone={zoneDrawerTarget.zone}
+          mine={players[zoneDrawerTarget.uid]}
           myPrivate={myPrivate}
           gameId={sessionId!}
           onAction={(a) => err(actions.action(a))}
           writePublicZones={(patch) => toVoid(actions.writePublicZones(patch))}
           onError={err}
-          onClose={() => setZoneDrawer(null)}
+          onClose={() => setZoneDrawerTarget(null)}
           onView={onViewCard}
+          readOnly={zoneDrawerTarget.uid !== myUid}
         />
       )}
 
