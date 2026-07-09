@@ -5,7 +5,7 @@ import { parseMtgArena, fetchCardNameCatalog, resolveCards, RESOLVE_CAP } from "
 import type { ScryfallCard } from "../../lib/import";
 import type { DeckCardEntry } from "../../types";
 
-type RowStatus = "pending" | "loading" | "resolved" | "failed";
+type RowStatus = "loading" | "resolved" | "failed";
 
 interface ImportRow {
   id: string;
@@ -50,15 +50,9 @@ export function ImportModal({ onClose, onImport }: ImportModalProps) {
   const resolved = rows.filter((r) => r.status === "resolved").length;
   const total = rows.length;
   const pct = total ? (resolved / total) * 100 : 0;
-  const failedRemaining = rows.filter((r) => r.status === "failed" && r.name.trim()).length;
-  const pendingRemaining = rows.filter((r) => r.status === "pending").length;
-  const anyLoading = rows.some((r) => r.status === "loading");
-
-  // Resolves up to RESOLVE_CAP of the given rows: marks them loading, fetches, then
-  // settles each to resolved/failed. Any rows beyond the cap are left untouched by
-  // the caller (they stay pending/failed until explicitly resolved again).
-  async function resolveBatch(batchRows: ImportRow[]) {
-    const batch = batchRows.slice(0, RESOLVE_CAP);
+  // Resolves the given rows: marks them loading, fetches, then settles each to
+  // resolved/failed.
+  async function resolveBatch(batch: ImportRow[]) {
     if (!batch.length || abortRef.current) return;
 
     const ids = new Set(batch.map((r) => r.id));
@@ -83,25 +77,24 @@ export function ImportModal({ onClose, onImport }: ImportModalProps) {
 
     const catalog = await fetchCardNameCatalog();
 
+    // All rows start unresolved ("failed"); only the first RESOLVE_CAP catalog-valid
+    // names are auto-resolved. The rest stay listed and are resolved manually per row.
+    let autoCount = 0;
+    const autoIds = new Set<string>();
     const initialRows: ImportRow[] = parsed.map((p) => {
+      const id = "r" + rowSeq++;
       const inCatalog = catalog === null || catalog.has(p.name.toLowerCase());
-      return {
-        id: "r" + rowSeq++,
-        qty: p.quantity,
-        name: p.name,
-        status: inCatalog ? "pending" : "failed",
-        card: null,
-      };
+      if (inCatalog && autoCount < RESOLVE_CAP) {
+        autoCount++;
+        autoIds.add(id);
+      }
+      return { id, qty: p.quantity, name: p.name, status: "failed", card: null };
     });
 
     setRows(initialRows);
     setPhase("resolve");
 
-    await resolveBatch(initialRows.filter((r) => r.status === "pending"));
-  }
-
-  function resolveMore() {
-    void resolveBatch(rows.filter((r) => r.status === "pending"));
+    await resolveBatch(initialRows.filter((r) => autoIds.has(r.id)));
   }
 
   function editName(id: string, name: string) {
@@ -117,21 +110,6 @@ export function ImportModal({ onClose, onImport }: ImportModalProps) {
     if (!inCatalog) return;
 
     await resolveBatch([row]);
-  }
-
-  async function retryAllFailed() {
-    const failedRows = rows.filter((r) => r.status === "failed" && r.name.trim());
-    if (!failedRows.length) return;
-
-    const catalog = await fetchCardNameCatalog();
-    const retryable = failedRows.filter(
-      (r) => catalog === null || catalog.has(r.name.trim().toLowerCase())
-    );
-    if (!retryable.length) return;
-
-    // Cap at RESOLVE_CAP per invocation — remaining failed rows stay failed and can
-    // be retried again (individually or via another "retry all") afterward.
-    await resolveBatch(retryable);
   }
 
   function addRow() {
@@ -197,21 +175,9 @@ export function ImportModal({ onClose, onImport }: ImportModalProps) {
           </div>
         ) : (
           <div className="modal-footer" style={{ justifyContent: "space-between" }}>
-            <div style={{ display: "flex", gap: 8 }}>
-              <button className="imp-add" onClick={addRow}>
-                <Icon name="plus" size={12} /> Add card
-              </button>
-              {pendingRemaining > 0 && !anyLoading && (
-                <button className="btn btn-ghost btn-sm" onClick={resolveMore}>
-                  Resolve 20 more ({pendingRemaining} remaining)
-                </button>
-              )}
-              {failedRemaining > 0 && !anyLoading && (
-                <button className="btn btn-ghost btn-sm" onClick={retryAllFailed}>
-                  Retry all failed ({failedRemaining})
-                </button>
-              )}
-            </div>
+            <button className="imp-add" onClick={addRow}>
+              <Icon name="plus" size={12} /> Add card
+            </button>
             <button className="btn btn-primary" onClick={handleAddToDeck}>
               Add to deck
             </button>
@@ -253,7 +219,6 @@ function ImportRowItem({
           <span className="imp-cardname">{row.name}</span>
         )}
       </div>
-      {row.status === "pending" && <span className="imp-state">queued</span>}
       {row.status === "loading" && <span className="imp-state">looking up…</span>}
       {row.status === "resolved" && <span className="imp-state">resolved</span>}
       {failed && (
