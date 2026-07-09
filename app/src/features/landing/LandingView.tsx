@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import { Link, Navigate } from "react-router-dom";
 import { useAuth } from "../../auth/useAuth";
 import { Icon } from "../../components/Icon";
@@ -75,12 +76,19 @@ export function LandingView() {
       <section className="landing-steps">
         <h2 className="landing-steps-heading">How it works</h2>
         <div className="landing-steps-grid">
-          {STEPS.map((s) => (
-            <div key={s.n} className="landing-step">
-              <span className="landing-step-n">{s.n}</span>
-              <h3>{s.title}</h3>
-              <p>{s.body}</p>
-            </div>
+          {STEPS.map((s, i) => (
+            <Fragment key={s.n}>
+              <div className="landing-step">
+                <span className="landing-step-n">{s.n}</span>
+                <h3>{s.title}</h3>
+                <p>{s.body}</p>
+              </div>
+              {i < STEPS.length - 1 && (
+                <span className="landing-step-arrow" aria-hidden="true">
+                  <Icon name="arrow-right" size={18} />
+                </span>
+              )}
+            </Fragment>
           ))}
         </div>
       </section>

@@ -895,7 +895,21 @@ textarea.input { resize: vertical; }
   color: var(--fg-0);
   margin: 0 0 36px;
 }
-.landing-steps-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 32px; text-align: left; }
+.landing-steps-grid {
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  gap: 20px;
+  text-align: left;
+}
+.landing-step {
+  flex: 1 1 0;
+  max-width: 300px;
+  padding: 22px 20px;
+  background: oklch(0.20 0.015 250 / 0.4);
+  border: 1px solid var(--line-1);
+  border-radius: 8px;
+}
 .landing-step-n {
   font-family: var(--font-mono);
   font-size: 12px;
@@ -904,6 +918,17 @@ textarea.input { resize: vertical; }
 }
 .landing-step h3 { margin: 8px 0 6px; font-size: 15px; color: var(--fg-0); }
 .landing-step p { margin: 0; font-size: 13px; line-height: 1.6; color: var(--fg-2); }
+.landing-step-arrow {
+  display: flex;
+  align-items: center;
+  flex: 0 0 auto;
+  color: var(--fg-3);
+}
+@media (max-width: 720px) {
+  .landing-steps-grid { flex-direction: column; align-items: center; }
+  .landing-step { width: 100%; max-width: 420px; }
+  .landing-step-arrow { transform: rotate(90deg); }
+}
 .landing-footer {
   width: 100%;
   margin-top: auto;
