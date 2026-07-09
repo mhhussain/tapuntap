@@ -2,7 +2,7 @@ import { useEffect, type ReactNode } from "react";
 import { Icon } from "./Icon";
 
 export function Modal({ title, onClose, children, footer, width = 480 }:
-  { title: string; onClose: () => void; children: ReactNode; footer?: ReactNode; width?: number }) {
+  { title: string; onClose: () => void; children: ReactNode; footer?: ReactNode; width?: number | string }) {
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") onClose?.(); };
     window.addEventListener("keydown", onKey);
