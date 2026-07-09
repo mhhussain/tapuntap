@@ -92,3 +92,19 @@ test("scry rejects an order that does not account for all scried cards", async (
   const priv = (await db.doc("games/ga/players/host/private/state").get()).data();
   assert.equal(priv.library.length, 3); // unchanged
 });
+
+test("mulligan moves entire hand into library and empties hand", async () => {
+  await seed();
+  await db.doc("games/ga/players/host/private/state").set({
+    hand: [{ instanceId: "h1", name: "Bear" }, { instanceId: "h2", name: "Bolt" }],
+    library: [{ instanceId: "a" }, { instanceId: "b" }, { instanceId: "c" }],
+  });
+  await db.doc("games/ga/players/host").update({ handCount: 2, libraryCount: 3 });
+  await handleGameAction("host", { type: "mulligan", gameId: "ga" }, db);
+  const pub = (await db.doc("games/ga/players/host").get()).data();
+  const priv = (await db.doc("games/ga/players/host/private/state").get()).data();
+  assert.equal(priv.hand.length, 0);
+  assert.equal(priv.library.length, 5); // 3 + 2 mulliganed back in
+  assert.equal(pub.handCount, 0);
+  assert.equal(pub.libraryCount, 5);
+});

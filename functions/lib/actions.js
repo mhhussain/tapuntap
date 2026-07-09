@@ -74,6 +74,15 @@ export async function handleGameAction(uid, data, db) {
       await appendLog(db, gameId, seatNum, who, g.turn, "shuffled library");
       return { ok: true };
     }
+    case "mulligan": {
+      const n = priv.hand.length;
+      priv.library = priv.library.concat(priv.hand);
+      priv.hand = [];
+      shuffleInPlace(priv.library);
+      await writePrivateAndCounts(db, gameId, uid, priv);
+      await appendLog(db, gameId, seatNum, who, g.turn, `mulliganed (${n} card${n === 1 ? "" : "s"})`);
+      return { mulliganed: n };
+    }
     case "shuffleGraveyardIntoLibrary": {
       const pubRef = db.doc(PUBLIC(gameId, uid));
       const pub = (await pubRef.get()).data();
