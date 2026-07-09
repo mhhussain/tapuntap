@@ -786,7 +786,10 @@ textarea.input { resize: vertical; }
 .landing {
   height: 100%;
   overflow-y: auto;
-  background: var(--bg-0);
+  background:
+    linear-gradient(oklch(0.16 0.015 250 / 0.55), oklch(0.16 0.015 250 / 0.55)),
+    url("/brand/tapuntap-background.svg") center / cover no-repeat fixed,
+    var(--bg-0);
   color: var(--fg-1);
   display: flex;
   flex-direction: column;
@@ -834,9 +837,6 @@ textarea.input { resize: vertical; }
   max-width: 680px;
   text-align: center;
   padding: clamp(64px, 12vh, 140px) 0 clamp(48px, 8vh, 96px);
-  background-image: url("/brand/tapuntap-background.svg");
-  background-size: cover;
-  background-position: center;
 }
 .landing-title {
   font-family: var(--font-serif);
