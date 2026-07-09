@@ -49,25 +49,24 @@ export interface ScryfallCard {
   loyalty?: string;
 }
 
+export const RESOLVE_CAP = 20;
+
 export async function resolveCards(names: string[]): Promise<Map<string, ScryfallCard | null>> {
   const unique = [...new Set(names)];
   const result = new Map<string, ScryfallCard | null>();
   if (!unique.length) return result;
 
-  for (let i = 0; i < unique.length; i += 5) {
-    const batch = unique.slice(i, i + 5);
-    const settled = await Promise.allSettled(
-      batch.map((name) =>
-        fetch(`https://api.scryfall.com/cards/named?exact=${encodeURIComponent(name)}`)
-          .then((r) => (r.ok ? r.json() : Promise.reject(r.status)))
-          .then((card: ScryfallCard) => ({ name, card }))
-          .catch(() => ({ name, card: null }))
-      )
-    );
-    for (const outcome of settled) {
-      if (outcome.status === "fulfilled") {
-        result.set(outcome.value.name, outcome.value.card);
-      }
+  const settled = await Promise.allSettled(
+    unique.map((name) =>
+      fetch(`https://api.scryfall.com/cards/named?exact=${encodeURIComponent(name)}`)
+        .then((r) => (r.ok ? r.json() : Promise.reject(r.status)))
+        .then((card: ScryfallCard) => ({ name, card }))
+        .catch(() => ({ name, card: null }))
+    )
+  );
+  for (const outcome of settled) {
+    if (outcome.status === "fulfilled") {
+      result.set(outcome.value.name, outcome.value.card);
     }
   }
 

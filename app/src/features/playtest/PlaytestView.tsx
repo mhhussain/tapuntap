@@ -6,13 +6,12 @@ import { Icon } from "../../components/Icon";
 import { PlayerRibbon } from "../game/components/PlayerRibbon";
 import { OpponentsBar } from "../game/components/OpponentsBar";
 import { Battlefield } from "../game/components/Battlefield";
-import { SidePanel } from "../game/components/SidePanel";
 import { BottomBar } from "../game/components/BottomBar";
 import { ScryModal } from "../game/components/ScryModal";
 import { TokenModal } from "../game/components/TokenModal";
 import { ZoneDrawer, type ZoneName } from "../game/components/ZoneDrawer";
 import { ContextMenu, useContextMenu } from "../../components/ContextMenu";
-import { buildHandMenu, buildBattlefieldMenu } from "../game/useCardMenus";
+import { buildHandMenu, buildBattlefieldMenu, toggleZoneCardTap } from "../game/useCardMenus";
 import { useDragDrop } from "../game/useDragDrop";
 import { CardDetailModal } from "../game/components/CardDetailModal";
 import { HoverPreview, useHoverPreview } from "../../components/HoverPreview";
@@ -35,11 +34,9 @@ export function PlaytestView() {
   const { session, controlledUid, setControlledUid, actions } = usePlaytestSession(sessionId);
   const game = session?.game;
   const players = session?.players ?? {};
-  const log = session?.log ?? [];
   const myUid = controlledUid;
   const myPrivate = session?.privates[controlledUid] ?? { hand: [], library: [] };
 
-  const [logOpen, setLogOpen] = useState(true);
   const [showScry, setShowScry] = useState(false);
   const [showToken, setShowToken] = useState(false);
   const [zoneDrawer, setZoneDrawer] = useState<ZoneName | null>(null);
@@ -83,7 +80,6 @@ export function PlaytestView() {
         if (!session || !sessionId) return;
         actions.action({ type: "endTurn", gameId: sessionId }).catch((err: Error) => toast(err.message, "error"));
       }
-      if (e.key === "l" || e.key === "L") setLogOpen((o) => !o);
       if (e.key === "s" || e.key === "S") setShowScry(true);
       if (e.key === "t" || e.key === "T") setShowToken(true);
       if (e.key === "Escape") {
@@ -137,12 +133,16 @@ export function PlaytestView() {
     onError: err,
   };
 
-  // Left-click on a card opens detail modal.
-  // Tap/untap stays on the context menu ("Tap"/"Untap" item in buildBattlefieldMenu).
+  // Left-click on a hand card opens detail modal.
   function onCardClick(c: CardInstance) {
     setDetailCard(c);
   }
 
+  // Left-click on a battlefield card taps/untaps it. "View card" remains
+  // available via the right-click context menu (buildBattlefieldMenu).
+  function onBattlefieldClick(c: CardInstance) {
+    toggleZoneCardTap(c, "battlefield", mine, gameActions, err);
+  }
 
   function onBattlefieldContext(e: React.MouseEvent, c: CardInstance) {
     e.preventDefault();
@@ -244,13 +244,19 @@ export function PlaytestView() {
         onEndTurn={() => err(actions.action({ type: "endTurn", gameId: sessionId! }))}
       />
 
-      {/* ── Battlefield + side panel ───────────────────────────────── */}
-      <div className={`gameplay-body ${logOpen ? "log-open" : "log-closed"}`}>
+      {/* ── Battlefield (playtest has no play log — the space is reclaimed) ── */}
+      <div className="gameplay-body log-closed">
         <div className="battlefield-column">
-          <OpponentsBar opponents={opponents} />
+          <OpponentsBar
+            opponents={opponents}
+            onCardClick={onViewCard}
+            onCardMouseEnter={hoverPreview.onMouseEnter}
+            onCardMouseLeave={hoverPreview.onMouseLeave}
+            onCardMouseMove={hoverPreview.onMouseMove}
+          />
           <Battlefield
             cards={mine.battlefield || []}
-            onCardClick={onCardClick}
+            onCardClick={onBattlefieldClick}
             onCardContext={onBattlefieldContext}
             cardDragProps={(id) => dragDrop.cardDragProps(id, "battlefield")}
             creatureLaneDropProps={dragDrop.dropZoneProps("battlefield-creatures")}
@@ -260,15 +266,6 @@ export function PlaytestView() {
             onCardMouseMove={hoverPreview.onMouseMove}
           />
         </div>
-
-        {logOpen && (
-          <SidePanel
-            log={log}
-            notes={game.notes || ""}
-            onNotes={(v) => err(actions.setNotes(v))}
-            onClose={() => setLogOpen(false)}
-          />
-        )}
       </div>
 
       {/* ── Bottom bar (hand + zones + actions) ───────────────────── */}
@@ -276,8 +273,9 @@ export function PlaytestView() {
         player={mine}
         myPrivate={myPrivate}
         gameId={sessionId!}
-        logOpen={logOpen}
-        onToggleLog={() => setLogOpen((o) => !o)}
+        logOpen={false}
+        onToggleLog={() => {}}
+        showLogToggle={false}
         onCardClick={onCardClick}
         onHandContext={onHandContext}
         onDraw={() => err(actions.action({ type: "draw", gameId: sessionId!, count: 1 }))}
@@ -332,6 +330,7 @@ export function PlaytestView() {
           writePublicZones={(patch) => toVoid(actions.writePublicZones(patch))}
           onError={err}
           onClose={() => setZoneDrawer(null)}
+          onView={onViewCard}
         />
       )}
 

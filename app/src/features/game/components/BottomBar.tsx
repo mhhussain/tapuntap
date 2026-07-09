@@ -42,6 +42,8 @@ interface BottomBarProps {
   onOpenZone: (zone: ZoneName) => void;
   onScry: () => void;
   onToken: () => void;
+  /** Hide the log-toggle button entirely (e.g. playtest, which has no play log). Defaults to shown. */
+  showLogToggle?: boolean;
   handDropProps?: DropZoneProps;
   cardDragProps?: (instanceId: string, fromZone: "hand") => {
     draggable: true;
@@ -65,6 +67,7 @@ export function BottomBar({
   onOpenZone,
   onScry,
   onToken,
+  showLogToggle = true,
   handDropProps,
   cardDragProps,
   onCardMouseEnter,
@@ -181,13 +184,15 @@ export function BottomBar({
           >
             <Icon name="token" size={12} /> Token
           </button>
-          <button
-            className="btn btn-sm btn-icon"
-            onClick={onToggleLog}
-            title={logOpen ? "Hide log (L)" : "Show log (L)"}
-          >
-            <Icon name="note" size={12} />
-          </button>
+          {showLogToggle && (
+            <button
+              className="btn btn-sm btn-icon"
+              onClick={onToggleLog}
+              title={logOpen ? "Hide log (L)" : "Show log (L)"}
+            >
+              <Icon name="note" size={12} />
+            </button>
+          )}
         </div>
       </div>
     </div>

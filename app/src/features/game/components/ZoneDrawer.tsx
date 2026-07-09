@@ -3,6 +3,7 @@ import { Modal } from "../../../components/Modal";
 import { CardFace } from "../../../components/CardFace";
 import { Icon } from "../../../components/Icon";
 import { HoverPreview, useHoverPreview } from "../../../components/HoverPreview";
+import { ContextMenu, type MenuItem } from "../../../components/ContextMenu";
 import { groupCardsByType } from "../../../lib/cards";
 import { moveWithinPublicZones } from "../useGameActions";
 import type { CardInstance, PlayerPublic, PlayerPrivate, GameAction } from "../../../types";
@@ -19,6 +20,8 @@ interface ZoneDrawerProps {
   writePublicZones: (patch: Partial<Pick<PlayerPublic, "battlefield" | "graveyard" | "exile" | "command">>) => Promise<void>;
   onError: (p: Promise<unknown>) => void;
   onClose: () => void;
+  /** Opens the card-detail modal. Wired to "View card" in each card's context menu. */
+  onView: (card: CardInstance) => void;
 }
 
 const ZONE_LABEL: Record<string, string> = {
@@ -37,7 +40,7 @@ const ZONE_ICON: Record<string, string> = {
   battlefield: "deck",
 };
 
-/** ─────────────────────────────── CARD ACTION BUTTONS ────────────────────── */
+/** ─────────────────────────────── CARD ACTION MENU ITEMS ────────────────────── */
 interface CardActionsProps {
   card: CardInstance;
   fromZone: PublicZone;
@@ -46,10 +49,10 @@ interface CardActionsProps {
   onAction: (a: GameAction) => void;
   writePublicZones: (patch: Partial<Pick<PlayerPublic, "battlefield" | "graveyard" | "exile" | "command">>) => Promise<void>;
   onError: (p: Promise<unknown>) => void;
-  onClose: () => void;
+  onView: (card: CardInstance) => void;
 }
 
-function CardActionMenu({
+function buildCardActionMenu({
   card,
   fromZone,
   mine,
@@ -57,8 +60,8 @@ function CardActionMenu({
   onAction,
   writePublicZones,
   onError,
-  onClose,
-}: CardActionsProps) {
+  onView,
+}: CardActionsProps): MenuItem[] {
   // Public-zone destinations excluding current zone and battlefield
   const otherPublicZones: PublicZone[] = (
     ["graveyard", "exile", "command"] as PublicZone[]
@@ -67,84 +70,57 @@ function CardActionMenu({
   function moveToPublic(toZone: PublicZone) {
     const next = moveWithinPublicZones(mine, card.instanceId, fromZone, toZone);
     onError(writePublicZones({ [fromZone]: next[fromZone], [toZone]: next[toZone] }));
-    onClose();
   }
 
   function moveToBattlefield() {
     const next = moveWithinPublicZones(mine, card.instanceId, fromZone, "battlefield");
     onError(writePublicZones({ [fromZone]: next[fromZone], battlefield: next.battlefield }));
-    onClose();
   }
 
   function moveToHand() {
     onAction({ type: "moveToHand", gameId, instanceId: card.instanceId, fromZone });
-    onClose();
   }
 
   function moveToLibraryTop() {
     onAction({ type: "moveToLibrary", gameId, instanceId: card.instanceId, fromZone, position: "top" });
-    onClose();
   }
 
   function moveToLibraryBottom() {
     onAction({ type: "moveToLibrary", gameId, instanceId: card.instanceId, fromZone, position: "bottom" });
-    onClose();
   }
 
-  return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        gap: 3,
-        padding: "6px 0",
-        minWidth: 140,
-      }}
-    >
-      <button
-        className="btn btn-sm"
-        style={{ justifyContent: "flex-start" }}
-        onClick={moveToBattlefield}
-      >
-        → Battlefield
-      </button>
-      {otherPublicZones.map((z) => (
-        <button
-          key={z}
-          className="btn btn-sm"
-          style={{ justifyContent: "flex-start" }}
-          onClick={() => moveToPublic(z)}
-        >
-          → {ZONE_LABEL[z]}
-        </button>
-      ))}
-      <div style={{ height: 1, background: "var(--line-1)", margin: "3px 0" }} />
-      <button
-        className="btn btn-sm"
-        style={{ justifyContent: "flex-start" }}
-        onClick={moveToHand}
-      >
-        → Hand
-      </button>
-      <button
-        className="btn btn-sm"
-        style={{ justifyContent: "flex-start" }}
-        onClick={moveToLibraryTop}
-      >
-        → Library top
-      </button>
-      <button
-        className="btn btn-sm"
-        style={{ justifyContent: "flex-start" }}
-        onClick={moveToLibraryBottom}
-      >
-        → Library bottom
-      </button>
-    </div>
-  );
+  return [
+    { header: card.name },
+    {
+      label: "View card",
+      onClick: () => onView(card),
+    },
+    "sep",
+    {
+      label: "→ Battlefield",
+      onClick: moveToBattlefield,
+    },
+    ...otherPublicZones.map((z): MenuItem => ({
+      label: `→ ${ZONE_LABEL[z]}`,
+      onClick: () => moveToPublic(z),
+    })),
+    "sep",
+    {
+      label: "→ Hand",
+      onClick: moveToHand,
+    },
+    {
+      label: "→ Library top",
+      onClick: moveToLibraryTop,
+    },
+    {
+      label: "→ Library bottom",
+      onClick: moveToLibraryBottom,
+    },
+  ];
 }
 
-/** ─────────────────────────────── CARD WITH INLINE POPOVER ─────────────────── */
+/** ─────────────────────────────── CARD WITH FIXED-POSITION CONTEXT MENU ─────── */
 interface ZoneCardProps {
   card: CardInstance;
   fromZone: PublicZone;
@@ -153,7 +129,10 @@ interface ZoneCardProps {
   onAction: (a: GameAction) => void;
   writePublicZones: (patch: Partial<Pick<PlayerPublic, "battlefield" | "graveyard" | "exile" | "command">>) => Promise<void>;
   onError: (p: Promise<unknown>) => void;
-  onCloseDrawer: () => void;
+  onView: (card: CardInstance) => void;
+  onMouseEnter: (e: React.MouseEvent, c: CardInstance) => void;
+  onMouseLeave: (e: React.MouseEvent, c: CardInstance) => void;
+  onMouseMove: (e: React.MouseEvent) => void;
 }
 
 function ZoneCard({
@@ -164,68 +143,65 @@ function ZoneCard({
   onAction,
   writePublicZones,
   onError,
-  onCloseDrawer,
+  onView,
+  onMouseEnter,
+  onMouseLeave,
+  onMouseMove,
 }: ZoneCardProps) {
-  const [open, setOpen] = useState(false);
+  const [menuPos, setMenuPos] = useState<{ x: number; y: number } | null>(null);
+
+  function toggleTap() {
+    const cards = (mine[fromZone] as CardInstance[] | undefined) || [];
+    const updated = cards.map((c) =>
+      c.instanceId === card.instanceId ? { ...c, tapped: !c.tapped } : c
+    );
+    onError(writePublicZones({ [fromZone]: updated }));
+  }
+
+  function openMenu(e: React.MouseEvent) {
+    e.preventDefault();
+    setMenuPos({ x: e.clientX, y: e.clientY });
+  }
+
+  function handleClick(e: React.MouseEvent) {
+    // Command zone (and battlefield, if ever routed here): click taps/untaps.
+    // "View card" remains available via the right-click context menu.
+    if (fromZone === "command") {
+      toggleTap();
+    } else {
+      openMenu(e);
+    }
+  }
 
   return (
-    <div style={{ position: "relative", display: "inline-block" }}>
+    <div style={{ display: "inline-block" }}>
       <div
         style={{ cursor: "pointer" }}
-        onClick={() => setOpen((o) => !o)}
+        onClick={handleClick}
+        onContextMenu={openMenu}
+        onMouseEnter={(e) => onMouseEnter(e, card)}
+        onMouseLeave={(e) => onMouseLeave(e, card)}
+        onMouseMove={onMouseMove}
         title={card.name}
       >
         <CardFace card={card} zone={fromZone} />
       </div>
-      {open && (
-        <>
-          {/* Backdrop to close */}
-          <div
-            style={{ position: "fixed", inset: 0, zIndex: 10 }}
-            onClick={() => setOpen(false)}
-          />
-          <div
-            style={{
-              position: "absolute",
-              top: "100%",
-              left: 0,
-              zIndex: 20,
-              background: "var(--bg-2)",
-              border: "1px solid var(--line-2)",
-              borderRadius: "var(--radius-md)",
-              boxShadow: "var(--shadow-2)",
-              padding: "4px 8px",
-            }}
-          >
-            <div
-              style={{
-                fontSize: 11,
-                fontWeight: 600,
-                color: "var(--fg-3)",
-                padding: "2px 0 4px",
-                whiteSpace: "nowrap",
-                overflow: "hidden",
-                textOverflow: "ellipsis",
-                maxWidth: 140,
-              }}
-            >
-              {card.name}
-            </div>
-            <CardActionMenu
-              card={card}
-              fromZone={fromZone}
-              mine={mine}
-              gameId={gameId}
-              onAction={onAction}
-              writePublicZones={writePublicZones}
-              onError={onError}
-              onClose={() => {
-                setOpen(false);
-                onCloseDrawer();
-              }}
-            />
-          </div>
-        </>
+      {menuPos && (
+        <ContextMenu
+          items={buildCardActionMenu({
+            card,
+            fromZone,
+            mine,
+            gameId,
+            onAction,
+            writePublicZones,
+            onError,
+            onView,
+          })}
+          x={menuPos.x}
+          y={menuPos.y}
+          onClose={() => setMenuPos(null)}
+        />
       )}
     </div>
   );
@@ -241,6 +217,7 @@ function PublicZoneDrawer({
   writePublicZones,
   onError,
   onClose,
+  onView,
 }: {
   zone: PublicZone;
   cards: CardInstance[];
@@ -250,7 +227,10 @@ function PublicZoneDrawer({
   writePublicZones: (patch: Partial<Pick<PlayerPublic, "battlefield" | "graveyard" | "exile" | "command">>) => Promise<void>;
   onError: (p: Promise<unknown>) => void;
   onClose: () => void;
+  onView: (card: CardInstance) => void;
 }) {
+  const hover = useHoverPreview();
+
   function allToBattlefield() {
     let current = mine;
     for (const card of cards) {
@@ -339,11 +319,15 @@ function PublicZoneDrawer({
               onAction={onAction}
               writePublicZones={writePublicZones}
               onError={onError}
-              onCloseDrawer={onClose}
+              onView={onView}
+              onMouseEnter={hover.onMouseEnter}
+              onMouseLeave={hover.onMouseLeave}
+              onMouseMove={hover.onMouseMove}
             />
           ))}
         </div>
       )}
+      <HoverPreview anchor={hover.anchor} />
     </Modal>
   );
 }
@@ -363,6 +347,7 @@ function LibraryDrawer({
   onClose: () => void;
 }) {
   const hover = useHoverPreview();
+  const [tutorMenu, setTutorMenu] = useState<{ x: number; y: number; card: CardInstance } | null>(null);
   const library = myPrivate.library;
   const groups = groupCardsByType(library);
 
@@ -405,7 +390,7 @@ function LibraryDrawer({
           {library.length} card{library.length !== 1 ? "s" : ""} remaining
         </span>
         <span style={{ fontSize: 11, color: "var(--fg-3)" }}>
-          Click a card name to tutor to hand
+          Click a card name for options
         </span>
       </div>
 
@@ -473,19 +458,13 @@ function LibraryDrawer({
                         <button
                           className="btn btn-sm btn-ghost"
                           style={{ fontWeight: 400, fontSize: 13 }}
-                          onClick={() => {
-                            // Tutor first matching instance to hand
-                            onAction({
-                              type: "tutorToHand",
-                              gameId,
-                              instanceId: card.instanceId,
-                            });
-                            onClose();
-                          }}
+                          onClick={(e) =>
+                            setTutorMenu({ x: e.clientX, y: e.clientY, card })
+                          }
                           onMouseEnter={(e) => hover.onMouseEnter(e, card)}
                           onMouseMove={hover.onMouseMove}
                           onMouseLeave={hover.onMouseLeave}
-                          title={`Tutor ${name} to hand`}
+                          title={name}
                         >
                           {name}
                         </button>
@@ -502,6 +481,26 @@ function LibraryDrawer({
         </div>
       )}
       <HoverPreview anchor={hover.anchor} />
+      {tutorMenu && (
+        <ContextMenu
+          items={[
+            {
+              label: `Tutor ${tutorMenu.card.name} to hand`,
+              onClick: () => {
+                onAction({
+                  type: "tutorToHand",
+                  gameId,
+                  instanceId: tutorMenu.card.instanceId,
+                });
+                onClose();
+              },
+            },
+          ]}
+          x={tutorMenu.x}
+          y={tutorMenu.y}
+          onClose={() => setTutorMenu(null)}
+        />
+      )}
     </Modal>
   );
 }
@@ -516,6 +515,7 @@ export function ZoneDrawer({
   writePublicZones,
   onError,
   onClose,
+  onView,
 }: ZoneDrawerProps) {
   if (zone === "library") {
     return (
@@ -541,6 +541,7 @@ export function ZoneDrawer({
       writePublicZones={writePublicZones}
       onError={onError}
       onClose={onClose}
+      onView={onView}
     />
   );
 }

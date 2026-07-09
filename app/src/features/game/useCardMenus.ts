@@ -102,6 +102,24 @@ export function buildHandMenu(card: CardInstance, h: CardMenuHandlers): MenuItem
   ];
 }
 
+/**
+ * Generic tap/untap toggle for a card in any own public zone array
+ * (battlefield, command, etc). Writes the updated zone array via writePublicZones.
+ */
+export function toggleZoneCardTap(
+  card: CardInstance,
+  zone: keyof PlayerPublic,
+  mine: PlayerPublic,
+  actions: Actions,
+  onError: (p: Promise<unknown>) => void
+) {
+  const cards = (mine[zone] as CardInstance[] | undefined) || [];
+  const updated = cards.map((c) =>
+    c.instanceId === card.instanceId ? { ...c, tapped: !c.tapped } : c
+  );
+  onError(actions.writePublicZones({ [zone]: updated } as Partial<Pick<PlayerPublic, "battlefield" | "graveyard" | "exile" | "command">>));
+}
+
 // ─── battlefield menu ─────────────────────────────────────────────────────────
 // tap/untap + counter adjustments → client-direct.
 // Moves to/from hidden zones (hand, library) → gameAction.

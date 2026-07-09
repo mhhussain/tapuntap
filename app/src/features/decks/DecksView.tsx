@@ -7,6 +7,7 @@ import { Icon } from "../../components/Icon";
 import { ManaCost } from "../../components/ManaCost";
 import { HoverPreview, useHoverPreview, type HoverCard } from "../../components/HoverPreview";
 import { CardImageModal } from "../../components/CardImageModal";
+import { ExportModal } from "./ExportModal";
 import { computeManaCurve, groupCardsByType, isLand } from "../../lib/cards";
 import type { Deck, DeckCardEntry } from "../../types";
 
@@ -171,6 +172,7 @@ export function DecksView() {
 
   // Full deck + versions loaded on selection
   const [selectedDeck, setSelectedDeck] = useState<Deck | null>(null);
+  const [exportOpen, setExportOpen] = useState(false);
   const [versions, setVersions] = useState<DeckVersion[]>([]);
   const [detailLoading, setDetailLoading] = useState(false);
 
@@ -355,6 +357,9 @@ export function DecksView() {
                     <button className="btn btn-icon btn-danger" title="Delete" onClick={() => handleDelete(selectedDeck.id)}>
                       <Icon name="trash" size={14} />
                     </button>
+                    <button className="btn" onClick={() => setExportOpen(true)}>
+                      <Icon name="copy" size={12} /> Export
+                    </button>
                     <button className="btn" onClick={() => navigate(`/playtest/new?deckId=${selectedDeck.id}`)}>
                       <Icon name="play" size={12} /> Playtest
                     </button>
@@ -435,6 +440,9 @@ export function DecksView() {
       </div>
       <HoverPreview anchor={hover.anchor} />
       {enlarged && <CardImageModal card={enlarged} onClose={() => setEnlarged(null)} />}
+      {exportOpen && selectedDeck && (
+        <ExportModal deck={selectedDeck} onClose={() => setExportOpen(false)} />
+      )}
     </>
   );
 }

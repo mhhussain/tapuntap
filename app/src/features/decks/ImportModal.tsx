@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Icon } from "../../components/Icon";
 import { toEntry } from "../../lib/cards";
-import { parseMtgArena, fetchCardNameCatalog, resolveCards } from "../../lib/import";
+import { parseMtgArena, fetchCardNameCatalog, resolveCards, RESOLVE_CAP } from "../../lib/import";
 import type { ScryfallCard } from "../../lib/import";
 import type { DeckCardEntry } from "../../types";
 
@@ -50,6 +50,26 @@ export function ImportModal({ onClose, onImport }: ImportModalProps) {
   const resolved = rows.filter((r) => r.status === "resolved").length;
   const total = rows.length;
   const pct = total ? (resolved / total) * 100 : 0;
+  // Resolves the given rows: marks them loading, fetches, then settles each to
+  // resolved/failed.
+  async function resolveBatch(batch: ImportRow[]) {
+    if (!batch.length || abortRef.current) return;
+
+    const ids = new Set(batch.map((r) => r.id));
+    setRows((rs) => rs.map((r) => (ids.has(r.id) ? { ...r, status: "loading" } : r)));
+
+    const names = [...new Set(batch.map((r) => r.name.trim()))];
+    const cardMap = await resolveCards(names);
+    if (abortRef.current) return;
+
+    setRows((current) =>
+      current.map((r) => {
+        if (!ids.has(r.id)) return r;
+        const card = cardMap.get(r.name.trim()) ?? null;
+        return { ...r, status: card ? "resolved" : "failed", card };
+      })
+    );
+  }
 
   async function startResolve() {
     const parsed = parseMtgArena(text);
@@ -57,34 +77,24 @@ export function ImportModal({ onClose, onImport }: ImportModalProps) {
 
     const catalog = await fetchCardNameCatalog();
 
+    // All rows start unresolved ("failed"); only the first RESOLVE_CAP catalog-valid
+    // names are auto-resolved. The rest stay listed and are resolved manually per row.
+    let autoCount = 0;
+    const autoIds = new Set<string>();
     const initialRows: ImportRow[] = parsed.map((p) => {
+      const id = "r" + rowSeq++;
       const inCatalog = catalog === null || catalog.has(p.name.toLowerCase());
-      return {
-        id: "r" + rowSeq++,
-        qty: p.quantity,
-        name: p.name,
-        status: inCatalog ? "loading" : "failed",
-        card: null,
-      };
+      if (inCatalog && autoCount < RESOLVE_CAP) {
+        autoCount++;
+        autoIds.add(id);
+      }
+      return { id, qty: p.quantity, name: p.name, status: "failed", card: null };
     });
 
     setRows(initialRows);
     setPhase("resolve");
 
-    const toFetch = [...new Set(initialRows.filter((r) => r.status === "loading").map((r) => r.name))];
-
-    for (let i = 0; i < toFetch.length; i += 5) {
-      if (abortRef.current) break;
-      const batch = toFetch.slice(i, i + 5);
-      const batchMap = await resolveCards(batch);
-      setRows((current) =>
-        current.map((r) => {
-          if (r.status !== "loading" || !batchMap.has(r.name)) return r;
-          const card = batchMap.get(r.name) ?? null;
-          return { ...r, status: card ? "resolved" : "failed", card };
-        })
-      );
-    }
+    await resolveBatch(initialRows.filter((r) => autoIds.has(r.id)));
   }
 
   function editName(id: string, name: string) {
@@ -99,12 +109,7 @@ export function ImportModal({ onClose, onImport }: ImportModalProps) {
     const inCatalog = catalog === null || catalog.has(row.name.trim().toLowerCase());
     if (!inCatalog) return;
 
-    setRows((rs) => rs.map((r) => r.id === id ? { ...r, status: "loading" } : r));
-    const cardMap = await resolveCards([row.name.trim()]);
-    const card = cardMap.get(row.name.trim()) ?? null;
-    setRows((rs) =>
-      rs.map((r) => r.id === id ? { ...r, status: card ? "resolved" : "failed", card } : r)
-    );
+    await resolveBatch([row]);
   }
 
   function addRow() {
