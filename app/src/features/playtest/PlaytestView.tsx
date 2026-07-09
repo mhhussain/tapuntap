@@ -8,12 +8,14 @@ import { OpponentsBar } from "../game/components/OpponentsBar";
 import { Battlefield } from "../game/components/Battlefield";
 import { BottomBar } from "../game/components/BottomBar";
 import { ScryModal } from "../game/components/ScryModal";
+import { DrawNModal } from "../game/components/DrawNModal";
 import { TokenModal } from "../game/components/TokenModal";
 import { ZoneDrawer, type ZoneName } from "../game/components/ZoneDrawer";
 import { ContextMenu, useContextMenu } from "../../components/ContextMenu";
-import { buildHandMenu, buildBattlefieldMenu, toggleZoneCardTap } from "../game/useCardMenus";
+import { buildHandMenu, buildBattlefieldMenu, buildDrawMenu, toggleZoneCardTap } from "../game/useCardMenus";
 import { useDragDrop } from "../game/useDragDrop";
 import { CardDetailModal } from "../game/components/CardDetailModal";
+import { ShuffleConfirm, MulliganConfirm } from "../game/components/ConfirmModals";
 import { HoverPreview, useHoverPreview } from "../../components/HoverPreview";
 import type { useGameActions } from "../game/useGameActions";
 import type { CardInstance } from "../../types";
@@ -41,6 +43,11 @@ export function PlaytestView() {
   const [showToken, setShowToken] = useState(false);
   const [zoneDrawer, setZoneDrawer] = useState<ZoneName | null>(null);
   const [detailCard, setDetailCard] = useState<CardInstance | null>(null);
+  const [showDrawN, setShowDrawN] = useState(false);
+  const [showMulliganConfirm, setShowMulliganConfirm] = useState(false);
+  const [busyMulligan, setBusyMulligan] = useState(false);
+  const [showShuffleConfirm, setShowShuffleConfirm] = useState(false);
+  const [busyShuffle, setBusyShuffle] = useState(false);
   const { menu, openMenu, closeMenu } = useContextMenu();
   const hoverPreview = useHoverPreview();
 
@@ -87,6 +94,9 @@ export function PlaytestView() {
         setShowToken(false);
         setZoneDrawer(null);
         setDetailCard(null);
+        setShowDrawN(false);
+        setShowMulliganConfirm(false);
+        setShowShuffleConfirm(false);
         closeMenu();
       }
     };
@@ -152,6 +162,28 @@ export function PlaytestView() {
   function onHandContext(e: React.MouseEvent, c: CardInstance) {
     e.preventDefault();
     openMenu(e, buildHandMenu(c, menuHandlers));
+  }
+
+  function handleMulligan() {
+    setBusyMulligan(true);
+    actions
+      .action({ type: "mulligan", gameId: sessionId! })
+      .catch((e: Error) => toast(e.message, "error"))
+      .finally(() => {
+        setBusyMulligan(false);
+        setShowMulliganConfirm(false);
+      });
+  }
+
+  function handleShuffle() {
+    setBusyShuffle(true);
+    actions
+      .action({ type: "shuffleLibrary", gameId: sessionId! })
+      .catch((e: Error) => toast(e.message, "error"))
+      .finally(() => {
+        setBusyShuffle(false);
+        setShowShuffleConfirm(false);
+      });
   }
 
   const savedAgo = game.updatedAt
@@ -278,8 +310,20 @@ export function PlaytestView() {
         showLogToggle={false}
         onCardClick={onCardClick}
         onHandContext={onHandContext}
-        onDraw={() => err(actions.action({ type: "draw", gameId: sessionId!, count: 1 }))}
-        onShuffle={() => err(actions.action({ type: "shuffleLibrary", gameId: sessionId! }))}
+        onDraw={(e) =>
+          openMenu(
+            e,
+            buildDrawMenu({
+              gameId: sessionId!,
+              actions: gameActions,
+              onError: err,
+              onDrawN: () => setShowDrawN(true),
+              onMulligan: () => setShowMulliganConfirm(true),
+            })
+          )
+        }
+        onShuffle={() => setShowShuffleConfirm(true)}
+        isMyTurn={myUid === game.turnOrder[game.activeSeat]}
         onOpenZone={(zone) => setZoneDrawer(zone)}
         onScry={() => setShowScry(true)}
         onToken={() => setShowToken(true)}
@@ -319,6 +363,15 @@ export function PlaytestView() {
         />
       )}
 
+      {/* ── Draw N modal ──────────────────────────────────────────── */}
+      {showDrawN && (
+        <DrawNModal
+          libraryCount={myPrivate.library.length}
+          onDraw={(count) => err(actions.action({ type: "draw", gameId: sessionId!, count }))}
+          onClose={() => setShowDrawN(false)}
+        />
+      )}
+
       {/* ── Zone drawers ──────────────────────────────────────────── */}
       {zoneDrawer && (
         <ZoneDrawer
@@ -333,6 +386,20 @@ export function PlaytestView() {
           onView={onViewCard}
         />
       )}
+
+      {/* ── Confirm modals ────────────────────────────────────────── */}
+      <ShuffleConfirm
+        open={showShuffleConfirm}
+        onClose={() => setShowShuffleConfirm(false)}
+        onConfirm={handleShuffle}
+        busy={busyShuffle}
+      />
+      <MulliganConfirm
+        open={showMulliganConfirm}
+        onClose={() => setShowMulliganConfirm(false)}
+        onConfirm={handleMulligan}
+        busy={busyMulligan}
+      />
 
       {/* ── Card detail modal ─────────────────────────────────────── */}
       {detailCard && (
