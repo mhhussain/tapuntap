@@ -98,6 +98,21 @@ export function CardFace({ card, zone, onTap, onMenu, gestureDrag, onMouseEnter,
             }
           : undefined
       }
+      onTouchEnd={
+        interactive
+          ? (e) => {
+              // Suppress the tap-synthesized `click`. preventDefault() on
+              // pointerdown suppresses compatibility mouse events but NOT the
+              // click (it is not a compatibility mouse event per the Pointer
+              // Events spec). Because touch mousedown/mouseup were suppressed,
+              // the browser hit-tests that click fresh at the touch point — so
+              // if onTap just opened an overlay (e.g. CardDetailModal), the
+              // click lands on the new backdrop and instantly closes it.
+              // Canceling touchend is the spec way to suppress the click.
+              if (e.cancelable) e.preventDefault();
+            }
+          : undefined
+      }
       onContextMenu={
         interactive
           ? (e) => {
