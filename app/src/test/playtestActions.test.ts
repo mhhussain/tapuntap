@@ -106,4 +106,14 @@ describe("applyGameAction", () => {
     expect(out.game.activeSeat).toBe(0);
     expect(out.game.turn).toBe(2); // wrapped
   });
+
+  it("mulligan moves entire hand into library and empties hand", () => {
+    let out = applyGameAction(s, "seat-1", { type: "draw", gameId: gid, count: 2 });
+    expect(out.privates["seat-1"].hand).toHaveLength(2);
+    out = applyGameAction(out, "seat-1", { type: "mulligan", gameId: gid });
+    expect(out.privates["seat-1"].hand).toHaveLength(0);
+    expect(out.privates["seat-1"].library).toHaveLength(8); // 6 remaining + 2 mulliganed back in
+    expect(out.players["seat-1"].handCount).toBe(0);
+    expect(out.players["seat-1"].libraryCount).toBe(8);
+  });
 });
