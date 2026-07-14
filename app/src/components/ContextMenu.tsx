@@ -112,8 +112,15 @@ export function ContextMenu({ items, x, y, onClose }: ContextMenuProps) {
         return (
           <button
             key={i}
-            onClick={() => {
-              if (Date.now() - openedAtRef.current < 300) return;
+            onClick={(e) => {
+              // Open-guard: after a long-press opens the menu under the finger,
+              // the release can synthesize a click on the item beneath it —
+              // swallow those for 300ms. Mouse clicks are deliberate; letting
+              // them through keeps fast right-click → click from being eaten.
+              // (click is a PointerEvent in modern browsers; a missing
+              // pointerType fails safe into the guard.)
+              const pointerType = (e.nativeEvent as PointerEvent).pointerType;
+              if (pointerType !== "mouse" && Date.now() - openedAtRef.current < 300) return;
               onClick();
               onClose();
             }}

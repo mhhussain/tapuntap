@@ -85,11 +85,18 @@ export function createGestureRecognizer(cb: GestureCallbacks): GestureRecognizer
       }
       clearTimer();
       state = "idle";
+      // Reset here, not only on next down(): a mouse right-click never calls
+      // down() (CardFace ignores non-primary buttons), so a stale true from an
+      // earlier touch long-press would suppress its contextmenu forever.
+      // Browsers that fire contextmenu for touch do so at the long-press
+      // threshold, while the pointer is still down — before this reset.
+      firedLongPress = false;
     },
     cancel() {
       if (state === "dragging") cb.onDragCancel?.();
       clearTimer();
       state = "idle";
+      firedLongPress = false;
     },
     longPressFired() {
       return firedLongPress;

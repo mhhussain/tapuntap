@@ -33,9 +33,9 @@ describe("createGestureRecognizer", () => {
     r.down(20, 30);
     vi.advanceTimersByTime(LONG_PRESS_MS);
     expect(cb.onLongPress).toHaveBeenCalledWith(20, 30);
+    expect(r.longPressFired()).toBe(true); // readable while still pressed (contextmenu fires here)
     r.up(20, 30);
     expect(cb.onTap).not.toHaveBeenCalled();
-    expect(r.longPressFired()).toBe(true);
   });
 
   it("tolerates movement within slop before long-press", () => {
@@ -103,14 +103,20 @@ describe("createGestureRecognizer", () => {
     expect(cb2.onDragCancel).not.toHaveBeenCalled();
   });
 
-  it("longPressFired resets on next down", () => {
+  it("longPressFired resets on up/cancel, not just next down", () => {
+    // Regression: a mouse right-click never calls down() (non-primary button),
+    // so a stale true left over from an earlier touch long-press suppressed
+    // the right-click contextmenu on that card until the next left press.
     const cb = cbs();
     const r = createGestureRecognizer(cb);
     r.down(10, 10);
     vi.advanceTimersByTime(LONG_PRESS_MS);
     r.up(10, 10);
-    expect(r.longPressFired()).toBe(true);
+    expect(r.longPressFired()).toBe(false);
+
     r.down(10, 10);
+    vi.advanceTimersByTime(LONG_PRESS_MS);
+    r.cancel();
     expect(r.longPressFired()).toBe(false);
   });
 });

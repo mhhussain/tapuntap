@@ -57,7 +57,13 @@ export function CardFace({ card, zone, onTap, onMenu, gestureDrag, onMouseEnter,
   return (
     <div
       className={classes}
-      style={{ ["--card-tone" as string]: tone } as React.CSSProperties}
+      style={{
+        ["--card-tone" as string]: tone,
+        // .card-face sets touch-action:none for the gesture recognizer; undo it
+        // on non-interactive cards (read-only drawer views) so a touch scroll
+        // that starts on a card still scrolls the container.
+        touchAction: interactive ? undefined : "auto",
+      } as React.CSSProperties}
       data-zone={zone}
       title={`${card.name}${ptStr ? ` • ${ptStr}` : ""}`}
       onPointerDown={
