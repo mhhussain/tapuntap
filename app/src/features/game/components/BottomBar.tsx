@@ -1,13 +1,12 @@
 import { Icon } from "../../../components/Icon";
 import { CardFace } from "../../../components/CardFace";
 import type { PlayerPublic, PlayerPrivate, CardInstance } from "../../../types";
+import type { GestureDragHandlers, DropZone } from "../useDragDrop";
 
 type ZoneName = "graveyard" | "exile" | "library" | "command";
 
 interface DropZoneProps {
-  onDragOver: (e: React.DragEvent) => void;
-  onDragLeave: (e: React.DragEvent) => void;
-  onDrop: (e: React.DragEvent) => void;
+  "data-dropzone": DropZone;
   className?: string;
 }
 
@@ -34,8 +33,8 @@ interface BottomBarProps {
   gameId: string;
   logOpen: boolean;
   onToggleLog: () => void;
-  onCardClick: (c: CardInstance) => void;
-  onHandContext: (e: React.MouseEvent, c: CardInstance) => void;
+  onCardTap: (c: CardInstance) => void;
+  onHandMenu: (c: CardInstance, x: number, y: number) => void;
   onDraw: (e: React.MouseEvent) => void;
   onShuffle: () => void;
   /** Seam for Task 12: open zone drawer. Receives zone name. */
@@ -45,11 +44,7 @@ interface BottomBarProps {
   /** Hide the log-toggle button entirely (e.g. playtest, which has no play log). Defaults to shown. */
   showLogToggle?: boolean;
   handDropProps?: DropZoneProps;
-  cardDragProps?: (instanceId: string, fromZone: "hand") => {
-    draggable: true;
-    onDragStart: (e: React.DragEvent) => void;
-    onDragEnd: () => void;
-  };
+  cardGestureDrag?: (c: CardInstance, fromZone: "hand") => GestureDragHandlers;
   onCardMouseEnter?: (e: React.MouseEvent, c: CardInstance) => void;
   onCardMouseLeave?: (e: React.MouseEvent, c: CardInstance) => void;
   onCardMouseMove?: (e: React.MouseEvent) => void;
@@ -62,8 +57,8 @@ export function BottomBar({
   myPrivate,
   logOpen,
   onToggleLog,
-  onCardClick,
-  onHandContext,
+  onCardTap,
+  onHandMenu,
   onDraw,
   onShuffle,
   onOpenZone,
@@ -71,7 +66,7 @@ export function BottomBar({
   onToken,
   showLogToggle = true,
   handDropProps,
-  cardDragProps,
+  cardGestureDrag,
   onCardMouseEnter,
   onCardMouseLeave,
   onCardMouseMove,
@@ -82,9 +77,7 @@ export function BottomBar({
       {/* Hand */}
       <div
         className={`hand-area${handDropProps?.className ? ` ${handDropProps.className}` : ""}`}
-        onDragOver={handDropProps?.onDragOver}
-        onDragLeave={handDropProps?.onDragLeave}
-        onDrop={handDropProps?.onDrop}
+        {...(handDropProps ? { "data-dropzone": handDropProps["data-dropzone"] } : {})}
       >
         <div className="hand-label-row">
           <span className="eyebrow">Hand · {player.displayName}</span>
@@ -113,9 +106,9 @@ export function BottomBar({
                 key={c.instanceId}
                 card={c}
                 zone="hand"
-                onClick={() => onCardClick(c)}
-                onContextMenu={(e) => onHandContext(e, c)}
-                {...(cardDragProps ? cardDragProps(c.instanceId, "hand") : {})}
+                onTap={() => onCardTap(c)}
+                onMenu={(x, y) => onHandMenu(c, x, y)}
+                gestureDrag={cardGestureDrag ? cardGestureDrag(c, "hand") : undefined}
                 onMouseEnter={onCardMouseEnter ? (e) => onCardMouseEnter(e, c) : undefined}
                 onMouseLeave={onCardMouseLeave ? (e) => onCardMouseLeave(e, c) : undefined}
                 onMouseMove={onCardMouseMove}

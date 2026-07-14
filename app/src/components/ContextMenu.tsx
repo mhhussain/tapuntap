@@ -20,6 +20,16 @@ interface MenuState {
 
 export function ContextMenu({ items, x, y, onClose }: ContextMenuProps) {
   const menuRef = useRef<HTMLDivElement>(null);
+  const openedAtRef = useRef(0);
+
+  const coarse =
+    typeof window !== "undefined" &&
+    window.matchMedia &&
+    window.matchMedia("(pointer: coarse)").matches;
+
+  useEffect(() => {
+    openedAtRef.current = Date.now();
+  }, []);
 
   // Clamp to viewport
   useEffect(() => {
@@ -38,16 +48,16 @@ export function ContextMenu({ items, x, y, onClose }: ContextMenuProps) {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
     };
-    const onMouseDown = (e: MouseEvent) => {
+    const onPointerDown = (e: PointerEvent) => {
       if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
         onClose();
       }
     };
     window.addEventListener("keydown", onKey);
-    window.addEventListener("mousedown", onMouseDown);
+    window.addEventListener("pointerdown", onPointerDown);
     return () => {
       window.removeEventListener("keydown", onKey);
-      window.removeEventListener("mousedown", onMouseDown);
+      window.removeEventListener("pointerdown", onPointerDown);
     };
   }, [onClose]);
 
@@ -59,7 +69,7 @@ export function ContextMenu({ items, x, y, onClose }: ContextMenuProps) {
         left: x,
         top: y,
         zIndex: 500,
-        minWidth: 160,
+        minWidth: coarse ? 200 : 160,
         background: "var(--bg-2)",
         border: "1px solid var(--line-2)",
         borderRadius: "var(--radius-md)",
@@ -102,7 +112,15 @@ export function ContextMenu({ items, x, y, onClose }: ContextMenuProps) {
         return (
           <button
             key={i}
-            onClick={() => {
+            onClick={(e) => {
+              // Open-guard: after a long-press opens the menu under the finger,
+              // the release can synthesize a click on the item beneath it —
+              // swallow those for 300ms. Mouse clicks are deliberate; letting
+              // them through keeps fast right-click → click from being eaten.
+              // (click is a PointerEvent in modern browsers; a missing
+              // pointerType fails safe into the guard.)
+              const pointerType = (e.nativeEvent as PointerEvent).pointerType;
+              if (pointerType !== "mouse" && Date.now() - openedAtRef.current < 300) return;
               onClick();
               onClose();
             }}
@@ -111,11 +129,11 @@ export function ContextMenu({ items, x, y, onClose }: ContextMenuProps) {
               alignItems: "center",
               gap: 8,
               width: "100%",
-              padding: "6px 12px",
+              padding: coarse ? "12px 16px" : "6px 12px",
               background: "transparent",
               border: "none",
               color: danger ? "var(--bad)" : "var(--fg-1)",
-              fontSize: 13,
+              fontSize: coarse ? 14 : 13,
               cursor: "pointer",
               textAlign: "left",
             }}
@@ -144,12 +162,16 @@ export function ContextMenu({ items, x, y, onClose }: ContextMenuProps) {
 export function useContextMenu() {
   const [menu, setMenu] = useState<MenuState | null>(null);
 
+  const openMenuAt = (x: number, y: number, items: MenuItem[]) => {
+    setMenu({ items, x, y });
+  };
+
   const openMenu = (e: React.MouseEvent, items: MenuItem[]) => {
     e.preventDefault();
-    setMenu({ items, x: e.clientX, y: e.clientY });
+    openMenuAt(e.clientX, e.clientY, items);
   };
 
   const closeMenu = () => setMenu(null);
 
-  return { menu, openMenu, closeMenu };
+  return { menu, openMenu, openMenuAt, closeMenu };
 }
