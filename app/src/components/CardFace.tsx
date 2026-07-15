@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import type { CardInstance } from "../types";
 import { colorTone } from "../lib/format";
 import { isLand } from "../lib/cards";
@@ -37,6 +37,46 @@ export function CardFace({ card, zone, onTap, onMenu, gestureDrag, onMouseEnter,
   // while a gesture is already in progress must not abort it.
   const activePointerIdRef = useRef<number | null>(null);
 
+  // Removes the window listeners of the in-flight gesture and clears the
+  // pointer latch. Held in a ref so unmount mid-gesture can clean up too.
+  const endGestureRef = useRef<(() => void) | null>(null);
+  useEffect(() => () => endGestureRef.current?.(), []);
+
+  // pointermove/pointerup/pointercancel are tracked on window, NOT on the
+  // card element. WebKit does not honor setPointerCapture for touch (bug
+  // 220196): once the finger's contact point drifts off the card — routine
+  // during a 500ms hold — the card element stops receiving pointer events,
+  // the latch never cleared, and the card was dead until remount ("stuck
+  // card" tablet bug). Terminal events always reach window.
+  function beginGesture(e: React.PointerEvent) {
+    activePointerIdRef.current = e.pointerId;
+    const isActive = (ev: PointerEvent) => ev.pointerId === activePointerIdRef.current;
+    const onMove = (ev: PointerEvent) => {
+      if (isActive(ev)) recognizer.move(ev.clientX, ev.clientY);
+    };
+    const onUp = (ev: PointerEvent) => {
+      if (!isActive(ev)) return;
+      endGestureRef.current?.();
+      recognizer.up(ev.clientX, ev.clientY);
+    };
+    const onCancel = (ev: PointerEvent) => {
+      if (!isActive(ev)) return;
+      endGestureRef.current?.();
+      recognizer.cancel();
+    };
+    window.addEventListener("pointermove", onMove);
+    window.addEventListener("pointerup", onUp);
+    window.addEventListener("pointercancel", onCancel);
+    endGestureRef.current = () => {
+      window.removeEventListener("pointermove", onMove);
+      window.removeEventListener("pointerup", onUp);
+      window.removeEventListener("pointercancel", onCancel);
+      activePointerIdRef.current = null;
+      endGestureRef.current = null;
+    };
+    recognizer.down(e.clientX, e.clientY);
+  }
+
   const tone = colorTone(card.colors || []);
   const imageUri = card.transformed && card.imageUriBack ? card.imageUriBack : card.imageUri;
   const ptStr = card.power != null && card.toughness != null
@@ -69,38 +109,24 @@ export function CardFace({ card, zone, onTap, onMenu, gestureDrag, onMouseEnter,
       onPointerDown={
         interactive
           ? (e) => {
-              if (activePointerIdRef.current !== null) return; // ignore second finger
+              if (activePointerIdRef.current !== null) {
+                // A gesture is already latched. If it can still emit (finger
+                // pressed or dragging), this is a genuine second finger —
+                // ignore it. If it is settled (long-press already fired) and
+                // its pointerup was lost to the WebKit capture bug, reclaim
+                // the card instead of staying stuck until remount.
+                if (!recognizer.settled()) return;
+                endGestureRef.current?.();
+              }
               if (e.button !== 0 && e.pointerType === "mouse") return; // right/middle: let contextmenu fire
-              activePointerIdRef.current = e.pointerId;
               e.preventDefault(); // suppress compatibility mouse events / synthesized click / selection
-              e.currentTarget.setPointerCapture(e.pointerId);
-              recognizer.down(e.clientX, e.clientY);
-            }
-          : undefined
-      }
-      onPointerMove={
-        interactive
-          ? (e) => {
-              if (e.pointerId !== activePointerIdRef.current) return;
-              recognizer.move(e.clientX, e.clientY);
-            }
-          : undefined
-      }
-      onPointerUp={
-        interactive
-          ? (e) => {
-              if (e.pointerId !== activePointerIdRef.current) return;
-              activePointerIdRef.current = null;
-              recognizer.up(e.clientX, e.clientY);
-            }
-          : undefined
-      }
-      onPointerCancel={
-        interactive
-          ? (e) => {
-              if (e.pointerId !== activePointerIdRef.current) return;
-              activePointerIdRef.current = null;
-              recognizer.cancel();
+              try {
+                e.currentTarget.setPointerCapture(e.pointerId);
+              } catch {
+                // Pointer may already be inactive; window listeners carry the
+                // gesture regardless of capture.
+              }
+              beginGesture(e);
             }
           : undefined
       }

@@ -27,6 +27,10 @@ export interface GestureRecognizer {
   up(x: number, y: number): void;
   cancel(): void;
   longPressFired(): boolean;
+  /** True when the current press can emit nothing further (long-press already
+   *  fired, or movement killed it) — only cleanup remains. A new pointerdown
+   *  may safely take over from a settled gesture. */
+  settled(): boolean;
 }
 
 type State = "idle" | "pressed" | "dragging" | "dead";
@@ -100,6 +104,9 @@ export function createGestureRecognizer(cb: GestureCallbacks): GestureRecognizer
     },
     longPressFired() {
       return firedLongPress;
+    },
+    settled() {
+      return state === "dead" || state === "idle";
     },
   };
 }
